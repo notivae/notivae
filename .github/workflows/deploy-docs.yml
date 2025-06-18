@@ -1,0 +1,47 @@
+name: Deploy Docs to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - '.github/workflows/deploy-docs.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs/
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: docs/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          npm clean-install
+
+      - name: Build VitePress site
+        run: |
+          npm run docs:build
+
+      - name: Deploy to notivae.github.io
+        env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git clone https://x-access-token:${DEPLOY_TOKEN}@github.com/notivae/notivae.github.io.git deploy
+          rm -rf deploy/*
+          cp -r docs/.vitepress/dist/* deploy/
+          cd deploy
+          git add .
+          git commit -m "Deploy docs from main repo"
+          git push
