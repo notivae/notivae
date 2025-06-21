@@ -1,0 +1,15 @@
+# DEV-ONLY DOCKERFILE
+ARG NODE_VERSION=22
+
+FROM node:${NODE_VERSION}-slim
+
+WORKDIR /app
+
+COPY package.json package-lock.json* ./
+RUN npm install
+
+COPY . /app
+
+EXPOSE 5173
+
+CMD npm run dev -- --host 0.0.0.0 --port 5173 --strictPort
