@@ -1,15 +1,26 @@
+# -*- coding=utf-8 -*-
+r"""
+
+"""
+import typing as t
 import fastapi
-from config import settings
+import pydantic
+from app.config import settings
 
 
 app = fastapi.FastAPI(
     debug=True,
     title="Notivae",
+    version="0.0.0",
 )
 
-@app.get("/health")
+
+class HealthResponse(pydantic.BaseModel):
+    status: t.Literal["ok"]
+
+@app.get("/health", response_model=HealthResponse)
 def health():
-    return { "status": "ok" }
+    return { 'status': "ok" }
 
 
 if __name__ == '__main__':
