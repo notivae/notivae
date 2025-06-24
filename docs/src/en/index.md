@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /getting-started
+      link: /start/introduction
     - theme: alt
       text: GitHub Repo
       link: https://github.com/notivae/notivae
@@ -32,7 +32,7 @@ features:
     details: Add context-aware feedback and threaded conversations right inside your documents.
   - icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-lock-icon lucide-book-lock"><path d="M18 6V4a2 2 0 1 0-4 0v2"/><path d="M20 15v6a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H10"/><rect x="12" y="6" width="8" height="5" rx="1"/></svg>
     title: Privacy-First & Self-Hosted
-    details: Own your data completely. No third-party dependencies like Supabase or S3.
+    details: Own your data completely. No third-party dependencies required.
 ---
 
 > [!IMPORTANT]
@@ -61,4 +61,4 @@ Whether you're managing study notes, drafting papers, planning projects, or buil
 
 > ✨ Built with ❤️ by and for students who believe that knowledge should be open, structured, and self-owned.
 
-Explore the docs to get started, contribute, or deploy your own instance of Notivae.
+Explore the docs to [get started](start/introduction.md), contribute, or deploy your own instance of Notivae.

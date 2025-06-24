@@ -9,9 +9,57 @@ export const en = defineConfig({
 });
 
 function nav(): DefaultTheme.NavItem[] {
-    return [];
+    return [
+        {
+            text: "Docs",
+            link: "/start/introduction",
+        }
+    ];
 }
 
 function sidebar(): DefaultTheme.SidebarItem[] {
-    return [];
+    return [
+        {
+            text: 'Getting Started',
+            items: [
+                { text: 'Introduction', link: '/start/introduction' },
+                { text: 'Requirements', link: '/start/requirements' },
+                { text: 'Installation', link: '/start/installation' },
+            ]
+        },
+        {
+            text: 'Core Concepts',
+            items: [
+                { text: 'Core Concepts', link: '/core-concepts/core-concepts' },
+                { text: 'Access Control', link: '/core-concepts/access-control' },
+            ]
+        },
+        {
+            text: 'Self-Hosting',
+            items: [
+                { text: 'Configuration', link: '/hosting/configuration' },
+                { text: 'Authentication', link: '/hosting/authentication' },
+                { text: 'Self-Hosting Guide', link: '/hosting/self-hosting' },
+            ]
+        },
+        {
+            text: 'Using Notivae',
+            items: [
+                { text: 'Editor Guide', link: '/usage/editor-guide' },
+                { text: 'Workspace Management', link: '/usage/workspace-management' },
+                { text: 'Document Structure', link: '/usage/document-structure' },
+                { text: 'Sharing Documents', link: '/usage/sharing-documents' },
+            ]
+        },
+        {
+            text: 'Contributing',
+            items: [
+                { text: 'How to Contribute', link: '/other/contributing' },
+                { text: 'Architecture Overview', link: '/other/architecture-overview' },
+                { text: 'Design Decisions', link: '/other/design-decisions' },
+                { text: 'Roadmap', link: '/other/roadmap' },
+                { text: 'FAQ', link: '/other/faq' },
+            ]
+        }
+    ];
 }
