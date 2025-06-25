@@ -73,4 +73,4 @@ Sessions are handled using secure HTTP-only cookies. No client-side tokens are s
 
 ---
 
-For more on how access is evaluated across documents and collections, see [Access Control](/access-control).
+For more on how access is evaluated across documents and collections, see [Access Control](../core-concepts/access-control.md).

@@ -73,7 +73,7 @@ Notivae uses a flexible **Attribute-Based Access Control (ABAC)** system. Instea
 * Resource attributes (e.g. document owner, collection ID)
 * Context (e.g. shared via public link, authenticated session)
 
-More on this in the [Access Control](/access-control) section.
+More on this in the [Access Control](./access-control.md) section.
 
 ## Sync & Offline-First
 
