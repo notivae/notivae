@@ -1,0 +1,31 @@
+services:
+  backend:
+    image: ghcr.io/notive/backend
+    ports:
+      - "8765:8765"
+    env_file: .env
+    volumes:
+      - nvdata:/data
+    depends_on:
+      - postgres
+      - redis
+
+  frontend:
+    image: ghcr.io/notive/frontend
+    ports:
+      - "8766:8766"
+    env_file: .env
+
+  postgres:
+    image: postgres
+    env_file: .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis
+    env_file: .env
+
+volumes:
+  nvdata:
+  pgdata:
