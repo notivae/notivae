@@ -11,6 +11,9 @@ hero:
       text: Get Started
       link: /start/introduction
     - theme: alt
+      text: FAQ
+      link: /other/faq
+    - theme: alt
       text: GitHub Repo
       link: https://github.com/notivae/notivae
 
