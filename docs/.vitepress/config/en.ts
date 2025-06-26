@@ -24,7 +24,13 @@ function sidebar(): DefaultTheme.SidebarItem[] {
             items: [
                 { text: 'Introduction', link: '/start/introduction' },
                 { text: 'Requirements', link: '/start/requirements' },
-                { text: 'Installation', link: '/start/installation' },
+                {
+                    text: 'Installation', link: '/start/installation',
+                    collapsed: true,
+                    items: [
+                        { text: "Troubleshooting", link: '/start/troubleshooting' }
+                    ]
+                },
             ]
         },
         {
