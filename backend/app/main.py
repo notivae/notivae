@@ -5,6 +5,7 @@ r"""
 from app.core.logging import setup_logging; setup_logging()
 import typing as t
 import fastapi
+from fastapi.middleware.gzip import GZipMiddleware
 import pydantic
 from app.config import settings
 from app.lifespan import lifespan
@@ -17,6 +18,11 @@ app = fastapi.FastAPI(
     title="Notivae",
     version="0.0.0",
     lifespan=lifespan,
+)
+app.add_middleware(
+    GZipMiddleware,
+    minimum_size=settings.GZIP_COMPRESSION_MINIMUM_SIZE,
+    compresslevel=settings.GZIP_COMPRESSION_LEVEL,
 )
 app.include_router(api_router)
 

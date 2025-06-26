@@ -59,6 +59,15 @@ class BackendSettings(BaseSettings):
         description="Time (in seconds) after which idle DB connections will be recycled",
     )
 
+    GZIP_COMPRESSION_MINIMUM_SIZE: int = Field(
+        default=1_000, ge=0,
+        description="Minimum payload size in bytes required to enable gzip compression. Payloads below this threshold will be sent uncompressed",
+    )
+    GZIP_COMPRESSION_LEVEL: int = Field(
+        default=6, ge=1, le=9,
+        description="Compression strength for gzip. 1 = fastest, least compression. 9 = slowest, best compression. 6 is a good balance for most use cases",
+    )
+
     model_config = SettingsConfigDict(
         extra="ignore",
         env_file=".env", env_file_charset="utf-8", env_ignore_empty=True,
