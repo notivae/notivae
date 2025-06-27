@@ -2,12 +2,12 @@
 r"""
 
 """
-from app.core.logging import setup_logging; setup_logging()
+from app.config import SETTINGS
+from app.core.logging import setup_logging; setup_logging(settings=SETTINGS.LOGGING)
 import typing as t
 import fastapi
 from fastapi.middleware.gzip import GZipMiddleware
 import pydantic
-from app.config import settings
 from app.lifespan import lifespan
 
 from app.api import router as api_router
@@ -21,8 +21,8 @@ app = fastapi.FastAPI(
 )
 app.add_middleware(
     GZipMiddleware,
-    minimum_size=settings.GZIP_COMPRESSION_MINIMUM_SIZE,
-    compresslevel=settings.GZIP_COMPRESSION_LEVEL,
+    minimum_size=SETTINGS.GZIP.MINIMUM_SIZE,
+    compresslevel=SETTINGS.GZIP.LEVEL,
 )
 app.include_router(api_router)
 
@@ -37,4 +37,4 @@ def health():
 
 if __name__ == '__main__':
     import uvicorn
-    uvicorn.run(app=app, host=settings.APP_HOST, port=settings.APP_PORT)
+    uvicorn.run(app=app, host=SETTINGS.APP.HOST, port=SETTINGS.APP.PORT)
