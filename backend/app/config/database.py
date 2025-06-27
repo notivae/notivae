@@ -3,7 +3,7 @@ r"""
 
 """
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import Field, AnyUrl
+from pydantic import Field, AnyUrl, model_validator
 
 
 __all__ = ["DatabaseSettings"]
@@ -32,6 +32,22 @@ class DatabaseSettings(BaseSettings):
         description="Time (in seconds) after which idle DB connections will be recycled",
     )
 
+    @model_validator(mode='before')
+    @classmethod
+    def build_url_from_parts(cls, data: dict) -> dict:
+        import os
+
+        if not data.get('URL'):
+            user = os.getenv('POSTGRES_USER')
+            password = os.getenv('POSTGRES_PASSWORD')
+            db = os.getenv('POSTGRES_DB')
+            host = os.getenv('POSTGRES_HOST', 'localhost')
+            port = os.getenv('POSTGRES_PORT', '5432')
+
+            if all([user, password, db, host, port]):
+                data['URL'] = f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{db}"
+
+        return data
 
     model_config = SettingsConfigDict(
         env_prefix="DATABASE_",
