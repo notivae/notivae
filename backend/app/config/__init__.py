@@ -3,7 +3,7 @@ r"""
 
 """
 from pydantic import ValidationError
-from .settings import BackendSettings
+from ._settings import BackendSettings
 
 
 __all__ = ['SETTINGS']
@@ -11,6 +11,8 @@ __all__ = ['SETTINGS']
 
 try:
     SETTINGS = BackendSettings()
+    if SETTINGS.DEBUG:
+        print(SETTINGS)
 except ValidationError as e:
     import sys
     print(e, file=sys.stderr)

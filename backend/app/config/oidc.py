@@ -27,7 +27,11 @@ class OidcSettings(BaseSettings):
         default=...,
         description="Token endpoint URI for exchanging the authorization code for tokens",
     )
-    USER_INFO_URI: HttpUrl = Field(
+    JWKS_URI: HttpUrl = Field(
+        default=...,
+        description="",
+    )
+    USERINFO_URI: HttpUrl = Field(
         default=...,
         description="User info endpoint URI to fetch authenticated user information",
     )

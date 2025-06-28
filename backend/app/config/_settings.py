@@ -5,7 +5,7 @@ r"""
 import typing as t
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
-from .utils import make_optional_factory
+from ._utils import make_optional_factory
 from .app import AppSettings
 from .database import DatabaseSettings
 from .gzip import GzipSettings
