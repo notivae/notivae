@@ -4,10 +4,10 @@ r"""
 """
 import logging
 import structlog
-from fastapi import APIRouter, Request, Query
+from fastapi import APIRouter, Query, Depends
 import sqlalchemy as sql
-from app.db.session import AsyncSessionLocal
 from app.db.models import LogEntry
+from app.core.dependencies import get_async_session
 
 
 router = APIRouter()
@@ -20,6 +20,7 @@ async def logs_live(
         event: str = Query(default=None),
         limit: int = Query(default=50, ge=1, le=500),
         offset: int = Query(default=0, ge=0),
+        session = Depends(get_async_session),
 ):
     stmt = sql.select(LogEntry)
 
@@ -33,5 +34,4 @@ async def logs_live(
         .offset(offset) \
         .limit(limit)
 
-    async with AsyncSessionLocal() as session:
-        return (await session.scalars(stmt)).all()
+    return (await session.scalars(stmt)).all()
