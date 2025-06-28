@@ -37,4 +37,4 @@ def health():
 
 if __name__ == '__main__':
     import uvicorn
-    uvicorn.run(app=app, host=SETTINGS.APP.HOST, port=SETTINGS.APP.PORT)
+    uvicorn.run(app=app, host=SETTINGS.SERVER.HOST, port=SETTINGS.SERVER.PORT)
