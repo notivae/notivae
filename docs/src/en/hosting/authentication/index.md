@@ -1,43 +1,27 @@
 # 🔐 Authentication
 
-Notivae supports flexible, self-contained authentication options so you can stay in control of your user data and login flows. This includes support for traditional email/password accounts and external OAuth/OIDC providers.
+Notivae offers a flexible and self-contained authentication system, giving you full control over user data and login flows. It supports both traditional account-based login and external [OAuth/OIDC identity providers](#oauth--oidc-authentication).
 
-## Email/Password Login
+## Username Support
 
-Email/password login is supported by default. When a user signs up:
+Users can log in using either:
 
-- An account is created using the provided email and password
-- A personal workspace is initialized
-- The user is immediately authenticated
+* Email address
+* Or a unique **username** (set during sign-up)
 
-Email verification and password reset features are on the roadmap.
-
-### Environment Requirements
-
-You’ll need to configure the following environment variables:
-
-````dotenv
-AUTH_ENABLE_EMAIL=true
-AUTH_EMAIL_FROM=notivae@example.com
-SMTP_HOST=smtp.example.com
-SMTP_PORT=587
-SMTP_USER=your-smtp-user
-SMTP_PASS=your-smtp-pass
-`````
-
-> 📧 Email delivery (e.g. for verification and password resets) will require working SMTP configuration. These features are not yet implemented, but the config is reserved.
+For email/password login details, refer to [Password-based Authentication](./password.md).
 
 ## OAuth / OIDC Authentication
 
-Notivae supports logging in via third-party identity providers using the OIDC protocol. This includes:
+Notivae supports logging in via third-party identity providers using the OIDC protocol. This enables users to authenticate without managing passwords directly.
 
-* [Google](./google.md)
-* [GitHub](./github.md)
-* [GitLab](./gitlab.md)
-* [Discord](./discord.md)
-* Any provider that supports [OpenID Connect](./oidc.md)
+Supported providers include:
 
-This allows users to log in without managing passwords directly.
+- [Google](./google.md)
+- [GitHub](./github.md)
+- [GitLab](./gitlab.md)
+- [Discord](./discord.md)
+- Any identity provider compliant with [OpenID Connect](./oidc.md)
 
 ### Setup Example (GitLab)
 
@@ -49,27 +33,21 @@ GITLAB_ISSUER=https://gitlab.example.com/.well-known/openid-configuration
 
 More providers will be documented with exact values and setup instructions once the integration layer stabilizes.
 
-## Username Support
+## System Management
 
-Users can log in using either:
-
-* Email address
-* Or a unique **username** (set at sign-up)
-
-Usernames are helpful for mentions, short profile URLs, and reducing friction in shared workspaces (future).
+A **system admin account** is created during the initial setup. This account has full access to all instance-level configuration and user management features.
 
 ## Session Management
 
-Sessions are handled using secure HTTP-only cookies. No client-side tokens are stored in localStorage or exposed to JavaScript. All tokens are signed and validated on the backend.
+Sessions are handled using secure HTTP-only cookies. No client-side tokens are stored in `localStorage` or exposed to JavaScript. All tokens are cryptographically signed and validated on the backend to ensure integrity and security.
 
 ## Planned Features
 
 * Email verification and password reset flows
 * Admin UI for user management (per instance)
 * Optional 2FA support (TOTP-based)
-* Anonymous / invite-only registration modes
 * SSO login restrictions (e.g. only allow GitHub org members)
 
 ---
 
-For more on how access is evaluated across documents and collections, see [Access Control](../core-concepts/access-control.md).
+For more on how access is evaluated across documents and collections, see [Access Control](../../core-concepts/access-control.md).
