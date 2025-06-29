@@ -48,10 +48,11 @@ function sidebar(): DefaultTheme.SidebarItem[] {
                     text: 'Authentication', link: '/hosting/authentication',
                     collapsed: true,
                     items: [
-                        { text: "Google", link: "/hosting/authentication/google" },
+                        { text: "Password", link: "/hosting/authentication/password" },
                         { text: "Discord", link: "/hosting/authentication/discord" },
                         { text: "GitHub", link: "/hosting/authentication/github" },
                         { text: "GitLab", link: "/hosting/authentication/gitlab" },
+                        { text: "Google", link: "/hosting/authentication/google" },
                         { text: "OIDC", link: "/hosting/authentication/oidc" },
                     ]
                 },
