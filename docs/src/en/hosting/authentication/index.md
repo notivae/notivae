@@ -31,21 +31,20 @@ SMTP_PASS=your-smtp-pass
 
 Notivae supports logging in via third-party identity providers using the OIDC protocol. This includes:
 
-* GitHub
-* GitLab
-* Discord
-* Any provider that supports OpenID Connect
+* [Google](./google.md)
+* [GitHub](./github.md)
+* [GitLab](./gitlab.md)
+* [Discord](./discord.md)
+* Any provider that supports [OpenID Connect](./oidc.md)
 
 This allows users to log in without managing passwords directly.
 
-### Setup Example (GitHub)
+### Setup Example (GitLab)
 
 ```dotenv
-AUTH_ENABLE_OIDC=true
-
-OIDC_GITHUB_CLIENT_ID=your-client-id
-OIDC_GITHUB_CLIENT_SECRET=your-client-secret
-OIDC_GITHUB_ISSUER=https://github.com/login/oauth
+GITLAB_CLIENT_ID=your-client-id
+GITLAB_CLIENT_SECRET=your-client-secret
+GITLAB_ISSUER=https://gitlab.example.com/.well-known/openid-configuration
 ```
 
 More providers will be documented with exact values and setup instructions once the integration layer stabilizes.

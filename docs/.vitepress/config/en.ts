@@ -44,7 +44,17 @@ function sidebar(): DefaultTheme.SidebarItem[] {
             text: 'Self-Hosting',
             items: [
                 { text: 'Configuration', link: '/hosting/configuration' },
-                { text: 'Authentication', link: '/hosting/authentication' },
+                {
+                    text: 'Authentication', link: '/hosting/authentication',
+                    collapsed: true,
+                    items: [
+                        { text: "Google", link: "/hosting/authentication/google" },
+                        { text: "Discord", link: "/hosting/authentication/discord" },
+                        { text: "GitHub", link: "/hosting/authentication/github" },
+                        { text: "GitLab", link: "/hosting/authentication/gitlab" },
+                        { text: "OIDC", link: "/hosting/authentication/oidc" },
+                    ]
+                },
                 { text: 'Self-Hosting Guide', link: '/hosting/self-hosting' },
             ]
         },
