@@ -43,11 +43,11 @@ features:
 
 ## 📖 What is Notivae?
 
-**Notivae** is a self-hosted, real-time collaborative markdown editor built for students, researchers, and professionals who value structure, clarity, and ownership of their knowledge.
+**Notivae** is a **self-hosted**, **real-time collaborative markdown editor** built for **students**, **researchers**, and **professionals** who value structure, clarity, and ownership of their knowledge.
 
-Inspired by Latin roots meaning “related to notes”, Notivae empowers users to write, collaborate, and organize their thoughts in a flexible but structured environment — all without giving up control to third-party platforms.
+Inspired by Latin roots meaning “related to notes”, Notivae empowers users to **write**, **collaborate**, and **organize** their thoughts in a flexible but structured environment — all without giving up control to third-party platforms.
 
-Whether you're managing study notes, drafting papers, planning projects, or building a long-term knowledge base, Notivae helps you stay productive and in control.
+Whether you're managing **study notes**, **drafting papers**, **planning projects**, or building a long-term **knowledge base**, Notivae helps you stay productive and in control.
 
 ### 🧠 Key Capabilities
 
@@ -62,6 +62,6 @@ Whether you're managing study notes, drafting papers, planning projects, or buil
 - **Fully self-hosted** — No reliance on external services like Supabase, S3, or Firebase. Your data stays yours.
 - **Early-stage roadmap** — Planned features include a user dashboard, export to PDF/Markdown, comment threads, mobile improvements, and API support.
 
-> ✨ Built with ❤️ by and for students who believe that knowledge should be open, structured, and self-owned.
+> [!NOTE] ✨ Built with ❤️ by and for students who believe that knowledge should be open, structured, and self-owned.
 
 Explore the docs to [get started](start/introduction.md), contribute, or deploy your own instance of Notivae.
