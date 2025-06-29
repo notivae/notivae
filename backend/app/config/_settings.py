@@ -11,6 +11,7 @@ from .database import DatabaseSettings
 from .gzip import GzipSettings
 from .logging import LoggingSettings
 from .oidc import OidcSettings
+from .redis import RedisSettings
 
 
 __all__ = ['BackendSettings']
@@ -24,6 +25,7 @@ class BackendSettings(BaseSettings):
 
     SERVER: ServerSettings = Field(default_factory=ServerSettings)
     DATABASE: DatabaseSettings = Field(default_factory=DatabaseSettings)
+    REDIS: RedisSettings = Field(default_factory=RedisSettings)
     GZIP: GzipSettings = Field(default_factory=GzipSettings)
     LOGGING: LoggingSettings = Field(default_factory=LoggingSettings)
 
