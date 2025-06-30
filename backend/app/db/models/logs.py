@@ -3,7 +3,7 @@ r"""
 
 """
 import sqlalchemy as sql
-from app.db.base import Base
+from ..base import Base
 
 
 __all__ = ['LogEntry']

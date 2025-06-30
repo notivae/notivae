@@ -19,25 +19,9 @@ class OidcSettings(BaseSettings):
         description="Client secret associated with the OpenID Connect client",
     )
 
-    AUTH_URI: HttpUrl = Field(
+    DISCOVERY_URI: HttpUrl = Field(
         default=...,
-        description="Authorization endpoint URI for the OpenID Connect provider",
-    )
-    TOKEN_URI: HttpUrl = Field(
-        default=...,
-        description="Token endpoint URI for exchanging the authorization code for tokens",
-    )
-    JWKS_URI: HttpUrl = Field(
-        default=...,
-        description="",
-    )
-    USERINFO_URI: HttpUrl = Field(
-        default=...,
-        description="User info endpoint URI to fetch authenticated user information",
-    )
-    LOGOUT_URI: HttpUrl = Field(
-        default=...,
-        description="Logout endpoint URI to redirect users after logout",
+        description="OpenID Configuration endpoint URI for the OpenID Connect provider",
     )
 
     DISPLAY_NAME: str = Field(

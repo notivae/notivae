@@ -6,12 +6,14 @@ import typing as t
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 from ._utils import make_optional_factory
-from .server import ServerSettings
+from .app import AppSettings
 from .database import DatabaseSettings
 from .gzip import GzipSettings
 from .logging import LoggingSettings
 from .oidc import OidcSettings
 from .redis import RedisSettings
+from .security import SecuritySettings
+from .server import ServerSettings
 
 
 __all__ = ['BackendSettings']
@@ -23,7 +25,9 @@ class BackendSettings(BaseSettings):
         description="shows additional information in some parts of the app",
     )
 
+    APP: AppSettings = Field(default_factory=AppSettings)
     SERVER: ServerSettings = Field(default_factory=ServerSettings)
+    SECURITY: SecuritySettings = Field(default_factory=SecuritySettings)
     DATABASE: DatabaseSettings = Field(default_factory=DatabaseSettings)
     REDIS: RedisSettings = Field(default_factory=RedisSettings)
     GZIP: GzipSettings = Field(default_factory=GzipSettings)

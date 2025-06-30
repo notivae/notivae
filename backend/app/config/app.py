@@ -3,7 +3,8 @@ r"""
 
 """
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import Field, IPvAnyAddress
+from pydantic import Field
+from .enums import AccountCreationMode
 
 
 __all__ = ["AppSettings"]
@@ -11,15 +12,10 @@ __all__ = ["AppSettings"]
 
 class AppSettings(BaseSettings):
 
-    HOST: IPvAnyAddress = Field(
-        default='0.0.0.0',
-        description="IP address to bind the server to (e.g., 0.0.0.0 for all interfaces)",
+    ACCOUNT_CREATION: AccountCreationMode = Field(
+        default=AccountCreationMode.RESTRICTED,
+        description="account creation mode",
     )
-    PORT: int = Field(
-        default=8765, gt=0, lt=65535,
-        description="Port number for the application server",
-    )
-
 
     model_config = SettingsConfigDict(
         env_prefix="APP_",
