@@ -10,17 +10,19 @@ from fastapi.responses import StreamingResponse
 from app.core.logging import log_subscribers
 from app.core.util import get_client_ip
 
+
 router = APIRouter()
 logger: structlog.BoundLogger = structlog.get_logger()
 
 
 @router.get('/admin/logs/live')
-async def logs_live(request: Request):
-    # todo: add authentication
+async def logs_live(
+        request: Request,
+):
     logger.info("logs_live", message="new listener connected", client=get_client_ip(request=request))
 
     queue = asyncio.Queue(maxsize=100)
-    log_subscribers.add(queue)
+    log_subscribers.add(queue)  # todo: not worker safe
 
     async def event_stream():
         try:
