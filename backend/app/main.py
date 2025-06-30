@@ -18,6 +18,14 @@ app = fastapi.FastAPI(
     title="Notivae",
     version="0.0.0",
     lifespan=lifespan,
+    contact=dict(
+        name="notivae",
+        url="https://github.com/notivae/notivae",
+    ),
+    license_info=dict(
+        name="GNU GENERAL PUBLIC LICENSE 3.0",
+        identifier="GPL-3.0-or-later"
+    )
 )
 app.add_middleware(
     GZipMiddleware,
