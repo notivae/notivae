@@ -10,10 +10,12 @@ from .app import AppSettings
 from .database import DatabaseSettings
 from .gzip import GzipSettings
 from .logging import LoggingSettings
-from .oidc import OidcSettings
 from .redis import RedisSettings
 from .security import SecuritySettings
 from .server import ServerSettings
+
+from .discord import DiscordSettings
+from .oidc import OidcSettings
 
 
 __all__ = ['BackendSettings']
@@ -33,6 +35,7 @@ class BackendSettings(BaseSettings):
     GZIP: GzipSettings = Field(default_factory=GzipSettings)
     LOGGING: LoggingSettings = Field(default_factory=LoggingSettings)
 
+    DISCORD: t.Optional[DiscordSettings] = Field(default_factory=make_optional_factory(DiscordSettings))
     OIDC: t.Optional[OidcSettings] = Field(default_factory=make_optional_factory(OidcSettings))
 
     model_config = SettingsConfigDict(
