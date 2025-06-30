@@ -14,5 +14,5 @@ docker compose -f docker-compose.dev.yml \
 ### Resetting Database
 
 ```shell
-docker compose -f docker-compose.dev.yml down -v
+docker compose -f docker-compose.dev.yml down postgres -v
 ```
