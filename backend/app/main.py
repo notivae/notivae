@@ -9,6 +9,7 @@ import fastapi
 from fastapi.middleware.gzip import GZipMiddleware
 import pydantic
 from app.lifespan import lifespan
+from fastapi.staticfiles import StaticFiles
 
 from app.api import router as api_router
 
@@ -41,6 +42,17 @@ class HealthResponse(pydantic.BaseModel):
 @app.get("/health", response_model=HealthResponse)
 def health():
     return { 'status': "ok" }
+
+
+if SETTINGS.SERVER.STATIC_PATH and SETTINGS.SERVER.STATIC_DIR:
+    app.mount(
+        path=SETTINGS.SERVER.STATIC_PATH,
+        app=StaticFiles(
+            directory=SETTINGS.SERVER.STATIC_DIR,
+            html=True,
+        ),
+        name="static",
+    )
 
 
 if __name__ == '__main__':
