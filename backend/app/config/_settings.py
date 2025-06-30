@@ -14,8 +14,8 @@ from .redis import RedisSettings
 from .security import SecuritySettings
 from .server import ServerSettings
 
-from .discord import DiscordSettings
-from .oidc import OidcSettings
+from .auth.discord import DiscordSettings
+from .auth.oidc import OidcSettings
 
 
 __all__ = ['BackendSettings']
