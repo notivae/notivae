@@ -8,7 +8,7 @@ import pydantic
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.dependencies import get_async_session, get_current_user
-from app.core.structures.oidc import UserInfo
+from app.core.structures.oidc import OpenIdUserInfo
 from app.db.models import User, AuthIdentity
 
 
@@ -17,7 +17,7 @@ router = APIRouter()
 
 class AuthIdentityResponse(pydantic.BaseModel):
     provider: str
-    userinfo: UserInfo
+    userinfo: t.Optional[OpenIdUserInfo]
 
 
 @router.get("/auth-identities", response_model=t.List[AuthIdentityResponse])

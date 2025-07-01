@@ -2,4 +2,4 @@
 r"""
 
 """
-from .oidc import OpenIdToken, UserInfo, OpenIDConfiguration, OpenIDJwkKeys
+from .oidc import OpenIdToken, OpenIdUserInfo, OpenIdConfiguration

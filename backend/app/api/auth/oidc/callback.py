@@ -12,7 +12,7 @@ from app.config import SETTINGS, AccountCreationMode
 from app.core.dependencies import get_current_user_optional, get_async_session
 from app.core.security import generate_session_token, hash_session_token, oidc
 from app.core.util import get_client_ip
-from app.core.structures import OpenIdToken, UserInfo
+from app.core.structures import OpenIdToken, OpenIdUserInfo
 from app.db.models import User, Session, AuthIdentity
 from ._common import decode_state
 
@@ -87,7 +87,7 @@ async def oidc_callback(
                 status_code=status.HTTP_502_BAD_GATEWAY,
                 detail="Could not obtain user information",
             )
-        userinfo = UserInfo.model_validate_json(response.content)
+        userinfo = OpenIdUserInfo.model_validate_json(response.content)
 
     stmt = sql.select(AuthIdentity) \
         .where(AuthIdentity.provider == "oidc", AuthIdentity.provider_user_id == userinfo.sub)
@@ -109,7 +109,7 @@ async def oidc_callback(
         # -- account creation --
         if user is None:
             if SETTINGS.APP.ACCOUNT_CREATION == AccountCreationMode.CLOSED:
-                raise HTTPException(
+                raise HTTPException(  # todo: json response is not good in redirect-flow
                     status_code=status.HTTP_423_LOCKED,
                     detail="Account creation is currently closed",
                 )

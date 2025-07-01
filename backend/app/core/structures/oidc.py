@@ -6,7 +6,7 @@ import typing as t
 from pydantic import BaseModel, Field, ConfigDict, HttpUrl
 
 
-__all__ = ['OpenIdToken', 'UserInfo', 'OpenIDConfiguration', 'OpenIDJwkKeys']
+__all__ = ['OpenIdToken', 'OpenIdUserInfo', 'OpenIdConfiguration']
 
 
 class OpenIdToken(BaseModel):
@@ -18,7 +18,7 @@ class OpenIdToken(BaseModel):
     id_token: str = Field(...)
 
 
-class UserInfo(BaseModel):
+class OpenIdUserInfo(BaseModel):
     sub: str = Field(...)
     name: str = Field(..., alias="nickname")
     nickname: t.Optional[str] = Field(None)
@@ -31,13 +31,9 @@ class UserInfo(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
 
-class OpenIDConfiguration(BaseModel):
+class OpenIdConfiguration(BaseModel):
     issuer: HttpUrl = Field(...)
     authorization_endpoint: HttpUrl = Field(...)
     token_endpoint: HttpUrl = Field(...)
     userinfo_endpoint: t.Optional[HttpUrl] = Field(...)
     jwks_uri: HttpUrl = Field(...)
-
-
-class OpenIDJwkKeys(BaseModel):
-    keys: t.List[dict] = Field(...)
