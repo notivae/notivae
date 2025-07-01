@@ -17,7 +17,8 @@ class AuthIdentity(Base):
     provider = sql.Column(sql.String, nullable=False)
     provider_user_id = sql.Column(sql.String, nullable=False)
     provider_email = sql.Column(sql.String, nullable=False)
-    userinfo = sql.Column(sql.JSON, nullable=False)
+    userinfo = sql.Column(sql.JSON, nullable=True)
+    context = sql.Column(sql.JSON, nullable=True)
 
     __table_args__ = (
         sql.UniqueConstraint("user_id", "provider", "provider_user_id"),

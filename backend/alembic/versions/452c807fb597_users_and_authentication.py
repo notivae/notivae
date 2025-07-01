@@ -38,7 +38,8 @@ def upgrade() -> None:
     sa.Column('provider', sa.String(), nullable=False),
     sa.Column('provider_user_id', sa.String(), nullable=False),
     sa.Column('provider_email', sa.String(), nullable=False),
-    sa.Column('userinfo', sa.JSON(), nullable=False),
+    sa.Column('userinfo', sa.JSON(), nullable=True),
+    sa.Column('context', sa.JSON(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('user_id', 'provider', 'provider_user_id')

@@ -15,6 +15,7 @@ from .security import SecuritySettings
 from .server import ServerSettings
 
 from .auth.discord import DiscordSettings
+from .auth.local import AuthLocalSettings
 from .auth.oidc import OidcSettings
 
 
@@ -35,6 +36,7 @@ class BackendSettings(BaseSettings):
     GZIP: GzipSettings = Field(default_factory=GzipSettings)
     LOGGING: LoggingSettings = Field(default_factory=LoggingSettings)
 
+    AUTH_LOCAL: AuthLocalSettings = Field(default_factory=AuthLocalSettings)  # not optional for now
     DISCORD: t.Optional[DiscordSettings] = Field(default_factory=make_optional_factory(DiscordSettings))
     OIDC: t.Optional[OidcSettings] = Field(default_factory=make_optional_factory(OidcSettings))
 
