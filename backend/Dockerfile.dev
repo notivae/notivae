@@ -10,7 +10,7 @@ RUN pip install uv
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
-COPY pyproject.toml uv.lock /app/
+COPY pyproject.toml uv.lock ./
 
 RUN uv sync --locked
 
@@ -21,4 +21,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 EXPOSE 8000
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD uv run uvicorn --host 0.0.0.0 --port 8000 --reload app.main:app
+CMD ["uvicorn", "--host", "0.0.0.0", "--port", "8000", "--reload", "app.main:app"]
