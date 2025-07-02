@@ -25,7 +25,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('level', sa.SmallInteger(), nullable=False),
     sa.Column('event', sa.String(), nullable=False),
-    sa.Column('message', sa.Text(), nullable=False),
+    sa.Column('message', sa.Text(), nullable=True),
     sa.Column('context', sa.JSON(), nullable=True),
     sa.Column('timestamp', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.PrimaryKeyConstraint('id')

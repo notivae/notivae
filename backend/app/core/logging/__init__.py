@@ -2,6 +2,5 @@
 r"""
 
 """
-from .core import log_queue, log_subscribers
+from .core import REDIS_CHANNEL
 from .configure import setup_logging
-

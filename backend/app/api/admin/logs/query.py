@@ -15,7 +15,7 @@ router = APIRouter()
 logger: structlog.BoundLogger = structlog.get_logger()
 
 
-@router.get('/admin/logs/query')
+@router.get('/query')
 async def logs_live(
         session: AsyncSession = Depends(get_async_session),
         level: int = Query(default=logging.INFO, ge=logging.NOTSET, le=logging.CRITICAL),
@@ -23,6 +23,7 @@ async def logs_live(
         limit: int = Query(default=50, ge=1, le=500),
         offset: int = Query(default=0, ge=0),
 ):
+    logger.info("logs-query")
     stmt = sql.select(LogEntry)
 
     if level:
