@@ -81,7 +81,7 @@ If you're stuck on something not listed here, feel free to open an issue or chec
   ```
 - View frontend logs:
   ```bash
-  docker compose logs frontend
+  docker compose logs web
   ```
 - Make sure the backend is reachable from the frontend container (`localhost` inside a container ≠ your host machine)
 
