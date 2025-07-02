@@ -1,29 +1,40 @@
 services:
-  backend:
-    image: ghcr.io/notive/backend
+  server:
+    image: ghcr.io/notivae/server
+    restart: unless-stopped
     ports:
-      - "8765:8765"
+      - "127.0.0.1:8765:80"
     env_file: .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://notivae:devpass@postgres/notivae}
+      REDIS_URL: redis://redis
     volumes:
       - nvdata:/data
     depends_on:
       - postgres
       - redis
 
-  frontend:
-    image: ghcr.io/notive/frontend
+  web:
+    image: ghcr.io/notivae/web
+    restart: unless-stopped
     ports:
-      - "8766:8766"
+      - "127.0.0.1:8766:80"
     env_file: .env
 
   postgres:
     image: postgres
+    restart: unless-stopped
     env_file: .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-notivae}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devpass}
+      POSTGRES_DB: ${POSTGRES_DB:-notivae}
     volumes:
       - pgdata:/var/lib/postgresql/data
 
   redis:
     image: redis
+    restart: unless-stopped
     env_file: .env
 
 volumes:
