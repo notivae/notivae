@@ -1,7 +1,7 @@
 [project]
-name = "backend"
-version = "0.1.0"
-description = "Add your description here"
+name = "server"
+version = "0.0.0"
+description = "backend entrypoint of the system, responsible for handling client communication, routing requests, managing authentication, and coordinating with other internal services"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

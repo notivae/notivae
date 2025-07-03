@@ -1,4 +1,6 @@
-# Backend
+# Notivae Server
+
+The Notivae server is the backend entrypoint of the system, responsible for handling client communication, routing requests, managing authentication, and coordinating with other internal services such as the intelligence module. It exposes a clean API layer, acting as the glue between the frontend and the platform’s core logic.
 
 ## Developer Sections
 
