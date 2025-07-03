@@ -39,7 +39,7 @@ app.include_router(api_router)
 class HealthResponse(pydantic.BaseModel):
     status: t.Literal["ok"]
 
-@app.get("/health", response_model=HealthResponse)
+@app.get("/healthz", response_model=HealthResponse)
 def health():
     return { 'status': "ok" }
 
@@ -53,8 +53,3 @@ if SETTINGS.SERVER.STATIC_PATH and SETTINGS.SERVER.STATIC_DIR:
         ),
         name="static",
     )
-
-
-if __name__ == '__main__':
-    import uvicorn
-    uvicorn.run(app=app, host=SETTINGS.SERVER.HOST, port=SETTINGS.SERVER.PORT)
