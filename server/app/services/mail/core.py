@@ -22,12 +22,13 @@ jinja_env = jinja2.Environment(
         else TEMPLATE_DIR,
     ),
     autoescape=jinja2.select_autoescape(['html', 'xml']),
+    enable_async=True,
 )
 
 
-def render_template(name: str, context: dict) -> str:
+async def render_template(name: str, context: dict) -> str:
     template = jinja_env.get_template(name)
-    return template.render(context)
+    return await template.render_async(context)
 
 
 async def send_email(to: TO, subject: str, html_body: str):
