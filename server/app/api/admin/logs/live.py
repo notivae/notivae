@@ -15,7 +15,7 @@ router = APIRouter()
 logger: structlog.BoundLogger = structlog.get_logger()
 
 
-@router.get('/live')
+@router.get('/live', response_class=StreamingResponse)
 async def logs_live(
         request: Request,
 ):
