@@ -16,7 +16,7 @@ class User(Base):
     id = sql.Column(sql.Uuid, primary_key=True, default=uuid.uuid4)
     email = sql.Column(sql.String, unique=True, nullable=False)
     name = sql.Column(sql.String, nullable=False)
-    display_name = sql.Column(sql.String)
+    display_name = sql.Column(sql.String, nullable=True)
 
     is_approved = sql.Column(sql.Boolean, nullable=False, default=False)
     is_system_admin = sql.Column(sql.Boolean, nullable=False, default=False)
