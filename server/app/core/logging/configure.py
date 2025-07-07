@@ -12,7 +12,7 @@ def setup_logging(settings: LoggingSettings):
         structlog.stdlib.add_log_level,
         structlog.processors.TimeStamper(fmt="iso", utc=True),
         structlog.processors.StackInfoRenderer(),
-        structlog.processors.format_exc_info,
+        structlog.processors.format_exc_info,  # todo: attempt to use better-exceptions
     ]
 
     if settings.TO_DB:
