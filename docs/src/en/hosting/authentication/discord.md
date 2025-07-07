@@ -27,6 +27,11 @@ DISCORD_DISCOVERY_URI=https://discord.com/.well-known/openid-configuration
 DISCORD_SCOPES="openid profile email"
 ```
 
+| Variable                | Description                                           |
+|-------------------------|-------------------------------------------------------|
+| `DISCORD_DISCOVERY_URI` | Url to discord's OpenID configuration file            |
+| `DISCORD_SCOPES`        | Space-separated list of scopes requested during login |
+
 :::
 
 ## Setup Instructions

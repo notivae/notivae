@@ -43,7 +43,13 @@ function sidebar(): DefaultTheme.SidebarItem[] {
         {
             text: 'Self-Hosting',
             items: [
-                { text: 'Configuration', link: '/hosting/configuration' },
+                {
+                    text: 'Configuration', link: '/hosting/configuration/',
+                    collapsed: true,
+                    items: [
+                        { text: "Mail", link: "/hosting/configuration/mail-support" },
+                    ],
+                },
                 {
                     text: 'Authentication', link: '/hosting/authentication',
                     collapsed: true,
