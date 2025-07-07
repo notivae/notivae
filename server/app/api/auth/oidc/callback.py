@@ -3,7 +3,7 @@ r"""
 
 """
 import typing as t
-from fastapi import APIRouter, HTTPException, status, Request, Query, Depends
+from fastapi import APIRouter, HTTPException, status, Request, Query, Depends, BackgroundTasks
 from fastapi.responses import RedirectResponse
 import httpx
 import sqlalchemy as sql
@@ -14,6 +14,7 @@ from app.core.security import generate_session_token, hash_session_token, oidc
 from app.core.util import get_client_ip
 from app.core.structures import OpenIdToken, OpenIdUserInfo
 from app.db.models import User, Session, AuthIdentity
+from app.core.reusables.verification_mail import send_verification_email
 from ._common import decode_state
 
 
@@ -36,6 +37,7 @@ class OidcClaims(t.TypedDict):
 @router.get("/callback", response_class=RedirectResponse)
 async def oidc_callback(
         request: Request,
+        background_tasks: BackgroundTasks,
         session: AsyncSession = Depends(get_async_session),
         user: t.Optional[User] = Depends(get_current_user_optional),
         code: str = Query(),
@@ -122,6 +124,7 @@ async def oidc_callback(
             )
             session.add(user)
             await session.flush()
+            background_tasks.add_task(send_verification_email, request=request, user=user)
 
         # -- identity linking --
         auth_identity = AuthIdentity(

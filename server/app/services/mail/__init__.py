@@ -2,5 +2,5 @@
 r"""
 
 """
+from .core import SUPPORTED
 from .abstracts import *
-

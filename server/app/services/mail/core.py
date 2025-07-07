@@ -10,7 +10,10 @@ from app.config import SETTINGS
 from .lib import TO, normalize_to
 
 
-__all__ = ['render_template', 'send_email']
+__all__ = ['SUPPORTED', 'render_template', 'send_email']
+
+
+SUPPORTED: bool = SETTINGS.MAIL is not None
 
 
 TEMPLATE_DIR = Path(__file__).parent / "templates"

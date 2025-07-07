@@ -11,6 +11,14 @@ __all__ = ["SecuritySettings"]
 
 class SecuritySettings(BaseSettings):
 
+    SECRET_KEY: str = Field(
+        default=..., min_length=32,
+        description="Secret key to use for security tokens. `openssl rand -hex 32`"
+    )
+    JWT_ALGORITHM: str = Field(
+        default="HS256",
+    )
+
     TRUST_PROXY_HEADERS: bool = Field(
         default=False,
         description="Enable this if you are behind a proxy. The server used header to extract the client-ip for identification",

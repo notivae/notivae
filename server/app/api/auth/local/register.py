@@ -2,7 +2,7 @@
 r"""
 
 """
-from fastapi import APIRouter, HTTPException, status, Depends, Body
+from fastapi import APIRouter, HTTPException, status, Request, Depends, Body, BackgroundTasks
 from pydantic import BaseModel, Field, EmailStr
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -10,6 +10,7 @@ from app.core.dependencies import get_async_session, get_current_user_optional
 from app.core.security import hash_password
 from app.db.models import User, AuthIdentity
 from app.config import SETTINGS, AccountCreationMode
+from app.core.reusables.verification_mail import send_verification_email
 from ._common import AuthLocalIdentityContext
 
 
@@ -25,6 +26,8 @@ class RegisterRequest(BaseModel):
 
 @router.post('/register', status_code=status.HTTP_201_CREATED)
 async def auth_local_register(
+        request: Request,
+        background_tasks: BackgroundTasks,
         session: AsyncSession = Depends(get_async_session),
         user: User = Depends(get_current_user_optional),
         form_data: RegisterRequest = Body(),
@@ -66,6 +69,7 @@ async def auth_local_register(
         )
         session.add(user)
         await session.flush()
+        background_tasks.add_task(send_verification_email, request=request, user=user)
 
     context = AuthLocalIdentityContext(
         password_hashed=hash_password(plain_password=form_data.password),

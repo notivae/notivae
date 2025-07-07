@@ -14,8 +14,9 @@ class User(Base):
     __tablename__ = "users"
 
     id = sql.Column(sql.Uuid, primary_key=True, default=uuid.uuid4)
-    email = sql.Column(sql.String, unique=True, nullable=False)
-    name = sql.Column(sql.String, nullable=False)
+    email = sql.Column(sql.String, nullable=False)
+    email_verified = sql.Column(sql.Boolean, nullable=False, default=False)
+    name = sql.Column(sql.String, nullable=False)  # todo: merge with display_name?
     display_name = sql.Column(sql.String, nullable=True)
 
     is_approved = sql.Column(sql.Boolean, nullable=False, default=False)
