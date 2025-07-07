@@ -69,6 +69,17 @@ function sidebar(): DefaultTheme.SidebarItem[] {
             ]
         },
         {
+            text: "Intelligence",
+            items: [
+                { text: "Introduction", link: '/intelligence/introduction' },
+                { text: "Installation", link: '/intelligence/installation' },
+                {
+                    text: "Features", link: '/intelligence/features/',
+                    items: [],
+                },
+            ],
+        },
+        {
             text: 'Contributing',
             items: [
                 { text: 'How to Contribute', link: '/other/contributing' },

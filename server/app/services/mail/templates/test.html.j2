@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            padding: 1.25rem;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 1.25rem;
+        }
+        .logo img {
+            max-width: 10rem;
+            height: auto;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            max-width: 40rem;
+            margin: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 0.5rem rgba(0,0,0,0.1);
+        }
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .recipient-note {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.85em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    {% if logo_url %}
+    <div class="logo">
+        <img src="{{ logo_url }}" alt="Notivae Logo">
+    </div>
+    {% endif %}
+
+    <div class="container">
+        <h2>This is a Test Email</h2>
+
+        <p>Hello there,</p>
+
+        <p>This is a test message. Everything seems to be working fine!</p>
+
+        <p>If you received this email, your email sending configuration is correctly set up.</p>
+    </div>
+
+    {% if recipient_email %}
+    <div class="recipient-note">
+        This test email was sent to <a href="mailto:{{ recipient_email }}">{{ recipient_email }}</a>.
+    </div>
+    {% endif %}
+
+</body>
+</html>

@@ -2,8 +2,11 @@
 r"""
 
 """
+import typing as t
 import logging
+import datetime as dt
 import structlog
+import pydantic
 from fastapi import APIRouter, Query, Depends
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -15,7 +18,15 @@ router = APIRouter()
 logger: structlog.BoundLogger = structlog.get_logger()
 
 
-@router.get('/query')
+class PydanticLogEntry(pydantic.BaseModel):
+    level: int
+    event: str
+    message: t.Optional[str]
+    context: t.Optional[dict]
+    timestamp: dt.datetime
+
+
+@router.get('/query', response_model=t.List[PydanticLogEntry])
 async def logs_live(
         session: AsyncSession = Depends(get_async_session),
         level: int = Query(default=logging.INFO, ge=logging.NOTSET, le=logging.CRITICAL),
