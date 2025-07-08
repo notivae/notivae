@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "markdown-it-task-checkbox": "^1.0.6",
     "vitepress": "^1.6.3"
   },
   "scripts": {
