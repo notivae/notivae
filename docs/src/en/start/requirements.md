@@ -4,7 +4,7 @@ This page outlines the minimum and recommended requirements for deploying and ru
 
 ## Prerequisites
 
-Notivae is deployed exclusively using **Docker** and **Docker Compose**. Ensure both are installed and functioning on your host system before proceeding with the [installation](./installation.md).
+Notivae is deployed exclusively using **Docker** and **Docker Compose**. Ensure both are installed and functioning on your host system before proceeding with the [installation](./installation/index.md).
 
 ## CPU
 
@@ -56,7 +56,7 @@ While technically optional in private network environments, using a domain helps
 Authentication is **required** in Notivae to associate documents and data with individual user accounts. By default, Notivae includes a built-in authentication system using email or username and password.  
 
 Alternatively, Notivae can integrate with external authentication providers for single sign-on (SSO) or centralized user management. Supported providers include:
-- OAuth2 providers (e.g., GitHub, Google, Azure AD)
+- OAuth2 providers (e.g., GitHub, GitLab, Discord)
 - Any identity provider that supports OpenID Connect (OIDC)
 
 

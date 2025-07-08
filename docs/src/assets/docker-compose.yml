@@ -11,31 +11,40 @@ services:
     volumes:
       - nvdata:/data
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   web:
     image: ghcr.io/notivae/web
     restart: unless-stopped
     ports:
       - "127.0.0.1:8766:80"
-    env_file: .env
 
   postgres:
-    image: postgres
+    image: postgres:alpine
     restart: unless-stopped
-    env_file: .env
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-notivae}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devpass}
       POSTGRES_DB: ${POSTGRES_DB:-notivae}
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"${POSTGRES_USER:-notivae}\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   redis:
-    image: redis
+    image: redis:alpine
     restart: unless-stopped
-    env_file: .env
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   nvdata:
