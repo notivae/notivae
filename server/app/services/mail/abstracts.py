@@ -4,15 +4,16 @@ r"""
 """
 import typing as t
 from urllib.parse import urljoin
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel, HttpUrl, EmailStr
 from fastapi import Request
 from .core import render_template, send_email
-from .lib import TO, extract_mail_address
+from .lib import TO, extract_mail_addresses
 
 
 __all__ = [
     'TestParameters', 'send_test_email',
     'MailVerificationParameters', 'send_verification_email',
+    'AdminAccountApprovalParameters', 'send_admin_account_approval_email',
 ]
 
 
@@ -20,8 +21,9 @@ async def _send_mail(template: str, to: TO, subject: str, parameters: BaseModel,
     context = parameters.model_dump()
     if request is not None:
         context.update(logo_url=urljoin(str(request.base_url), 'logo.svg'))
-    if isinstance(recipient_email := extract_mail_address(to), str):  # currently only for single mails
-        context.update(recipient_email=recipient_email)
+    recipients = extract_mail_addresses(to)
+    if len(recipients) == 1:
+        context.update(recipient_email=recipients[0])
     html_body = await render_template(name=template, context=context)
     await send_email(to=to, subject=subject, html_body=html_body)
 
@@ -59,6 +61,27 @@ async def send_verification_email(
         template="mail-verification.html.j2",
         to=to,
         subject="Mail Verification",
+        parameters=parameters,
+        request=request,
+    )
+
+
+class AdminAccountApprovalParameters(BaseModel):
+    approval_url: HttpUrl
+    account_email: EmailStr
+    account_name: str
+    account_display_name: t.Optional[str]
+
+
+async def send_admin_account_approval_email(
+        to: TO,
+        parameters: AdminAccountApprovalParameters,
+        request: Request = None,
+):
+    await _send_mail(
+        template="admin-account-approval.html.j2",
+        to=to,
+        subject="Admin Account Approval",
         parameters=parameters,
         request=request,
     )

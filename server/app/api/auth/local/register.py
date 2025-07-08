@@ -11,6 +11,7 @@ from app.core.security.passwords import hash_password
 from app.db.models import User, AuthIdentity
 from app.config import SETTINGS, AccountCreationMode
 from app.core.reusables.verification_mail import send_verification_email
+from app.core.reusables.account_approval import send_admin_account_approval_email
 from ._common import AuthLocalIdentityContext
 
 
@@ -69,7 +70,10 @@ async def auth_local_register(
         )
         session.add(user)
         await session.flush()
+
         background_tasks.add_task(send_verification_email, request=request, user=user)
+        if SETTINGS.APP.ACCOUNT_CREATION == AccountCreationMode.RESTRICTED:
+            background_tasks.add_task(send_admin_account_approval_email, request=request, user=user)
 
     context = AuthLocalIdentityContext(
         password_hashed=hash_password(plain_password=form_data.password),

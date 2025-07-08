@@ -7,7 +7,7 @@ from email.utils import formataddr
 from pydantic import EmailStr, NameEmail, validate_email
 
 
-__all__ = ['AnyMailAddress', 'TO', 'normalize_to', 'extract_mail_address']
+__all__ = ['AnyMailAddress', 'TO', 'normalize_to', 'extract_mail_addresses']
 
 
 AnyMailAddress: t.TypeAlias = t.Union[EmailStr, t.Tuple[t.Optional[str], EmailStr], t.Tuple[t.Optional[str], str], NameEmail, str]
@@ -22,8 +22,8 @@ def normalize_to(to: TO) -> t.Union[str, t.List[str]]:
     return str(to)
 
 
-def extract_mail_address(to: TO) -> t.Union[str, t.List[str]]:
+def extract_mail_addresses(to: TO) -> t.List[str]:
     normalized = normalize_to(to)
     if isinstance(normalized, list):
         return [validate_email(n)[1] for n in normalized]
-    return validate_email(normalized)[1]
+    return [validate_email(normalized)[1]]

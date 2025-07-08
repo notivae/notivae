@@ -31,5 +31,6 @@ def parse_email_verification_token(token: str, ignore_expired: bool = False) -> 
             token=token,
             key=SETTINGS.SECURITY.SECRET_KEY,
             algorithms=[SETTINGS.SECURITY.JWT_ALGORITHM],
-            options={ 'verify_exp': not ignore_expired })
+            options={ 'verify_exp': not ignore_expired },
+        )
     )

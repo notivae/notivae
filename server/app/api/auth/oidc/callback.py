@@ -16,6 +16,7 @@ from app.core.util import get_client_ip
 from app.core.structures import OpenIdToken, OpenIdUserInfo
 from app.db.models import User, Session, AuthIdentity
 from app.core.reusables.verification_mail import send_verification_email
+from app.core.reusables.account_approval import send_admin_account_approval_email
 from ._common import decode_state
 
 
@@ -125,7 +126,10 @@ async def oidc_callback(
             )
             session.add(user)
             await session.flush()
+
             background_tasks.add_task(send_verification_email, request=request, user=user)
+            if SETTINGS.APP.ACCOUNT_CREATION == AccountCreationMode.RESTRICTED:
+                background_tasks.add_task(send_admin_account_approval_email, request=request, user=user)
 
         # -- identity linking --
         auth_identity = AuthIdentity(

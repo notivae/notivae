@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Account Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            padding: 1.25rem;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 1.25rem;
+        }
+        .logo img {
+            max-width: 10rem;
+            height: auto;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            max-width: 40rem;
+            margin: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 0.5rem rgba(0,0,0,0.1);
+        }
+        .account-info {
+            display: grid;
+            grid-template-columns: auto 2fr;
+            gap: 0.5rem 1rem;
+            margin-top: 1.5rem;
+            background: #f2f2f2;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+        .account-info .label {
+            font-weight: bold;
+            color: #555;
+        }
+        .approval-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .approval-link {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.3rem;
+            font-weight: bold;
+        }
+        .recipient-note {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.85em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    {% if logo_url %}
+    <div class="logo">
+        <img src="{{ logo_url }}" alt="Logo">
+    </div>
+    {% endif %}
+
+    <div class="container">
+        <h2>New Account Creation Request</h2>
+
+        <p>Hello Admin,</p>
+
+        <p>A new user has requested to create an account. Below are the submitted details:</p>
+
+        <div class="account-info">
+            <div class="label">Email:</div>
+            <div><a href="mailto:{{ account_email  }}">{{ account_email }}</a></div>
+
+            <div class="label">Name:</div>
+            <div>{{ account_name }}</div>
+
+            <div class="label">Display Name:</div>
+            <div>{{ account_display_name }}</div>
+        </div>
+
+        {% if approval_url %}
+        <div class="approval-container">
+            <a class="approval-link" href="{{ approval_url }}">Approve Account Instantly</a>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if recipient_email %}
+    <div class="recipient-note">
+        This notification was sent to <a href="mailto:{{ recipient_email }}">{{ recipient_email }}</a>.
+    </div>
+    {% endif %}
+
+</body>
+</html>
