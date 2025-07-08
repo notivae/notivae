@@ -14,7 +14,8 @@ class LogEntry(Base):
 
     id = sql.Column(sql.Integer, primary_key=True, autoincrement=True)
     level = sql.Column(sql.SmallInteger, nullable=False)
-    event = sql.Column(sql.String, nullable=False)
-    message = sql.Column(sql.Text, nullable=True)
+    module = sql.Column(sql.String, nullable=False)
+    lineno = sql.Column(sql.Integer, nullable=False)
+    message = sql.Column(sql.Text, nullable=False)
     context = sql.Column(sql.JSON, nullable=True)
     timestamp = sql.Column(sql.DateTime(timezone=True), nullable=False, server_default=sql.func.now())

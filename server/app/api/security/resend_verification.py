@@ -49,6 +49,7 @@ async def resend_email_verification(
         )
 
     if token is None and user is None:
+        logger.warning("No token received and no user is logged in")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Missing authentication",
@@ -57,13 +58,14 @@ async def resend_email_verification(
         try:
             claims = parse_email_verification_token(token=token, ignore_expired=True)
         except (JWTError, ValidationError) as e:
-            logger.error("invalid-token", message=f"{type(e)}: {e}", token=token)
+            logger.error(f"invalid-token ({type(e)}: {e})", exc_info=e, token=token)
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Invalid token received",
             )
 
         if user and str(user.id) != claims.sub:
+            logger.warning("Logged in user tried to resend verification email for different subject", user=user.id, subject=claims.sub)
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
                 detail="User does not have access to this token",
@@ -87,10 +89,12 @@ async def resend_email_verification(
     try:
         await send_verification_email(request=request, user=user)
     except Exception as e:
-        logger.error("resend-verification", message=f"{type(e)}: {e}", exc_info=e)
+        logger.error(f"failed to re-send verification ({type(e)}: {e})", exc_info=e)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to send verification email",
         )
+
+    logger.info("re-send verification email for user", user=user.id)
 
     return ResendVerificationResponse(message="Email verification sent")

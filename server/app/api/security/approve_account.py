@@ -14,7 +14,7 @@ from app.core.security.account_approval import parse_account_approval_token
 
 
 router = APIRouter()
-logger = structlog.get_logger()
+logger: structlog.BoundLogger = structlog.get_logger()
 
 
 @router.get('/account-approval')
@@ -30,13 +30,13 @@ async def account_approval_via_token(
     try:
         claims = parse_account_approval_token(token=token)
     except ExpiredSignatureError:
-        logger.warning("expired-token", message="Expired token received")
+        logger.warning("Expired token received")
         raise HTTPException(  # todo: proper redirect to page with "resend verification mail" button
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="The token has expired",
         )
     except (JWTError, ValidationError) as e:
-        logger.error("invalid-token", message=f"{type(e)}: {e}", token=token)
+        logger.error(f"invalid-token ({type(e)}: {e})", exc_info=e, token=token)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid token received",
@@ -52,5 +52,7 @@ async def account_approval_via_token(
 
     user.is_approved = True
     await session.commit()
+
+    logger.info("account god approved", user=user.id)
 
     return { 'success': True }  # todo: better success handling

@@ -24,9 +24,10 @@ def upgrade() -> None:
     op.create_table('log_entries',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('level', sa.SmallInteger(), nullable=False),
-    sa.Column('event', sa.String(), nullable=False),
-    sa.Column('message', sa.Text(), nullable=True),
-    sa.Column('context', sa.JSON(), nullable=True),
+    sa.Column('module', sa.String(), nullable=False),
+    sa.Column('lineno', sa.Integer(), nullable=False),
+    sa.Column('message', sa.Text(), nullable=False),
+    sa.Column('context', sa.JSON(), nullable=False),
     sa.Column('timestamp', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )

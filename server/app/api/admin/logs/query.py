@@ -20,9 +20,10 @@ logger: structlog.BoundLogger = structlog.get_logger()
 
 class PydanticLogEntry(pydantic.BaseModel):
     level: int
-    event: str
-    message: t.Optional[str]
-    context: t.Optional[dict]
+    module: str
+    lineno: int
+    message: str
+    context: dict
     timestamp: dt.datetime
 
 
@@ -30,7 +31,7 @@ class PydanticLogEntry(pydantic.BaseModel):
 async def logs_live(
         session: AsyncSession = Depends(get_async_session),
         level: int = Query(default=logging.INFO, ge=logging.NOTSET, le=logging.CRITICAL),
-        event: str = Query(default=None),
+        module: str = Query(default=None),
         limit: int = Query(default=50, ge=1, le=500),
         offset: int = Query(default=0, ge=0),
 ):
@@ -39,8 +40,8 @@ async def logs_live(
 
     if level:
         stmt = stmt.where(LogEntry.level >= level)
-    if event:
-        stmt = stmt.where(LogEntry.event.ilike(f"%{event}%"))
+    if module:
+        stmt = stmt.where(LogEntry.module == module)
 
     stmt = stmt\
         .order_by(LogEntry.timestamp.desc()) \

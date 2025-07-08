@@ -14,7 +14,7 @@ from app.db.models import User
 
 __all__ = ['send_admin_account_approval_email']
 
-logger = structlog.get_logger(__name__)
+logger: structlog.BoundLogger = structlog.get_logger()
 
 
 async def send_admin_account_approval_email(request: Request, user: User):
