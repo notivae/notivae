@@ -5,6 +5,9 @@ r"""
 from passlib.context import CryptContext
 
 
+__all__ = ['verify_password', 'hash_password']
+
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 

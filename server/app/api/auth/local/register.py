@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field, EmailStr
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.dependencies import get_async_session, get_current_user_optional
-from app.core.security import hash_password
+from app.core.security.passwords import hash_password
 from app.db.models import User, AuthIdentity
 from app.config import SETTINGS, AccountCreationMode
 from app.core.reusables.verification_mail import send_verification_email

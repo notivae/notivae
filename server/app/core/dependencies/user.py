@@ -8,7 +8,7 @@ from fastapi import HTTPException, status, Depends, Cookie
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.models import User, Session
-from ..security import hash_session_token
+from ..security.session import hash_session_token
 from .session import get_async_session
 
 

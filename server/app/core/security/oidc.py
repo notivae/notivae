@@ -7,6 +7,9 @@ from ..redis import redis_client
 from ..structures import OpenIdConfiguration
 
 
+__all__ = ['get_configuration']
+
+
 CONFIG_TTL = 3600  # 1h
 
 
