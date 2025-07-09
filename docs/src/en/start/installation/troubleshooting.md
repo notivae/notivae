@@ -2,7 +2,7 @@
 
 This page helps you resolve common issues encountered while setting up or running Notivae using Docker.
 
-If you're stuck on something not listed here, feel free to open an issue or check the [Contributing](../other/contributing.md) guide.
+If you're stuck on something not listed here, feel free to open an issue or check the [Contributing](../../other/contributing.md) guide.
 
 ## 🧩 Docker Setup Issues
 
