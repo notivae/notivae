@@ -45,7 +45,8 @@ A reverse proxy solves this by:
 
 If you're using Docker Compose, create a `Caddyfile` like this:
 
-```caddyfile
+::: code-group
+```caddyfile [Caddyfile]
 notivae.localhost
 
 handle_path /api/* {
@@ -56,10 +57,12 @@ handle {
     reverse_proxy frontend:80
 }
 ```
+:::
 
 And add a Caddy service to your `docker-compose.yml`:
 
-```yaml
+::: code-group
+```yaml [docker-compose.yml]
 services:
   caddy:
     image: caddy:alpine
@@ -72,6 +75,7 @@ services:
       - frontend
       - backend
 ```
+:::
 
 > 💡 You’ll need to update `notivae.localhost` to your actual domain or host if not using `localhost`.
 
@@ -79,7 +83,8 @@ services:
 
 If you're using Docker Compose, create a `nginx.conf` like this:
 
-```nginx
+::: code-group
+```nginx [nginx.conf]
 server {
     listen 80;
     server_name notivae.localhost;
@@ -96,10 +101,12 @@ server {
     }
 }
 ```
+:::
 
 And add an nginx service to your `docker-compose.yml`:
 
-```yaml
+::: code-group
+```yaml [docker-compose.yml]
 services:
   nginx:
     image: nginx:alpine
@@ -111,6 +118,7 @@ services:
       - frontend
       - backend
 ```
+:::
 
 > 💡 You’ll need to update `notivae.localhost` to your actual domain or host if not using `localhost`.
 

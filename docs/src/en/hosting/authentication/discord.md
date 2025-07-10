@@ -10,29 +10,33 @@ This guide explains how to set up authentication via Discord for your applicatio
 
 ## Environment Variables
 
-```dotenv
+::: code-group
+```dotenv [.env]
 DISCORD_CLIENT_ID=
 DISCORD_CLIENT_SECRET=
 ```
+:::
 
 | Variable                | Description                      |
 |-------------------------|----------------------------------|
 | `DISCORD_CLIENT_ID`     | Your application's Client ID     |
 | `DISCORD_CLIENT_SECRET` | Your application's Client Secret |
 
-::: details Hidden Variables
+:::: details Hidden Variables
 
-```dotenv
+::: code-group
+```dotenv [.env]
 DISCORD_DISCOVERY_URI=https://discord.com/.well-known/openid-configuration
 DISCORD_SCOPES="openid profile email"
 ```
+:::
 
 | Variable                | Description                                           |
 |-------------------------|-------------------------------------------------------|
 | `DISCORD_DISCOVERY_URI` | Url to discord's OpenID configuration file            |
 | `DISCORD_SCOPES`        | Space-separated list of scopes requested during login |
 
-:::
+::::
 
 ## Setup Instructions
 

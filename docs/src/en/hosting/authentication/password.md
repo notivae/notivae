@@ -6,9 +6,11 @@ Password-based authentication works out of the box and is the simplest authentic
 
 ## Environment Variables
 
-```dotenv
+::: code-group
+```dotenv [.env]
 AUTO_LOCAL_ENABLED=True
 ```
+:::
 
 | Variable              | Description                                  |
 |-----------------------|----------------------------------------------|
@@ -19,9 +21,12 @@ AUTO_LOCAL_ENABLED=True
 ### Step 1: Enable Local Authentication
 
 Set the following environment variable in your deployment or `.env` file:
-```dotenv
+
+::: code-group
+```dotenv [.env]
 AUTO_LOCAL_ENABLED=True
 ```
+:::
 
 ### Step 2: Apply changes and restart Notivae
 

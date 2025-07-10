@@ -18,7 +18,8 @@ If not configured, these features will silently degrade or fallback to no-ops.
 
 ## Environment Variables
 
-```dotenv
+::: code-group
+```dotenv [.env]
 MAIL_SERVER=
 MAIL_PORT=
 MAIL_USE_CREDENTIALS=true
@@ -30,6 +31,7 @@ MAIL_START_TLS=
 MAIL_VALIDATE_CERTS=true
 MAIL_TEMPLATES_DIR=
 ```
+:::
 
 | Variable               | Description                                                                                      |
 |------------------------|--------------------------------------------------------------------------------------------------|
@@ -63,7 +65,8 @@ Do not enable both TLS and STARTTLS.
 
 ### Gmail (App Passwords)
 
-```dotenv
+::: code-group
+```dotenv [.env]
 MAIL_SERVER=smtp.gmail.com
 MAIL_PORT=465
 MAIL_USE_CREDENTIALS=true
@@ -73,10 +76,12 @@ MAIL_FROM="Notivae <notivae@gmail.com>"
 MAIL_USE_TLS=true
 MAIL_VALIDATE_CERTS=true
 ```
+:::
 
 ### Mailgun
 
-```dotenv
+::: code-group
+```dotenv [.env]
 MAIL_SERVER=smtp.mailgun.org
 MAIL_PORT=587
 MAIL_USE_CREDENTIALS=true
@@ -86,10 +91,12 @@ MAIL_FROM="Notivae <notivae@sandbox123.mailgun.org>"
 MAIL_START_TLS=true
 MAIL_VALIDATE_CERTS=true
 ```
+:::
 
 ### Localhost (No Auth, No TLS)
 
-```dotenv
+::: code-group
+```dotenv [.env]
 MAIL_SERVER=localhost
 MAIL_PORT=25
 MAIL_USE_CREDENTIALS=false
@@ -98,22 +105,26 @@ MAIL_USE_TLS=false
 MAIL_START_TLS=false
 MAIL_VALIDATE_CERTS=false
 ```
+:::
 
 ## Optional: Email Templates
 
 The mail system comes with built-in HTML templates rendered using **Jinja2**.  
 To override any of them, you can mount a custom template directory and set:
 
-```dotenv
+::: code-group
+```dotenv [.env]
 MAIL_TEMPLATES_DIR=/templates/emails
-````
+```
+:::
 
 Each custom template file must match the filename (and extension) of the default it's replacing.
 The expected extension is: **`.html.j2`**
 
 Modify you `docker-compose.yml` to mount your templates and set the environment variable.
 
-```yaml
+::: code-group
+```yaml [docker-compose.yml]
 services:
   server:
     image: ghcr.io/notivae/server
@@ -123,6 +134,7 @@ services:
     volumes:
       - ./my-custom-templates:/templates/emails:ro
 ```
+:::
 
 This will override any built-in template that has a matching `.html.j2` file in `./my-custom-templates`.
 

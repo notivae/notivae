@@ -10,12 +10,14 @@ This guide explains how to set up authentication via any OpenID Connect compatib
 
 ## Environment Variables
 
-```dotenv
+::: code-group
+```dotenv [.env]
 OIDC_CLIENT_ID=
 OIDC_CLIENT_SECRET=
 OIDC_DISCOVERY_URI=https://auth.example.com/.well-known/openid-configuration
 OIDC_DISPLAY_NAME="OpenID"
 ```
+:::
 
 | Variable             | Description                                                                                          |
 |----------------------|------------------------------------------------------------------------------------------------------|
@@ -24,17 +26,19 @@ OIDC_DISPLAY_NAME="OpenID"
 | `OIDC_DISCOVERY_URI` | The URI pointing to the OIDC discovery document (usually ends in `.well-known/openid-configuration`) |
 | `OIDC_DISPLAY_NAME`  | The name shown to users during login (e.g., "Login with OpenID")                                     |
 
-::: details Hidden Variables
+:::: details Hidden Variables
 
-```dotenv
+::: code-group
+```dotenv [.env]
 OIDC_SCOPES="openid profile email"
 ```
+:::
 
 | Variable                | Description                                           |
 |-------------------------|-------------------------------------------------------|
 | `OIDC_SCOPES`           | Space-separated list of scopes requested during login |
 
-:::
+::::
 
 ## Common Parameter
 
