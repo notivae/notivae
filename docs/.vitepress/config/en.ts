@@ -49,6 +49,7 @@ function sidebar(): DefaultTheme.SidebarItem[] {
                     collapsed: true,
                     items: [
                         { text: "Mail", link: "/hosting/configuration/mail-support" },
+                        { text: "Virus Scanning", link: "/hosting/configuration/virus-scanning-support" },
                     ],
                 },
                 {
