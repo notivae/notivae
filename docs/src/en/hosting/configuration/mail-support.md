@@ -1,4 +1,4 @@
-# Mail Support Configuration (Optional)
+# Mail Support (Optional)
 
 The mail service is **optional**, but highly recommended if you want to enable features like:
 
@@ -67,9 +67,9 @@ Do not enable both TLS and STARTTLS.
 MAIL_SERVER=smtp.gmail.com
 MAIL_PORT=465
 MAIL_USE_CREDENTIALS=true
-MAIL_USERNAME=your.email@gmail.com
+MAIL_USERNAME=notivae@gmail.com
 MAIL_PASSWORD=your_app_password
-MAIL_FROM="Your Name <your.email@gmail.com>"
+MAIL_FROM="Notivae <notivae@gmail.com>"
 MAIL_USE_TLS=true
 MAIL_VALIDATE_CERTS=true
 ```
@@ -80,9 +80,9 @@ MAIL_VALIDATE_CERTS=true
 MAIL_SERVER=smtp.mailgun.org
 MAIL_PORT=587
 MAIL_USE_CREDENTIALS=true
-MAIL_USERNAME=postmaster@sandbox123.mailgun.org
+MAIL_USERNAME=notivae@sandbox123.mailgun.org
 MAIL_PASSWORD=your_mailgun_password
-MAIL_FROM="App Notifications <postmaster@sandbox123.mailgun.org>"
+MAIL_FROM="Notivae <notivae@sandbox123.mailgun.org>"
 MAIL_START_TLS=true
 MAIL_VALIDATE_CERTS=true
 ```
@@ -93,7 +93,7 @@ MAIL_VALIDATE_CERTS=true
 MAIL_SERVER=localhost
 MAIL_PORT=25
 MAIL_USE_CREDENTIALS=false
-MAIL_FROM="App Dev <dev@example.com>"
+MAIL_FROM="Notivae <notivae@example.com>"
 MAIL_USE_TLS=false
 MAIL_START_TLS=false
 MAIL_VALIDATE_CERTS=false
