@@ -17,11 +17,25 @@ Notivae supports logging in via third-party identity providers using the OIDC pr
 
 Supported providers include:
 
-- [Google](./google.md)
-- [GitHub](./github.md)
-- [GitLab](./gitlab.md)
-- [Discord](./discord.md)
+- [Discord](./discord.md) <small>(Planned)</small>
+- [GitHub](./github.md) <small>(Planned)</small>
+- [GitLab](./gitlab.md) <small>(Planned)</small>
+- [Google](./google.md) <small>(Planned)</small>
+- [Reddit](./reddit.md) <small>(Planned)</small>
+- [Spotify](./spotify.md) <small>(Planned)</small>
+- [Twitch](./twitch.md) <small>(Planned)</small>
 - Any identity provider compliant with [OpenID Connect](./oidc.md)
+
+> [!TIP] Workaround
+> While most providers aren't officially supported yet, many can still be used via generic OIDC configuration.  
+> For example, Discord and GitLab are OIDC compatible and can be manually integrated:
+> ```dotenv
+> OIDC_CLIENT_ID=<your discord application's client ID>
+> OIDC_CLIENT_SECRET=<your discord application's client secret>
+> OIDC_DISCOVERY_URL=https://discord.com/.well-known/openid-configuration
+> OIDC_SCOPES="identity email"
+> OIDC_DISPLAY_NAME="Discord"
+> ```
 
 ### Setup Example (GitLab)
 

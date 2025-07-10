@@ -61,6 +61,9 @@ function sidebar(): DefaultTheme.SidebarItem[] {
                         { text: "GitHub", link: "/hosting/authentication/github" },
                         { text: "GitLab", link: "/hosting/authentication/gitlab" },
                         { text: "Google", link: "/hosting/authentication/google" },
+                        { text: "Reddit", link: "/hosting/authentication/reddit" },
+                        { text: "Spotify", link: "/hosting/authentication/spotify" },
+                        { text: "Twitch", link: "/hosting/authentication/twitch" },
                         { text: "OIDC", link: "/hosting/authentication/oidc" },
                     ]
                 },
