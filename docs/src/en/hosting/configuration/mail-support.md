@@ -1,4 +1,4 @@
-# Mail Support (Optional)
+# 📧 Mail Support (Optional)
 
 The mail service is **optional**, but highly recommended if you want to enable features like:
 

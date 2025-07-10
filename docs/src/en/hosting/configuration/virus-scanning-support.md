@@ -2,18 +2,18 @@
 
 Notivae supports **optional virus scanning** for uploaded files. This feature is designed to improve security in environments where users can upload arbitrary attachments — especially in multi-user or publicly accessible deployments.
 
-## ✅ Overview
+## Overview
 
 Virus scanning is **disabled by default** and only activates if the following two environment variables are set:
 
-```env
-CLAMAV_HOST=<host>
-CLAMAV_PORT=<port>
+```dotenv
+CLAMAV_HOST=
+CLAMAV_PORT=
 ```
 
 When both are defined, Notivae will attempt to connect to the ClamAV service. If the connection fails at runtime while virus scanning is enabled, **file uploads will be rejected** for safety.
 
-## 🔧 When to Enable Virus Scanning
+## When to Enable Virus Scanning
 
 You should enable virus scanning when:
 
@@ -26,7 +26,7 @@ It’s typically **not necessary** for:
 - Local, private deployments
 - Environments where all users are trusted
 
-## 🔍 How It Works
+## How It Works
 
 When enabled:
 - Uploaded attachments are streamed to disk
@@ -34,7 +34,7 @@ When enabled:
 - If a threat is detected, the file is immediately deleted and the upload fails with an error
 - Clean files proceed as normal
 
-## 🐳 Docker Compose Setup
+## Docker Compose Setup
 
 To enable virus scanning, add the ClamAV service to your `docker-compose.yml`:
 
@@ -52,7 +52,7 @@ volumes:
 
 This image automatically checks for virus database updates **once per day**.
 
-## ⚠️ Resource Requirements
+## Resource Requirements
 
 ClamAV requires a **significant amount of RAM** to function properly. According to official documentation:
 
@@ -61,7 +61,7 @@ ClamAV requires a **significant amount of RAM** to function properly. According 
 
 You should not enable virus scanning on hosts with limited memory or swap space unless you're confident in available resources.
 
-## 🧪 Testing Virus Scanning
+## Testing Virus Scanning
 
 To verify that virus scanning is active and working, you can use the **EICAR test file**, a harmless file designed to trigger antivirus systems.
 

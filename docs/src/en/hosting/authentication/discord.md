@@ -61,3 +61,11 @@ DISCORD_SCOPES="openid profile email"
    Replace `<YOUR_DOMAIN>` with your application's actual domain name.
 
 ![Add Redirects](assets/discord-redirect-url.png)
+
+### Step 4: Apply changes and restart Notivae
+
+After updating your environment variables with the Discord credentials and settings, restart Notivae to apply the changes:
+
+```shell
+docker compose up -d --force-recreate
+```
