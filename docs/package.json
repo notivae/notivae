@@ -6,6 +6,7 @@
   "scripts": {
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
+    "docs:llms.txt": "node .vitepress/generate-llms-txt.mjs",
     "docs:preview": "vitepress preview"
   }
 }

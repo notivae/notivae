@@ -31,6 +31,7 @@ jobs:
       - name: Build VitePress site
         run: |
           npm run docs:build
+          npm run docs:llms.txt
 
       - name: Deploy to notivae.github.io
         env:
