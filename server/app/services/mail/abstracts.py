@@ -6,7 +6,7 @@ import typing as t
 from urllib.parse import urljoin
 from pydantic import BaseModel, HttpUrl, EmailStr
 from fastapi import Request
-from .core import render_template, send_email
+from .core import render_template, send_email, SUPPORTED
 from .lib import TO, extract_mail_addresses
 
 
@@ -18,6 +18,8 @@ __all__ = [
 
 
 async def _send_mail(template: str, to: TO, subject: str, parameters: BaseModel, request: Request = None):
+    if not SUPPORTED: return
+
     context = parameters.model_dump()
     if request is not None:
         context.update(logo_url=urljoin(str(request.base_url), 'logo.svg'))
