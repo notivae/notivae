@@ -10,10 +10,11 @@ from .app import AppSettings
 from .database import DatabaseSettings
 from .gzip import GzipSettings
 from .logging import LoggingSettings
-from .mail import MailSettings
 from .redis import RedisSettings
 from .security import SecuritySettings
 from .server import ServerSettings
+
+from .services.mail import MailSettings
 
 from .auth.discord import DiscordSettings
 from .auth.local import AuthLocalSettings
@@ -33,10 +34,11 @@ class BackendSettings(BaseSettings):
     SERVER: ServerSettings = Field(default_factory=ServerSettings)
     SECURITY: SecuritySettings = Field(default_factory=SecuritySettings)
     DATABASE: DatabaseSettings = Field(default_factory=DatabaseSettings)
-    MAIL: t.Optional[MailSettings] = Field(default_factory=make_optional_factory(MailSettings))
     REDIS: RedisSettings = Field(default_factory=RedisSettings)
     GZIP: GzipSettings = Field(default_factory=GzipSettings)
     LOGGING: LoggingSettings = Field(default_factory=LoggingSettings)
+
+    MAIL: t.Optional[MailSettings] = Field(default_factory=make_optional_factory(MailSettings))
 
     AUTH_LOCAL: AuthLocalSettings = Field(default_factory=AuthLocalSettings)  # not optional for now
     DISCORD: t.Optional[DiscordSettings] = Field(default_factory=make_optional_factory(DiscordSettings))
