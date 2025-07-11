@@ -21,7 +21,7 @@ class AuthIdentityResponse(pydantic.BaseModel):
 
 
 @router.get("/auth-identities", response_model=t.List[AuthIdentityResponse])
-async def get_me(
+async def get_auth_identities(
         session: AsyncSession = Depends(get_async_session),
         user: User = Depends(get_current_user)
 ):

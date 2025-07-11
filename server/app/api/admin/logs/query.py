@@ -28,7 +28,7 @@ class PydanticLogEntry(pydantic.BaseModel):
 
 
 @router.get('/query', response_model=t.List[PydanticLogEntry])
-async def logs_live(
+async def logs_query(
         session: AsyncSession = Depends(get_async_session),
         level: int = Query(default=logging.INFO, ge=logging.NOTSET, le=logging.CRITICAL),
         module: str = Query(default=None),
