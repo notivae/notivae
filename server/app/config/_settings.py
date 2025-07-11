@@ -15,6 +15,7 @@ from .security import SecuritySettings
 from .server import ServerSettings
 
 from .services.mail import MailSettings
+from .services.clamav import ClamAVSettings
 
 from .auth.discord import DiscordSettings
 from .auth.local import AuthLocalSettings
@@ -39,6 +40,7 @@ class BackendSettings(BaseSettings):
     LOGGING: LoggingSettings = Field(default_factory=LoggingSettings)
 
     MAIL: t.Optional[MailSettings] = Field(default_factory=make_optional_factory(MailSettings))
+    CLAMAV: t.Optional[ClamAVSettings] = Field(default_factory=make_optional_factory(ClamAVSettings))
 
     AUTH_LOCAL: AuthLocalSettings = Field(default_factory=AuthLocalSettings)  # not optional for now
     DISCORD: t.Optional[DiscordSettings] = Field(default_factory=make_optional_factory(DiscordSettings))

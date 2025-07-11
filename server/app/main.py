@@ -7,9 +7,10 @@ from app.core.logging import setup_logging; setup_logging(settings=SETTINGS.LOGG
 import typing as t
 import fastapi
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.staticfiles import StaticFiles
 import pydantic
 from app.lifespan import lifespan
-from fastapi.staticfiles import StaticFiles
+from app.exception_handlers import register_exception_handlers
 
 from app.api import router as api_router
 
@@ -28,6 +29,7 @@ app = fastapi.FastAPI(
         identifier="GPL-3.0-or-later"
     )
 )
+register_exception_handlers(app=app)
 app.add_middleware(
     GZipMiddleware,
     minimum_size=SETTINGS.GZIP.MINIMUM_SIZE,
