@@ -18,10 +18,10 @@ You can likely **skip enabling scanning** if:
 
 ## Environment Variables
 
-Virus scanning is **disabled by default**. To enable it, you must set the `CLAMAV_HOST` environment variable:
+Virus scanning is **disabled by default**. To enable it, you must set the `CLAMAV_SERVER` environment variable:
 
 ```dotenv
-CLAMAV_HOST=
+CLAMAV_SERVER=
 CLAMAV_PORT=3310
 ```
 
@@ -49,7 +49,7 @@ Then configure your `.env` file with the required environment variables:
 
 ::: code-group
 ```dotenv [.env]
-CLAMAV_HOST=clamav
+CLAMAV_SERVER=clamav
 CLAMAV_PORT=3310
 ```
 :::
