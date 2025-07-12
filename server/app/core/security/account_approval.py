@@ -16,7 +16,7 @@ def generate_account_approval_token(user_id: uuid.UUID) -> str:
     claims = AccountApprovalClaims(
         sub=str(user_id),
         exp=dt.datetime.now(dt.UTC) + dt.timedelta(days=1),
-        purpose="account-approval",
+        aud="account-approval",
     )
     return jwt.encode(
         claims=claims.model_dump(mode='json'),
@@ -31,5 +31,6 @@ def parse_account_approval_token(token: str) -> AccountApprovalClaims:
             token=token,
             key=SETTINGS.SECURITY.SECRET_KEY,
             algorithms=[SETTINGS.SECURITY.JWT_ALGORITHM],
+            audience="account-approval",
         )
     )

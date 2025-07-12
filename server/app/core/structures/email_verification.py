@@ -13,7 +13,7 @@ __all__ = ['EmailVerificationClaims']
 class EmailVerificationClaims(BaseModel):
     sub: str
     exp: dt.datetime
-    purpose: t.Literal["email-verification"]
+    aud: t.Literal["email-verification"]
 
     @field_serializer("exp")
     def __serialize_exp(self, exp: dt.datetime) -> int:

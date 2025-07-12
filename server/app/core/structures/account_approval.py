@@ -13,7 +13,7 @@ __all__ = ['AccountApprovalClaims']
 class AccountApprovalClaims(BaseModel):
     sub: str
     exp: dt.datetime
-    purpose: t.Literal["account-approval"]
+    aud: t.Literal["account-approval"]
 
     @field_serializer("exp")
     def __serialize_exp(self, exp: dt.datetime) -> int:

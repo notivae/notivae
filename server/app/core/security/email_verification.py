@@ -16,7 +16,7 @@ def generate_email_verification_token(user_id: uuid.UUID) -> str:
     claims = EmailVerificationClaims(
         sub=str(user_id),
         exp=dt.datetime.now(dt.UTC) + dt.timedelta(minutes=30),
-        purpose="email-verification",
+        aud="email-verification",
     )
     return jwt.encode(
         claims=claims.model_dump(mode='json'),
@@ -32,5 +32,6 @@ def parse_email_verification_token(token: str, ignore_expired: bool = False) -> 
             key=SETTINGS.SECURITY.SECRET_KEY,
             algorithms=[SETTINGS.SECURITY.JWT_ALGORITHM],
             options={ 'verify_exp': not ignore_expired },
+            audience="email-verification",
         )
     )
