@@ -13,6 +13,7 @@ from .lib import TO, extract_mail_addresses
 __all__ = [
     'TestParameters', 'send_test_email',
     'MailVerificationParameters', 'send_verification_email',
+    'MagicLinkParameters', 'send_magic_link_email',
     'AdminAccountApprovalParameters', 'send_admin_account_approval_email',
 ]
 
@@ -28,6 +29,9 @@ async def _send_mail(template: str, to: TO, subject: str, parameters: BaseModel,
         context.update(recipient_email=recipients[0])
     html_body = await render_template(name=template, context=context)
     await send_email(to=to, subject=subject, html_body=html_body)
+
+
+# ------------------------------------------------------------------------------
 
 
 class TestParameters(BaseModel):
@@ -48,6 +52,9 @@ async def send_test_email(
     )
 
 
+# ------------------------------------------------------------------------------
+
+
 class MailVerificationParameters(BaseModel):
     verification_url: HttpUrl
     username: str
@@ -66,6 +73,32 @@ async def send_verification_email(
         parameters=parameters,
         request=request,
     )
+
+
+# ------------------------------------------------------------------------------
+
+
+class MagicLinkParameters(BaseModel):
+    callback_url: HttpUrl
+    username: str
+    display_name: t.Optional[str]
+
+
+async def send_magic_link_email(
+        to: TO,
+        parameters: MagicLinkParameters,
+        request: Request = None,
+):
+    await _send_mail(
+        template="magic-link.html.j2",
+        to=to,
+        subject="Magic Link",
+        parameters=parameters,
+        request=request,
+    )
+
+
+# ------------------------------------------------------------------------------
 
 
 class AdminAccountApprovalParameters(BaseModel):

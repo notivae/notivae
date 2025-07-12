@@ -20,6 +20,7 @@ from .services.clamav import ClamAVSettings
 from .auth.discord import DiscordSettings
 from .auth.local import AuthLocalSettings
 from .auth.oidc import OidcSettings
+from .auth.magic_link import MagicLinkSettings
 
 
 __all__ = ['BackendSettings']
@@ -42,7 +43,8 @@ class BackendSettings(BaseSettings):
     MAIL: t.Optional[MailSettings] = Field(default_factory=make_optional_factory(MailSettings))
     CLAMAV: t.Optional[ClamAVSettings] = Field(default_factory=make_optional_factory(ClamAVSettings))
 
-    AUTH_LOCAL: AuthLocalSettings = Field(default_factory=AuthLocalSettings)  # not optional for now
+    AUTH_LOCAL: AuthLocalSettings = Field(default_factory=make_optional_factory(AuthLocalSettings))
+    MAGIC_LINK: MagicLinkSettings = Field(default_factory=make_optional_factory(MagicLinkSettings))
     DISCORD: t.Optional[DiscordSettings] = Field(default_factory=make_optional_factory(DiscordSettings))
     OIDC: t.Optional[OidcSettings] = Field(default_factory=make_optional_factory(OidcSettings))
 

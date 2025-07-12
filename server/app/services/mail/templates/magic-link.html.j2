@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Email Verification</title>
+    <title>Login with Magic Link</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -52,19 +52,19 @@
     {% endif %}
 
     <div class="container">
-        <h2>Verify your email</h2>
+        <h2>Login Instantly</h2>
 
-        <p>Hello {{ display_name | default(username) | default("there") }},</p>
+        <p>Hello {{ display_name | default(username) }},</p>
 
-        <p>Thank you for signing up!</p>
+        <p>You requested to log in using a magic link.</p>
 
-        <p>To complete your registration, please verify your email address by clicking the button below:</p>
+        <p>Click the button below to securely log in to your account:</p>
 
         <p>
-            <a href="{{ verification_url }}" class="button">Verify Email</a>
+            <a href="{{ callback_url }}" class="button">Log In with Magic Link</a>
         </p>
 
-        <p>If you did not create an account, you can safely ignore this email.</p>
+        <p>This link will expire shortly. If you didn’t request it, you can safely ignore this message.</p>
     </div>
 
     {% if recipient_email %}
