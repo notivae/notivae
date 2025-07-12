@@ -4,7 +4,7 @@ r"""
 """
 import httpx
 from ..redis import redis_client
-from ..structures import OpenIdConfiguration
+from ..structures.oidc import OpenIdConfiguration
 
 
 __all__ = ['get_configuration']

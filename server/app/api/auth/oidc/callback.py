@@ -13,7 +13,7 @@ from app.core.dependencies import get_current_user_optional, get_async_session
 from app.core.security.session import generate_session_token, hash_session_token
 from app.core.security import oidc
 from app.core.util import get_client_ip
-from app.core.structures import OpenIdToken, OpenIdUserInfo
+from app.core.structures.oidc import OpenIdToken, OpenIdUserInfo
 from app.db.models import User, Session, AuthIdentity
 from app.core.reusables.verification_mail import send_verification_email
 from app.core.reusables.account_approval import send_admin_account_approval_email
