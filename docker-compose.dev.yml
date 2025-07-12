@@ -43,6 +43,7 @@ services:
 
   mailhog:
     image: mailhog/mailhog
+    env_file: .env.dev
     ports:
       - "1025:1025"
       - "8025:8025"
