@@ -71,6 +71,7 @@ async def auth_local_login(
         key="session_token",
         value=session_token,
         expires=access_session.expires_at,
+        path="/api",
         secure=True,
         httponly=True,
         samesite="lax",

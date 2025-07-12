@@ -13,6 +13,7 @@ async def logout(response: Response) -> None:
 
     response.delete_cookie(
         key="session_token",
+        path="/api",
         secure=True,
         httponly=True,
         samesite="lax",
