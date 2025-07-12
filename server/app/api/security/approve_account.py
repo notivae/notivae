@@ -53,6 +53,6 @@ async def account_approval_via_token(
     user.is_approved = True
     await session.commit()
 
-    logger.info("account god approved", user=user.id)
+    logger.info("account got approved", user=user.id)
 
     return { 'success': True }  # todo: better success handling

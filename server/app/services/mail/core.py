@@ -24,7 +24,7 @@ jinja_env = jinja2.Environment(
         if SETTINGS.MAIL and SETTINGS.MAIL.TEMPLATES_DIR
         else TEMPLATE_DIR,
     ),
-    autoescape=jinja2.select_autoescape(['html', 'xml']),
+    autoescape=jinja2.select_autoescape([".html.j2"]),
     enable_async=True,
 )
 
