@@ -1,12 +1,20 @@
 # 🔐 Authentication
 
-Notivae offers a flexible and self-contained authentication system, giving you full control over user data and login flows. It supports both traditional account-based login and external [OAuth/OIDC identity providers](#oauth--oidc-authentication).
+Notivae offers a flexible and self-contained authentication system, giving you full control over user data and login flows. It supports both traditional account-based login and external [OAuth/OIDC identity providers](#oauth-oidc-authentication), as well as passwordless login via [Magic-Link](./magic-link.md).
 
-## Username Support
+## Supported Authentication Methods
 
-Users can log in using either:
+Users can authenticate using one or more of the following methods:
 
-* Email address
+- [Password-based Authentication](./password.md) — traditional username/email + password login
+- [OAuth/OIDC providers](#oauth-oidc-authentication) — login via third-party services (e.g., GitHub, Discord)
+- [Magic-Link](./magic-link.md) — passwordless login via email
+
+## Password-based login
+
+If using password-based login, users can log in using either:
+
+* Their **email address**
 * Or a unique **username** (set during sign-up)
 
 For email/password login details, refer to [Password-based Authentication](./password.md).
@@ -37,15 +45,15 @@ Supported providers include:
 > OIDC_DISPLAY_NAME="Discord"
 > ```
 
-### Setup Example (GitLab)
-
-```dotenv
-GITLAB_CLIENT_ID=your-client-id
-GITLAB_CLIENT_SECRET=your-client-secret
-GITLAB_ISSUER=https://gitlab.example.com/.well-known/openid-configuration
-```
-
 More providers will be documented with exact values and setup instructions once the integration layer stabilizes.
+
+## Magic-Link Authentication
+
+Magic-Link enables passwordless login through a secure link sent to the user's email address. This method is ideal for simplifying the login experience and reducing reliance on passwords.
+
+- Can be used to **register new accounts**
+- Can also be **linked to existing accounts** as an additional login method
+- See the [Magic-Link Authentication Guide](./magic-link.md) for setup and behavior details
 
 ## System Management
 
