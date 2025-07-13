@@ -18,6 +18,7 @@ router = APIRouter()
 class UserMeResponse(pydantic.BaseModel):
     id: uuid.UUID
     email: pydantic.EmailStr
+    email_verified: bool
     name: str
     display_name: t.Optional[str]
 
