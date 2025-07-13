@@ -15,6 +15,7 @@ router = APIRouter()
 class AuthFeatures(BaseModel):
     local: bool
     oidc: bool
+    magic_link: bool
 
 
 class ServicesFeatures(BaseModel):
@@ -35,8 +36,9 @@ async def get_features():
     """
     return FeaturesResponse(
         auth=AuthFeatures(
-            local=SETTINGS.AUTH_LOCAL.ENABLED,
+            local=SETTINGS.AUTH_LOCAL is not None and SETTINGS.AUTH_LOCAL.ENABLED,
             oidc=SETTINGS.OIDC is not None,
+            magic_link=SETTINGS.MAGIC_LINK is not None and SETTINGS.MAGIC_LINK.ENABLED,
         ),
         services=ServicesFeatures(
             mail=MAIL_SUPPORTED,
