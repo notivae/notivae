@@ -11,7 +11,7 @@ __all__ = ["AuthLocalSettings"]
 
 class AuthLocalSettings(BaseSettings):
     ENABLED: bool = Field(
-        default=True,
+        default=...,
         description="Whether to enable password based authentication.",
     )
 

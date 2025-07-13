@@ -11,7 +11,7 @@ __all__ = ["MagicLinkSettings"]
 
 class MagicLinkSettings(BaseSettings):
     ENABLED: bool = Field(
-        default=True,
+        default=...,
         description="Whether to enable magic-link authentication.",
     )
 
