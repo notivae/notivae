@@ -25,7 +25,6 @@ services:
     env_file: .env.dev
     volumes:
       - ./web:/app
-      - /app/node_modules
 
   postgres:
     image: postgres

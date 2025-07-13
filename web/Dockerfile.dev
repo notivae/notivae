@@ -5,8 +5,8 @@ FROM node:${NODE_VERSION}-slim
 
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
-RUN npm install
+COPY package*.json ./
+RUN npm clean-install
 
 COPY . /app
 
