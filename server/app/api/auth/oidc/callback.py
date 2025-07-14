@@ -10,11 +10,11 @@ import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import SETTINGS, AccountCreationMode
 from app.core.dependencies import get_current_user_optional, get_async_session
-from app.core.security.session import generate_session_token, hash_session_token
+from app.core.security.auth_session import generate_session_token, hash_session_token
 from app.core.security import oidc
 from app.core.util import get_client_ip
 from app.core.structures.oidc import OpenIdToken, OpenIdUserInfo
-from app.db.models import User, Session, AuthIdentity
+from app.db.models import User, AuthSession, AuthIdentity
 from app.core.reusables.verification_mail import send_verification_email
 from app.core.reusables.account_approval import send_admin_account_approval_email
 from ._common import decode_state
@@ -149,13 +149,13 @@ async def oidc_callback(
 
     session_token = generate_session_token()
 
-    access_session = Session(
+    auth_session = AuthSession(
         user_id=user.id,
         hashed_token=hash_session_token(session_token=session_token),
         user_agent=request.headers.get("User-Agent"),
         ip_address=get_client_ip(request=request),
     )
-    session.add(access_session)
+    session.add(auth_session)
     await session.commit()
 
     response = RedirectResponse(url=state.next_url)
@@ -163,7 +163,7 @@ async def oidc_callback(
     response.set_cookie(
         key="session_token",
         value=session_token,
-        expires=access_session.expires_at,
+        expires=auth_session.expires_at,
         path="/api",
         secure=True,
         httponly=True,

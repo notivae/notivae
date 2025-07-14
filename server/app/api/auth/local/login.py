@@ -7,9 +7,9 @@ import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel, Field
 from app.core.dependencies import get_async_session, get_current_user_optional
-from app.db.models import User, AuthIdentity, Session
+from app.db.models import User, AuthIdentity, AuthSession
 from app.core.security.passwords import verify_password
-from app.core.security.session import generate_session_token, hash_session_token
+from app.core.security.auth_session import generate_session_token, hash_session_token
 from app.core.util import get_client_ip
 from ._common import AuthLocalIdentityContext
 
@@ -58,19 +58,19 @@ async def auth_local_login(
 
     session_token = generate_session_token()
 
-    access_session = Session(
+    auth_session = AuthSession(
         user_id=identity.user_id,
         hashed_token=hash_session_token(session_token=session_token),
         user_agent=request.headers.get("User-Agent"),
         ip_address=get_client_ip(request=request),
     )
-    session.add(access_session)
+    session.add(auth_session)
     await session.commit()
 
     response.set_cookie(
         key="session_token",
         value=session_token,
-        expires=access_session.expires_at,
+        expires=auth_session.expires_at,
         path="/api",
         secure=True,
         httponly=True,

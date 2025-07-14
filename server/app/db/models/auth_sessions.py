@@ -7,11 +7,11 @@ import sqlalchemy as sql
 from ..base import Base
 
 
-__all__ = ['Session']
+__all__ = ['AuthSession']
 
 
-class Session(Base):
-    __tablename__ = "sessions"
+class AuthSession(Base):
+    __tablename__ = "auth_sessions"
 
     id = sql.Column(sql.Integer, primary_key=True, autoincrement=True)
     user_id = sql.Column(sql.Uuid, sql.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)

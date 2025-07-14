@@ -12,9 +12,9 @@ import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.util import get_client_ip
 from app.core.dependencies import get_async_session, get_current_user_optional
-from app.db.models import User, Session
+from app.db.models import User, AuthSession
 from app.core.security.magic_link import parse_magic_link_token
-from app.core.security.session import generate_session_token, hash_session_token
+from app.core.security.auth_session import generate_session_token, hash_session_token
 from app.core.redis import redis_client
 
 
@@ -67,20 +67,20 @@ async def magic_callback(
 
     session_token = generate_session_token()
 
-    access_session = Session(
+    auth_session = AuthSession(
         user_id=user.id,
         hashed_token=hash_session_token(session_token=session_token),
         user_agent=request.headers.get("User-Agent"),
         ip_address=get_client_ip(request=request),
     )
-    session.add(access_session)
+    session.add(auth_session)
     await session.commit()
 
     response = RedirectResponse(url="/")
     response.set_cookie(
         key="session_token",
         value=session_token,
-        expires=access_session.expires_at,
+        expires=auth_session.expires_at,
         path="/api",
         secure=True,
         httponly=True,

@@ -4,13 +4,13 @@ r"""
 """
 from .auth_identities import AuthIdentity
 from .logs import LogEntry
-from .sessions import Session
+from .auth_sessions import AuthSession
 from .users import User
 
 
 __all__ = [
     'AuthIdentity',
     'LogEntry',
-    'Session',
+    'AuthSession',
     'User',
 ]
