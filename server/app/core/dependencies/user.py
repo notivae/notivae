@@ -3,13 +3,12 @@ r"""
 
 """
 import typing as t
-import datetime as dt
 from fastapi import HTTPException, status, Depends, Cookie
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.models import User, AuthSession
-from ..security.auth_session import hash_session_token
-from .session import get_async_session
+from .async_session import get_async_session
+from .auth_session import get_current_auth_session_optional
 
 
 __all__ = ['get_current_user_optional', 'get_current_user']
@@ -17,20 +16,10 @@ __all__ = ['get_current_user_optional', 'get_current_user']
 
 async def get_current_user_optional(
         session: AsyncSession = Depends(get_async_session),
-        session_token: t.Optional[str] = Cookie(default=None),
+        auth_session: t.Optional[AuthSession] = Depends(get_current_auth_session_optional),
 ) -> t.Optional[User]:
-    if session_token is None:
+    if auth_session is None:
         return None
-
-    session_token_hashed = hash_session_token(session_token)
-
-    stmt = sql.select(AuthSession).where(AuthSession.hashed_token == session_token_hashed)
-    auth_session: AuthSession = await session.scalar(stmt)
-    if auth_session is None or auth_session.revoked or auth_session.expires_at < dt.datetime.now(dt.UTC):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid, expired or revoked session token",
-        )
 
     stmt = sql.select(User).where(User.id == auth_session.user_id)
     user: User = await session.scalar(stmt)
