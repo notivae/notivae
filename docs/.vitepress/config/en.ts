@@ -69,6 +69,7 @@ function sidebar(): DefaultTheme.SidebarItem[] {
                     ]
                 },
                 { text: 'Self-Hosting Guide', link: '/hosting/self-hosting' },
+                { text: 'Security', link: '/hosting/security/' },
             ]
         },
         {

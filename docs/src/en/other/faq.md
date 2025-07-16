@@ -52,6 +52,11 @@ Eventually, yes. Planned features include:
 - Restrict signups to a specific domain or OAuth provider (e.g. GitHub org)
 
 
+## Is my Notivae instance protected against spam or abuse?
+
+Yes. Notivae includes built-in safeguards to help protect your instance from excessive or abusive usage. This includes measures like request limits and temporary blocks for suspicious behavior. If you're self-hosting Notivae and want to learn more, see the [Security documentation](../hosting/security.md).
+
+
 ## Will there be mobile apps?
 
 Probably not. The current web app is being designed as a **Progressive Web App (PWA)** with offline support and responsive layout, which works well on mobile devices.
