@@ -7,7 +7,7 @@ import uuid
 from fastapi import APIRouter, Request, BackgroundTasks, Depends, Body
 import pydantic
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.core.dependencies import get_current_user, get_async_session
+from app.core.dependencies import get_current_user, get_async_session, rate_limited
 from app.core.reusables.verification_mail import send_verification_email
 from app.db.models import User
 
@@ -23,7 +23,11 @@ class UserMeResponse(pydantic.BaseModel):
     display_name: t.Optional[str]
 
 
-@router.get("/me", response_model=UserMeResponse)
+@router.get(
+    path='/me',
+    response_model=UserMeResponse,
+    dependencies=[Depends(rate_limited(capacity=10, refill_rate=10/60))],
+)
 async def get_me(
         user: User = Depends(get_current_user),
 ):
@@ -36,7 +40,11 @@ class UserMePartialRequest(pydantic.BaseModel):
     display_name: t.Optional[str] = None
 
 
-@router.patch("/me", response_model=UserMeResponse)
+@router.patch(
+    path='/me',
+    response_model=UserMeResponse,
+    dependencies=[Depends(rate_limited(capacity=5, refill_rate=5/300))],
+)
 async def patch_me(
         request: Request,
         background_tasks: BackgroundTasks,

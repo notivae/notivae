@@ -11,7 +11,7 @@ from jose import JWTError, ExpiredSignatureError
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.util import get_client_ip
-from app.core.dependencies import get_async_session, get_current_user_optional
+from app.core.dependencies import get_async_session, get_current_user_optional, rate_limited
 from app.db.models import User, AuthSession
 from app.core.security.magic_link import parse_magic_link_token
 from app.core.security.auth_session import generate_session_token, hash_session_token
@@ -22,7 +22,11 @@ router = APIRouter()
 logger = structlog.get_logger()
 
 
-@router.get("/callback", response_class=RedirectResponse)
+@router.get(
+    path='/callback',
+    response_class=RedirectResponse,
+    dependencies=[Depends(rate_limited(capacity=5, refill_rate=5/300))],
+)
 async def magic_callback(
         request: Request,
         session: AsyncSession = Depends(get_async_session),

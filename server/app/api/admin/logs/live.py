@@ -4,9 +4,10 @@ r"""
 """
 import asyncio
 import structlog
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Depends
 from fastapi.responses import StreamingResponse
 from sse_starlette import EventSourceResponse, ServerSentEvent
+from app.core.dependencies import rate_limited
 from app.core.logging import REDIS_CHANNEL
 from app.core.util import get_client_ip
 from app.core.redis import redis_client
@@ -16,7 +17,11 @@ router = APIRouter()
 logger: structlog.BoundLogger = structlog.get_logger()
 
 
-@router.get('/live', response_class=StreamingResponse)
+@router.get(
+    path='/live',
+    response_class=StreamingResponse,
+    dependencies=[Depends(rate_limited(capacity=5, refill_rate=3/60))],
+)
 async def logs_live(
         request: Request,
 ):

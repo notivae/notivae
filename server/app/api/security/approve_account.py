@@ -8,7 +8,7 @@ from pydantic import ValidationError
 from jose import JWTError, ExpiredSignatureError
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.core.dependencies import get_async_session
+from app.core.dependencies import get_async_session, rate_limited
 from app.db.models import User
 from app.core.security.account_approval import parse_account_approval_token
 
@@ -17,7 +17,10 @@ router = APIRouter()
 logger: structlog.BoundLogger = structlog.get_logger()
 
 
-@router.get('/account-approval')
+@router.get(
+    path='/account-approval',
+    dependencies=[Depends(rate_limited(capacity=3, refill_rate=5/60))],
+)
 async def account_approval_via_token(
         session: AsyncSession = Depends(get_async_session),
         token: str = Query(),

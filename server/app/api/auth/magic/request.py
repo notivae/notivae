@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException, status, Request, Body, Depends, Ba
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel
-from app.core.dependencies import get_async_session
+from app.core.dependencies import get_async_session, rate_limited
 from app.db.models import User, AuthIdentity
 from app.core.reusables.magic_link import send_magic_link_email
 
@@ -18,7 +18,11 @@ class MagicRequestRequest(BaseModel):
     email: str
 
 
-@router.post("/request", status_code=status.HTTP_202_ACCEPTED)
+@router.post(
+    path='/request',
+    status_code=status.HTTP_202_ACCEPTED,
+    dependencies=[Depends(rate_limited(capacity=3, refill_rate=3/300))],
+)
 async def magic_request(
         request: Request,
         background_tasks: BackgroundTasks,

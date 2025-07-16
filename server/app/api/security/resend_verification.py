@@ -8,7 +8,7 @@ from jose import JWTError
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel, ValidationError
-from app.core.dependencies import get_async_session, get_current_user_optional
+from app.core.dependencies import get_async_session, get_current_user_optional, rate_limited
 from app.core.security.email_verification import parse_email_verification_token
 from app.services.mail import SUPPORTED as MAIL_SUPPORTED
 from app.core.reusables.verification_mail import send_verification_email
@@ -23,7 +23,11 @@ class ResendVerificationResponse(BaseModel):
     message: str
 
 
-@router.post("/resend-verification", response_model=ResendVerificationResponse)
+@router.post(
+    path='/resend-verification',
+    response_model=ResendVerificationResponse,
+    dependencies=[Depends(rate_limited(capacity=2, refill_rate=2 / 300))],
+)
 async def resend_email_verification(
         request: Request,
         session: AsyncSession = Depends(get_async_session),

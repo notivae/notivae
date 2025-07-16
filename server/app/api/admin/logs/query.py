@@ -11,8 +11,7 @@ from fastapi import APIRouter, Query, Depends
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.models import LogEntry
-from app.core.dependencies import get_async_session
-
+from app.core.dependencies import get_async_session, rate_limited
 
 router = APIRouter()
 logger: structlog.BoundLogger = structlog.get_logger()
@@ -27,7 +26,11 @@ class PydanticLogEntry(pydantic.BaseModel):
     timestamp: dt.datetime
 
 
-@router.get('/query', response_model=t.List[PydanticLogEntry])
+@router.get(
+    path='/query',
+    response_model=t.List[PydanticLogEntry],
+    dependencies=[Depends(rate_limited(capacity=10, refill_rate=10/60))],
+)
 async def logs_query(
         session: AsyncSession = Depends(get_async_session),
         level: int = Query(default=logging.INFO, ge=logging.NOTSET, le=logging.CRITICAL),

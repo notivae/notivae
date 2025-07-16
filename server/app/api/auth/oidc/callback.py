@@ -9,7 +9,7 @@ import httpx
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import SETTINGS, AccountCreationMode
-from app.core.dependencies import get_current_user_optional, get_async_session
+from app.core.dependencies import get_current_user_optional, get_async_session, rate_limited
 from app.core.security.auth_session import generate_session_token, hash_session_token
 from app.core.security import oidc
 from app.core.util import get_client_ip
@@ -36,7 +36,11 @@ class OidcClaims(t.TypedDict):
     preferred_username: str
 
 
-@router.get("/callback", response_class=RedirectResponse)
+@router.get(
+    path='/callback',
+    response_class=RedirectResponse,
+    dependencies=[Depends(rate_limited(capacity=10, refill_rate=10/60))],
+)
 async def oidc_callback(
         request: Request,
         background_tasks: BackgroundTasks,

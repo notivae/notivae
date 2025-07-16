@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException, status, Request, Depends, Body, Ba
 from pydantic import BaseModel, Field, EmailStr
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.core.dependencies import get_async_session, get_current_user_optional
+from app.core.dependencies import get_async_session, get_current_user_optional, rate_limited
 from app.core.security.passwords import hash_password
 from app.db.models import User, AuthIdentity
 from app.config import SETTINGS, AccountCreationMode
@@ -25,7 +25,11 @@ class RegisterRequest(BaseModel):
     email: EmailStr = Field(...)
 
 
-@router.post('/register', status_code=status.HTTP_201_CREATED)
+@router.post(
+    path='/register',
+    status_code=status.HTTP_201_CREATED,
+    dependencies=[Depends(rate_limited(capacity=3, refill_rate=3/300))],
+)
 async def auth_local_register(
         request: Request,
         background_tasks: BackgroundTasks,

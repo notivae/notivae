@@ -2,9 +2,10 @@
 r"""
 
 """
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from app.config import SETTINGS, AccountCreationMode
+from app.core.dependencies import rate_limited
 from app.services.mail import SUPPORTED as MAIL_SUPPORTED
 from app.services.virus_scanning import SUPPORTED as VIRUS_SCANNING_SUPPORTED
 
@@ -29,7 +30,11 @@ class FeaturesResponse(BaseModel):
     account_creation: AccountCreationMode
 
 
-@router.get("/features", response_model=FeaturesResponse)
+@router.get(
+    path='/features',
+    response_model=FeaturesResponse,
+    dependencies=[Depends(rate_limited(capacity=20, refill_rate=20/60))],
+)
 async def get_features():
     r"""
     fetch which features are supported

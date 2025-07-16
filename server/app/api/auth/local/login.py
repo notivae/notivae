@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException, status, Depends, Body, Request, Re
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel, Field
-from app.core.dependencies import get_async_session, get_current_user_optional
+from app.core.dependencies import get_async_session, get_current_user_optional, rate_limited
 from app.db.models import User, AuthIdentity, AuthSession
 from app.core.security.passwords import verify_password
 from app.core.security.auth_session import generate_session_token, hash_session_token
@@ -22,7 +22,11 @@ class LoginRequest(BaseModel):
     password: str = Field(...)
 
 
-@router.post('/login', status_code=status.HTTP_204_NO_CONTENT)
+@router.post(
+    path='/login',
+    status_code=status.HTTP_204_NO_CONTENT,
+    dependencies=[Depends(rate_limited(capacity=5, refill_rate=5/60))],
+)
 async def auth_local_login(
         request: Request,
         response: Response,

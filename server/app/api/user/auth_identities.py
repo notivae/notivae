@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends
 import pydantic
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.core.dependencies import get_async_session, get_current_user
+from app.core.dependencies import get_async_session, get_current_user, rate_limited
 from app.core.structures.oidc import OpenIdUserInfo
 from app.db.models import User, AuthIdentity
 
@@ -20,7 +20,11 @@ class AuthIdentityResponse(pydantic.BaseModel):
     userinfo: t.Optional[OpenIdUserInfo]
 
 
-@router.get("/auth-identities", response_model=t.List[AuthIdentityResponse])
+@router.get(
+    path='/auth-identities',
+    response_model=t.List[AuthIdentityResponse],
+    dependencies=[Depends(rate_limited(capacity=5, refill_rate=5/60))],
+)
 async def get_auth_identities(
         session: AsyncSession = Depends(get_async_session),
         user: User = Depends(get_current_user)
