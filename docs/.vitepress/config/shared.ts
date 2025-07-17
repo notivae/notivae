@@ -1,4 +1,6 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from "vitepress";
+import { groupIconMdPlugin, groupIconVitePlugin } from "vitepress-plugin-group-icons";
+
 
 // https://vitepress.dev/reference/site-config
 export const shared = defineConfig({
@@ -16,13 +18,16 @@ export const shared = defineConfig({
   metaChunk: true,
   ignoreDeadLinks: 'localhostLinks',
   markdown: {
+    config(md) {
+      md.use(groupIconMdPlugin);
+    },
     image: {
       lazyLoading: true,
     },
   },
 
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     ['meta', { name: 'theme-color', content: '#ffffff' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:locale', content: 'en' }],
@@ -47,5 +52,11 @@ export const shared = defineConfig({
     search: {
       provider: 'local',
     },
+  },
+
+  vite: {
+    plugins: [
+        groupIconVitePlugin(),
+    ],
   },
 });
