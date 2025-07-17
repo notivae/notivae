@@ -74,7 +74,7 @@ Docker will automatically download any required images on the first run. This ma
 
 After a few seconds, run this command in your terminal:
 
-```
+```bash
 curl http://localhost:8765/healtz
 ```
 
