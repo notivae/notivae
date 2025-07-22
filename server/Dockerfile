@@ -43,5 +43,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
 
 EXPOSE 80
 
+ENV WEB_CONCURRENCY=4
+
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["uvicorn", "--host", "0.0.0.0", "--port", "80", "app.main:app"]
