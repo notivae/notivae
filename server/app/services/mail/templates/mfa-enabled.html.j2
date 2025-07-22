@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Multi-Factor Authentication Enabled</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            padding: 1.25rem;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 1.25rem;
+        }
+        .logo img {
+            max-width: 10rem;
+            height: auto;
+        }
+        .container {
+            background: #ffffff;
+            padding: 2rem;
+            max-width: 40rem;
+            margin: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 0.5rem rgba(0,0,0,0.1);
+        }
+        .recipient-note {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.85em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    {% if logo_url %}
+    <div class="logo">
+        <img src="{{ logo_url }}" alt="Logo">
+    </div>
+    {% endif %}
+
+    <div class="container">
+        <h2>Multi-Factor Authentication Enabled</h2>
+
+        <p>Hello {{ display_name | default(username) | default("there") }},</p>
+
+        <p>We wanted to let you know that Multi-Factor Authentication (MFA) has been successfully enabled on your account.</p>
+
+        <p>From now on, signing in will require both your password and a verification code from your configured authenticator device.</p>
+
+        <p>If you did not make this change, please secure your account immediately.</p>
+    </div>
+
+    {% if recipient_email %}
+    <div class="recipient-note">
+        This email was sent to <a href="mailto:{{ recipient_email }}">{{ recipient_email }}</a>.
+    </div>
+    {% endif %}
+
+</body>
+</html>

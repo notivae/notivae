@@ -20,6 +20,8 @@ class AuthIdentity(Base):
     userinfo = sql.Column(sql.JSON, nullable=True)
     context = sql.Column(sql.JSON, nullable=True)
 
+    created_at = sql.Column(sql.DateTime(timezone=True), nullable=False, server_default=sql.func.now())
+
     __table_args__ = (
         sql.UniqueConstraint("user_id", "provider", "provider_user_id"),
     )

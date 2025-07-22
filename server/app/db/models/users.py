@@ -22,4 +22,4 @@ class User(Base):
     is_approved = sql.Column(sql.Boolean, nullable=False, default=False)
     is_system_admin = sql.Column(sql.Boolean, nullable=False, default=False)
 
-    created_at = sql.Column(sql.DateTime(timezone=True), server_default=sql.func.now())
+    created_at = sql.Column(sql.DateTime(timezone=True), nullable=False, server_default=sql.func.now())

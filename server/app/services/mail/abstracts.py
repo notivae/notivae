@@ -14,6 +14,7 @@ __all__ = [
     'TestParameters', 'send_test_email',
     'MailVerificationParameters', 'send_verification_email',
     'MagicLinkParameters', 'send_magic_link_email',
+    'MFAEnabledParameters', 'send_mfa_enabled_email',
     'AdminAccountApprovalParameters', 'send_admin_account_approval_email',
 ]
 
@@ -93,6 +94,28 @@ async def send_magic_link_email(
         template="magic-link.html.j2",
         to=to,
         subject="Magic Link",
+        parameters=parameters,
+        request=request,
+    )
+
+
+# ------------------------------------------------------------------------------
+
+
+class MFAEnabledParameters(BaseModel):
+    username: str
+    display_name: t.Optional[str]
+
+
+async def send_mfa_enabled_email(
+        to: TO,
+        parameters: MFAEnabledParameters,
+        request: Request = None,
+):
+    await _send_mail(
+        template="mfa-enabled.html.j2",
+        to=to,
+        subject="Multi-Factor Authentication Enabled",
         parameters=parameters,
         request=request,
     )

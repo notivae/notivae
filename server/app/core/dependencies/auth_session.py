@@ -12,6 +12,9 @@ from app.core.security.auth_session import hash_session_token
 from .async_session import get_async_session
 
 
+__all__ = ['get_current_auth_session_optional', 'get_current_auth_session']
+
+
 async def get_current_auth_session_optional(
         session: AsyncSession = Depends(get_async_session),
         session_token: t.Optional[str] = Cookie(default=None),
@@ -29,4 +32,15 @@ async def get_current_auth_session_optional(
             detail="Invalid, expired or revoked session token",
         )
 
+    return auth_session
+
+
+async def get_current_auth_session(
+        auth_session: t.Optional[AuthSession] = Depends(get_current_auth_session_optional),
+) -> AuthSession:
+    if auth_session is None:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Missing session token",
+        )
     return auth_session

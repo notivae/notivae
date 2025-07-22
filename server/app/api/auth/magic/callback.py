@@ -12,7 +12,7 @@ import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.util import get_client_ip
 from app.core.dependencies import get_async_session, get_current_user_optional, rate_limited
-from app.db.models import User, AuthSession
+from app.db.models import User, AuthSession, MFACredentials
 from app.core.security.magic_link import parse_magic_link_token
 from app.core.security.auth_session import generate_session_token, hash_session_token
 from app.core.redis import redis_client
@@ -69,6 +69,9 @@ async def magic_callback(
             detail="User not found",
         )
 
+    stmt = sql.select(MFACredentials).where(MFACredentials.user_id == user.id)
+    mfa_credentials: MFACredentials = await session.scalar(stmt)  # one is enough
+
     session_token = generate_session_token()
 
     auth_session = AuthSession(
@@ -76,6 +79,7 @@ async def magic_callback(
         hashed_token=hash_session_token(session_token=session_token),
         user_agent=request.headers.get("User-Agent"),
         ip_address=get_client_ip(request=request),
+        is_mfa_authenticated=False if mfa_credentials else None,
     )
     session.add(auth_session)
     await session.commit()

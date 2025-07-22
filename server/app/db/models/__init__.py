@@ -3,14 +3,18 @@ r"""
 
 """
 from .auth_identities import AuthIdentity
-from .logs import LogEntry
 from .auth_sessions import AuthSession
+from .backup_codes import BackupCode
+from .logs import LogEntry
+from .mfa_credentials import MFACredentials
 from .users import User
 
 
 __all__ = [
     'AuthIdentity',
-    'LogEntry',
     'AuthSession',
+    'BackupCode',
+    'LogEntry',
+    'MFACredentials',
     'User',
 ]

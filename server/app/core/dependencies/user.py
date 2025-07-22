@@ -21,6 +21,12 @@ async def get_current_user_optional(
     if auth_session is None:
         return None
 
+    if auth_session.is_mfa_authenticated == False:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Auth Session requires MFA authentication",
+        )
+
     stmt = sql.select(User).where(User.id == auth_session.user_id)
     user: User = await session.scalar(stmt)
     if user is None:

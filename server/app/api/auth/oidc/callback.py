@@ -14,7 +14,7 @@ from app.core.security.auth_session import generate_session_token, hash_session_
 from app.core.security import oidc
 from app.core.util import get_client_ip
 from app.core.structures.oidc import OpenIdToken, OpenIdUserInfo
-from app.db.models import User, AuthSession, AuthIdentity
+from app.db.models import User, AuthSession, AuthIdentity, MFACredentials
 from app.core.reusables.verification_mail import send_verification_email
 from app.core.reusables.account_approval import send_admin_account_approval_email
 from ._common import decode_state
@@ -146,10 +146,8 @@ async def oidc_callback(
         session.add(auth_identity)
         await session.commit()
 
-    if user is None:
-        # -- login --
-        stmt = sql.select(User).where(User.id == auth_identity.user_id)
-        user = await session.scalar(stmt)
+    stmt = sql.select(MFACredentials).where(MFACredentials.user_id == auth_identity.id)
+    mfa_credentials: MFACredentials = await session.scalar(stmt)  # one is enough
 
     session_token = generate_session_token()
 
@@ -158,6 +156,7 @@ async def oidc_callback(
         hashed_token=hash_session_token(session_token=session_token),
         user_agent=request.headers.get("User-Agent"),
         ip_address=get_client_ip(request=request),
+        is_mfa_authenticated=False if mfa_credentials else None,
     )
     session.add(auth_session)
     await session.commit()
