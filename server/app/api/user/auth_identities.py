@@ -15,14 +15,14 @@ from app.db.models import User, AuthIdentity
 router = APIRouter()
 
 
-class AuthIdentityResponse(pydantic.BaseModel):
+class AuthIdentityResponseItem(pydantic.BaseModel):
     provider: str
     userinfo: t.Optional[OpenIdUserInfo]
 
 
 @router.get(
     path='/auth-identities',
-    response_model=t.List[AuthIdentityResponse],
+    response_model=t.List[AuthIdentityResponseItem],
     dependencies=[Depends(rate_limited(capacity=5, refill_rate=5/60))],
 )
 async def get_auth_identities(

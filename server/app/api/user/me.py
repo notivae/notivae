@@ -50,19 +50,19 @@ async def patch_me(
         background_tasks: BackgroundTasks,
         session: AsyncSession = Depends(get_async_session),
         user: User = Depends(get_current_user),
-        changed: UserMePartialRequest = Body()
+        changes: UserMePartialRequest = Body()
 ):
-    if 'email' in changed.model_fields_set:
-        user.email = changed.email
+    if 'email' in changes.model_fields_set:
+        user.email = changes.email
         user.email_verified = False
-    if 'name' in changed.model_fields_set:
-        user.name = changed.name
-    if 'display_name' in changed.model_fields_set:
-        user.display_name = changed.display_name
+    if 'name' in changes.model_fields_set:
+        user.name = changes.name
+    if 'display_name' in changes.model_fields_set:
+        user.display_name = changes.display_name
     await session.commit()
     await session.refresh(user)
 
-    if 'email' in changed.model_fields_set:
+    if 'email' in changes.model_fields_set:
         background_tasks.add_task(send_verification_email, request=request, user=user)
 
     return user

@@ -54,7 +54,7 @@
     <div class="container">
         <h2>Login Instantly</h2>
 
-        <p>Hello {{ display_name | default(username) }},</p>
+        <p>Hello {{ display_name | default(username) | default("there") }},</p>
 
         <p>You requested to log in using a magic link.</p>
 
