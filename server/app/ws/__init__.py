@@ -2,10 +2,15 @@
 r"""
 
 """
+import typing as t
 import asyncio
 import structlog
-from fastapi import APIRouter, WebSocket, status, WebSocketDisconnect
+from fastapi import APIRouter, WebSocket, WebSocketException, status, WebSocketDisconnect, Cookie
+import sqlalchemy as sql
 from app.core.redis import redis_client, PubSubMessage
+from app.db.session import AsyncSessionLocal
+from app.db.models import AuthSession
+from app.core.security.auth_session import hash_session_token
 
 
 router = APIRouter()
@@ -15,14 +20,29 @@ logger = structlog.get_logger()
 @router.websocket(path='/api/ws')
 async def websocket_endpoint(
         websocket: WebSocket,
+        session_token: t.Optional[str] = Cookie(default=None),
 ):
     logger.info(f"websocket connection opened")
+
     await websocket.accept()
 
-    # todo: authenticate
-    if False:
-        await websocket.close(code=status.WS_1008_POLICY_VIOLATION, reason="Missing authentication")
-        return
+    if session_token is None:
+        raise WebSocketException(
+            code=status.WS_1008_POLICY_VIOLATION,
+            reason="Missing session token",
+        )
+
+    session_token_hashed = hash_session_token(session_token)
+
+    # not via `Depends` as the dependency would keep the db-connection open for longer than needed
+    async with AsyncSessionLocal() as session:
+        stmt = sql.select(AuthSession).where(AuthSession.hashed_token == session_token_hashed)
+        auth_session: AuthSession = await session.scalar(stmt)
+        if not AuthSession.is_valid(auth_session):
+            raise WebSocketException(
+                code=status.WS_1008_POLICY_VIOLATION,
+                reason="Invalid session token",
+            )
 
     listener = asyncio.create_task(websocket_listener(websocket=websocket))
     sender = asyncio.create_task(websocket_sender(websocket=websocket))
@@ -40,9 +60,7 @@ async def websocket_endpoint(
             exc = task.exception()
             if exc:
                 logger.error(f"websocket closed unexpectedly ({type(exc)}: {exc})", exc_info=exc)
-        await websocket.close(code=status.WS_1011_INTERNAL_ERROR, reason="critical error")
-    else:
-        await websocket.close(code=status.WS_1000_NORMAL_CLOSURE, reason="WebSocket lifecycle end")
+        raise WebSocketException(code=status.WS_1011_INTERNAL_ERROR, reason="critical error")
 
 
 async def websocket_listener(websocket: WebSocket):
