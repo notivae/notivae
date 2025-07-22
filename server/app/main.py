@@ -13,6 +13,7 @@ from app.lifespan import lifespan
 from app.exception_handlers import register_exception_handlers
 
 from app.api import router as api_router
+from app.ws import router as ws_router
 
 
 app = fastapi.FastAPI(
@@ -36,6 +37,7 @@ app.add_middleware(
     compresslevel=SETTINGS.GZIP.LEVEL,
 )
 app.include_router(api_router)
+app.include_router(ws_router)
 
 
 class HealthResponse(pydantic.BaseModel):
