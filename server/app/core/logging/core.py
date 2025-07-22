@@ -6,6 +6,7 @@ import json
 import asyncio
 import logging
 import typing as t
+from functools import cache
 from fastapi.encoders import jsonable_encoder
 from app.db.session import AsyncSessionLocal
 from app.db.models import LogEntry
@@ -71,10 +72,15 @@ def log_processor(_logger, method: str, event_dict: dict) -> dict:
             message=event_dict['event'],
             context=jsonable_encoder(event_dict, exclude=EXCLUDE_CONTEXT),
         )
-        if SETTINGS.LOGGING.TO_DB:
+        if level >= log_to_db_level():
             asyncio.create_task(log_to_db(data))
         asyncio.create_task(log_to_redis(data))
     except Exception as e:
         fallback_logger.error("Failed to enqueue log-entry", exc_info=e)
 
     return event_dict
+
+
+@cache
+def log_to_db_level() -> int:
+    return NAME2LEVEL.get(SETTINGS.LOGGING.TO_DB.lower(), logging.NOTSET)

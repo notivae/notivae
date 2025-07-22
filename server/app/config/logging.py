@@ -10,9 +10,12 @@ from pydantic import Field
 __all__ = ["LoggingSettings"]
 
 
+LogLevel: t.TypeAlias = t.Literal['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
+
+
 class LoggingSettings(BaseSettings):
 
-    LEVEL: t.Literal['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'] = Field(
+    LEVEL: LogLevel = Field(
         default='INFO',
         description="Minimum severity of messages to log",
     )
@@ -22,9 +25,9 @@ class LoggingSettings(BaseSettings):
         description="Output format for logs: human-readable ('console') or structured ('json')",
     )
 
-    TO_DB: bool = Field(
-        default=True,
-        description="If true, logs will also be persisted to the database",
+    TO_DB: LogLevel = Field(
+        default='WARNING',
+        description="logs with this or higher level will also be persisted to the database",
     )
 
 

@@ -29,7 +29,7 @@ def setup_logging(settings: LoggingSettings):
     structlog.configure(
         processors=processors,
         context_class=dict,
-        wrapper_class=structlog.make_filtering_bound_logger(min_level=settings.LEVEL.lower()),
+        wrapper_class=structlog.make_filtering_bound_logger(min_level=settings.LEVEL),
         logger_factory=structlog.stdlib.LoggerFactory(),
         cache_logger_on_first_use=True,
     )
