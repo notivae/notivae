@@ -2,7 +2,10 @@
 r"""
 
 """
+import datetime as dt
 import sqlalchemy as sql
+from sqlalchemy.orm import Mapped, mapped_column
+from uuid import UUID
 from ..base import Base
 
 
@@ -12,9 +15,9 @@ __all__ = ['MFACredentials']
 class MFACredentials(Base):
     __tablename__ = "mfa_credentials"
 
-    user_id = sql.Column(sql.Uuid, sql.ForeignKey("users.id", ondelete="CASCADE"), primary_key=True, nullable=False)
-    method = sql.Column(sql.String, primary_key=True, nullable=False)
-    secret = sql.Column(sql.String, nullable=True)
-    confirmed = sql.Column(sql.Boolean, nullable=False, default=False)
+    user_id: Mapped[UUID] = mapped_column(sql.Uuid, sql.ForeignKey("users.id", ondelete="CASCADE"), primary_key=True, nullable=False)
+    method: Mapped[str] = mapped_column(sql.String, primary_key=True, nullable=False)
+    secret: Mapped[str] = mapped_column(sql.String, nullable=True)
+    confirmed: Mapped[bool] = mapped_column(sql.Boolean, nullable=False, default=False)
 
-    created_at = sql.Column(sql.DateTime(timezone=True), nullable=False, server_default=sql.func.now())
+    created_at: Mapped[dt.datetime] = mapped_column(sql.DateTime(timezone=True), nullable=False, server_default=sql.func.now())
