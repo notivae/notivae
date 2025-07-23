@@ -7,6 +7,7 @@ from app.config import SETTINGS
 from .admin import router as admin_router
 from .auth import router as auth_router
 from .features import router as features_router
+from .notifications import router as notifications_router
 from .security import router as security_router
 from .user import router as user_router
 
@@ -15,6 +16,7 @@ router = APIRouter(prefix="/api")
 router.include_router(admin_router)
 router.include_router(auth_router)
 router.include_router(features_router)
+router.include_router(notifications_router)
 router.include_router(security_router)
 router.include_router(user_router)
 
