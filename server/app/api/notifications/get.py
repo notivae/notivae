@@ -32,8 +32,8 @@ async def get_notifications(
 
     stmt = sql.select(Notification)\
         .where(
-            Notification.recipient_id == auth_session.user_id,
-            sql.or_(Notification.expires_at == None, Notification.expires_at > now),
+            Notification.recipient_id is auth_session.user_id,
+            sql.or_(Notification.expires_at.is_(None), Notification.expires_at > now),
         )\
         .order_by(Notification.created_at.desc()) \
         .offset(offset) \

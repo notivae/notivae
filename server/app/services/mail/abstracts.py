@@ -19,8 +19,9 @@ __all__ = [
 ]
 
 
-async def _send_mail(template: str, to: TO, subject: str, parameters: BaseModel, request: Request = None):
-    if not SUPPORTED: return
+async def _send_mail(template: str, to: TO, subject: str, parameters: BaseModel, request: Request = None) -> None:
+    if not SUPPORTED:
+        return
 
     context = parameters.model_dump()
     if request is not None:
@@ -43,7 +44,7 @@ async def send_test_email(
         to: TO,
         parameters: TestParameters,
         request: Request = None,
-):
+) -> None:
     await _send_mail(
         template="test.html.j2",
         to=to,
@@ -66,7 +67,7 @@ async def send_verification_email(
         to: TO,
         parameters: MailVerificationParameters,
         request: Request = None,
-):
+) -> None:
     await _send_mail(
         template="mail-verification.html.j2",
         to=to,
@@ -89,7 +90,7 @@ async def send_magic_link_email(
         to: TO,
         parameters: MagicLinkParameters,
         request: Request = None,
-):
+) -> None:
     await _send_mail(
         template="magic-link.html.j2",
         to=to,
@@ -111,7 +112,7 @@ async def send_mfa_enabled_email(
         to: TO,
         parameters: MFAEnabledParameters,
         request: Request = None,
-):
+) -> None:
     await _send_mail(
         template="mfa-enabled.html.j2",
         to=to,
@@ -135,7 +136,7 @@ async def send_admin_account_approval_email(
         to: TO,
         parameters: AdminAccountApprovalParameters,
         request: Request = None,
-):
+) -> None:
     await _send_mail(
         template="admin-account-approval.html.j2",
         to=to,

@@ -30,7 +30,7 @@ def rate_limited(*, capacity: int, refill_rate: float, group: str = None):
         if is_limited:
             raise HTTPException(
                 status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-                detail=f"Rate limit exceeded",
+                detail="Rate limit exceeded",
                 headers=headers,
             )
         response.headers.update(headers)

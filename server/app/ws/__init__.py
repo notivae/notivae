@@ -22,7 +22,7 @@ async def websocket_endpoint(
         websocket: WebSocket,
         session_token: t.Optional[str] = Cookie(default=None),
 ):
-    logger.info(f"websocket connection opened")
+    logger.info("websocket connection opened")
 
     await websocket.accept()
 
@@ -67,7 +67,7 @@ async def websocket_listener(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_text()  # todo: validate against pydantic classes
-            await redis_client.publish(f"ws:data", data)  # todo: adjust channel
+            await redis_client.publish("ws:data", data)  # todo: adjust channel
     except WebSocketDisconnect:
         pass
 

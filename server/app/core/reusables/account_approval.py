@@ -19,7 +19,7 @@ logger: structlog.BoundLogger = structlog.get_logger()
 
 async def send_admin_account_approval_email(request: Request, user: User):
     async with AsyncSessionLocal() as session:
-        stmt = sql.select(User).where(User.is_system_admin == True)
+        stmt = sql.select(User).where(User.is_system_admin.is_(True))
         admin_accounts: t.Iterable[User] = await session.scalars(stmt)
         to = [admin.email for admin in admin_accounts]
         if not to:

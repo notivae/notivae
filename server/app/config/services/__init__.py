@@ -2,4 +2,3 @@
 r"""
 
 """
-from .mail import MailSettings

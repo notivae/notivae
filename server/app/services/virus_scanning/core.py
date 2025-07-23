@@ -17,7 +17,8 @@ def _get_client() -> ClamAVAsyncClient:
 
 
 async def scan_abuffer(buffer: AsyncReadableBuffer) -> ScanResult:
-    if not SUPPORTED: raise RuntimeError("No MAIL configured")
+    if not SUPPORTED:
+        raise RuntimeError("No MAIL configured")
 
     client = _get_client()
     return await client.scan_abuffer(buffer=buffer)

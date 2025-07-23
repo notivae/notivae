@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
 
 from app.db.base import Base
-from app.db import models  # noqa: ensure loading
+import app.db.models  # noqa: F401
 from app.config import SETTINGS
 
 # this is the Alembic Config object, which provides

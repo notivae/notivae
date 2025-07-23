@@ -4,7 +4,7 @@ r"""
 """
 import typing as t
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import Field, IPvAnyAddress, DirectoryPath
+from pydantic import Field, DirectoryPath
 
 
 __all__ = ["ServerSettings"]

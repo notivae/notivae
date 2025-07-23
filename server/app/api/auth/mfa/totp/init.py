@@ -41,7 +41,7 @@ async def mfa_totp_init(
             )
         await session.delete(existing)
 
-    stmt = sql.select(BackupCode).where(BackupCode.user_id == user.id, BackupCode.used != True)
+    stmt = sql.select(BackupCode).where(BackupCode.user_id == user.id)
     existing: BackupCode = await session.scalar(stmt)
     if not existing:
         raise HTTPException(

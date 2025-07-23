@@ -3,7 +3,7 @@ r"""
 
 """
 import typing as t
-from fastapi import HTTPException, status, Depends, Cookie
+from fastapi import HTTPException, status, Depends
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.models import User, AuthSession
@@ -21,7 +21,7 @@ async def get_current_user_optional(
     if auth_session is None:
         return None
 
-    if auth_session.is_mfa_authenticated == False:
+    if auth_session.is_mfa_authenticated is False:  # None or True allowed
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Auth Session requires MFA authentication",

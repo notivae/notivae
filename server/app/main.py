@@ -2,13 +2,14 @@
 r"""
 
 """
-from app.config import SETTINGS
-from app.core.logging import setup_logging; setup_logging(settings=SETTINGS.LOGGING)
+from app import bootstrap  # noqa: F401
+
 import typing as t
+import pydantic
 import fastapi
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.staticfiles import StaticFiles
-import pydantic
+from app.config import SETTINGS
 from app.lifespan import lifespan
 from app.exception_handlers import register_exception_handlers
 

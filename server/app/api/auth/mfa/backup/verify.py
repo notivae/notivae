@@ -33,12 +33,12 @@ async def mfa_backup_verify(
     if backup_code is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Unknown backup code",
+            detail="Unknown backup code",
         )
     if backup_code.used:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail=f"Backup code is already used",
+            detail="Backup code is already used",
         )
 
     backup_code.used = True

@@ -22,6 +22,7 @@ if SETTINGS.OIDC:
 
 if SETTINGS.MAGIC_LINK and SETTINGS.MAGIC_LINK.ENABLED:
     from app.services.mail import SUPPORTED
-    if not SUPPORTED: raise RuntimeError("Magic requires a working mail service")
+    if not SUPPORTED:
+        raise RuntimeError("Magic requires a working mail service")
     from .magic import router as magic_router
     router.include_router(magic_router)

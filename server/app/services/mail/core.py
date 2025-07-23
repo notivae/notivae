@@ -35,7 +35,8 @@ async def render_template(name: str, context: dict) -> str:
 
 
 async def send_email(to: TO, subject: str, html_body: str):
-    if not SUPPORTED: raise RuntimeError("No MAIL configured")
+    if not SUPPORTED:
+        raise RuntimeError("No MAIL configured")
 
     message = EmailMessage()
     message['From'] = str(SETTINGS.MAIL.FROM)
