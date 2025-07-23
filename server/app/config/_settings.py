@@ -40,13 +40,13 @@ class BackendSettings(BaseSettings):
     GZIP: GzipSettings = Field(default_factory=GzipSettings)
     LOGGING: LoggingSettings = Field(default_factory=LoggingSettings)
 
-    MAIL: t.Optional[MailSettings] = Field(default_factory=make_optional_factory(MailSettings))
-    CLAMAV: t.Optional[ClamAVSettings] = Field(default_factory=make_optional_factory(ClamAVSettings))
+    MAIL: None | MailSettings = Field(default_factory=make_optional_factory(MailSettings))
+    CLAMAV: None | ClamAVSettings = Field(default_factory=make_optional_factory(ClamAVSettings))
 
-    AUTH_LOCAL: AuthLocalSettings = Field(default_factory=make_optional_factory(AuthLocalSettings))
-    MAGIC_LINK: MagicLinkSettings = Field(default_factory=make_optional_factory(MagicLinkSettings))
-    DISCORD: t.Optional[DiscordSettings] = Field(default_factory=make_optional_factory(DiscordSettings))
-    OIDC: t.Optional[OidcSettings] = Field(default_factory=make_optional_factory(OidcSettings))
+    AUTH_LOCAL: None | AuthLocalSettings = Field(default_factory=make_optional_factory(AuthLocalSettings))
+    MAGIC_LINK: None | MagicLinkSettings = Field(default_factory=make_optional_factory(MagicLinkSettings))
+    DISCORD: None | DiscordSettings = Field(default_factory=make_optional_factory(DiscordSettings))
+    OIDC: None | OidcSettings = Field(default_factory=make_optional_factory(OidcSettings))
 
     model_config = SettingsConfigDict(
         env_ignore_empty=True,

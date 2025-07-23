@@ -2,7 +2,6 @@
 r"""
 
 """
-import typing as t
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field, DirectoryPath
 
@@ -16,7 +15,7 @@ class ServerSettings(BaseSettings):
         default="/", pattern="^/",
         description="URL basepath for static files",
     )
-    STATIC_DIR: t.Optional[DirectoryPath] = Field(
+    STATIC_DIR: DirectoryPath | None = Field(
         default=None,
         description="Path to the static folder",
     )

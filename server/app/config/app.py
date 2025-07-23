@@ -4,7 +4,7 @@ r"""
 """
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
-from .enums import AccountCreationMode
+from ._enums import AccountCreationMode
 
 
 __all__ = ["AppSettings"]
