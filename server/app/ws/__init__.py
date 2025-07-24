@@ -3,6 +3,7 @@ r"""
 
 """
 import typing as t
+from uuid import UUID
 import asyncio
 import structlog
 from fastapi import APIRouter, WebSocket, WebSocketException, status, WebSocketDisconnect, Cookie
@@ -44,8 +45,8 @@ async def websocket_endpoint(
                 reason="Invalid session token",
             )
 
-    listener = asyncio.create_task(websocket_listener(websocket=websocket))
-    sender = asyncio.create_task(websocket_sender(websocket=websocket))
+    listener = asyncio.create_task(websocket_listener(websocket=websocket, user_id=auth_session.user_id))
+    sender = asyncio.create_task(websocket_sender(websocket=websocket, user_id=auth_session.user_id))
 
     done, pending = await asyncio.wait(
         [listener, sender],
@@ -63,19 +64,22 @@ async def websocket_endpoint(
         raise WebSocketException(code=status.WS_1011_INTERNAL_ERROR, reason="critical error")
 
 
-async def websocket_listener(websocket: WebSocket):
+async def websocket_listener(websocket: WebSocket, user_id: UUID):
     try:
         while True:
             data = await websocket.receive_text()  # todo: validate against pydantic classes
-            await redis_client.publish("ws:data", data)  # todo: adjust channel
+            await redis_client.publish(f"ws:{user_id}:data", data)  # todo: adjust channel
     except WebSocketDisconnect:
         pass
 
 
-async def websocket_sender(websocket: WebSocket):
+async def websocket_sender(websocket: WebSocket, user_id: UUID):
     try:
         pubsub = redis_client.pubsub()
-        await pubsub.subscribe("ws:data")
+        await asyncio.gather(
+            pubsub.subscribe(f"ws:{user_id}:data"),
+            pubsub.subscribe(f"ws:{user_id}:notifications"),
+        )
         while True:
             message: PubSubMessage = await pubsub.get_message(ignore_subscribe_messages=True, timeout=10)
             if message is None:

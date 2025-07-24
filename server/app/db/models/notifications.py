@@ -19,7 +19,7 @@ class NotificationStatus(enum.Enum):
     archived = "archived"
 
 
-class NotificationCategory:  # not enum
+class NotificationCategory:  # not enum for extensibility
     SYSTEM = "system"
 
 
