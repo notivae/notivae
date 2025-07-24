@@ -32,7 +32,11 @@ export default defineConfig({
     ],
     server: {
         proxy: {
-            '/api': 'http://server:8000',
+            '/api': {
+                target: 'http://server:8000',
+                ws: true,
+                changeOrigin: true,
+            },
         }
     },
     resolve: {
