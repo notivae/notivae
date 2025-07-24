@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Notification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            padding: 1.25rem;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 1.25rem;
+        }
+        .logo img {
+            max-width: 10rem;
+            height: auto;
+        }
+        .container {
+            background: #ffffff;
+            padding: 2rem;
+            max-width: 40rem;
+            margin: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 0.5rem rgba(0,0,0,0.1);
+        }
+        .notification-meta {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 0.5rem;
+        }
+        .recipient-note {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.85em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    {% if logo_url %}
+    <div class="logo">
+        <img src="{{ logo_url }}" alt="Logo">
+    </div>
+    {% endif %}
+
+    <div class="container">
+        <h2>You've Got a New Notification</h2>
+
+        <h3>{{ title }}</h3>
+        <p>{{ message }}</p>
+
+        <p class="notification-meta">Category: {{ category | capitalize }}</p>
+
+        {% if expires_at %}
+        <p class="notification-meta">Expires on: {{ expires_at.strftime('%Y-%m-%d %H:%M %Z') }}</p>
+        {% endif %}
+    </div>
+
+    {% if recipient_email %}
+    <div class="recipient-note">
+        This email was sent to <a href="mailto:{{ recipient_email }}">{{ recipient_email }}</a>.
+    </div>
+    {% endif %}
+
+</body>
+</html>

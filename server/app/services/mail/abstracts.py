@@ -3,6 +3,7 @@ r"""
 
 """
 import typing as t
+import datetime as dt
 from urllib.parse import urljoin
 from pydantic import BaseModel, HttpUrl, EmailStr
 from fastapi import Request
@@ -15,6 +16,7 @@ __all__ = [
     'MailVerificationParameters', 'send_verification_email',
     'MagicLinkParameters', 'send_magic_link_email',
     'MFAEnabledParameters', 'send_mfa_enabled_email',
+    'NewNotificationParameters', 'send_new_notification_email',
     'AdminAccountApprovalParameters', 'send_admin_account_approval_email',
 ]
 
@@ -117,6 +119,30 @@ async def send_mfa_enabled_email(
         template="mfa-enabled.html.j2",
         to=to,
         subject="Multi-Factor Authentication Enabled",
+        parameters=parameters,
+        request=request,
+    )
+
+
+# ------------------------------------------------------------------------------
+
+
+class NewNotificationParameters(BaseModel):
+    title: str
+    message: str
+    category: str
+    expires_at: dt.datetime | None
+
+
+async def send_new_notification_email(
+        to: TO,
+        parameters: NewNotificationParameters,
+        request: Request = None,
+) -> None:
+    await _send_mail(
+        template="new-notification.html.j2",
+        to=to,
+        subject="New Notification",
         parameters=parameters,
         request=request,
     )

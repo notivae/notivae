@@ -8,6 +8,7 @@ from .abstracts import (
     MailVerificationParameters, send_verification_email,
     MagicLinkParameters, send_magic_link_email,
     MFAEnabledParameters, send_mfa_enabled_email,
+    NewNotificationParameters, send_new_notification_email,
     AdminAccountApprovalParameters, send_admin_account_approval_email,
 )
 
@@ -18,5 +19,6 @@ __all__ = [
     'MailVerificationParameters', 'send_verification_email',
     'MagicLinkParameters', 'send_magic_link_email',
     'MFAEnabledParameters', 'send_mfa_enabled_email',
+    'NewNotificationParameters', 'send_new_notification_email',
     'AdminAccountApprovalParameters', 'send_admin_account_approval_email',
 ]
