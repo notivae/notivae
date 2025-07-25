@@ -2,6 +2,7 @@ import './index.css';
 import 'vue-sonner/style.css';
 
 import { createApp } from 'vue';
+import { VueQueryPlugin } from "@tanstack/vue-query";
 import { createPinia } from "pinia";
 import axios from "axios";
 
@@ -15,6 +16,7 @@ axios.defaults.withCredentials = true;
 
 
 createApp(App)
-    .use(router)
+    .use(VueQueryPlugin)
     .use(createPinia)
+    .use(router)
     .mount('#app');
