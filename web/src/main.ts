@@ -9,7 +9,7 @@ import axios from "axios";
 import "@/services/ws";
 
 import App from '@/App.vue';
-import router from "@/router";
+import { router } from "@/router";
 
 
 axios.defaults.withCredentials = true;

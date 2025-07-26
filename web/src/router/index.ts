@@ -1,12 +1,11 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import { routes, handleHotUpdate } from "vue-router/auto-routes";
 
-export default createRouter({
+export const router = createRouter({
     history: createWebHashHistory(),
-    routes: [
-        {
-            name: 'home',
-            path: '/',
-            component: () => import('@/pages/HomePage.vue'),
-        },
-    ],
+    routes,
 });
+
+if (import.meta.hot) {
+    handleHotUpdate(router);
+}

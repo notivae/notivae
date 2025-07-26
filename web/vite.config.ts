@@ -1,15 +1,17 @@
 import path from "node:path";
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "vite";
+import Vue from "@vitejs/plugin-vue";
+import VueRouter from "unplugin-vue-router/vite";
+import TailwindCSS from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
 
 
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [
-        vue(),
-        tailwindcss(),
+        VueRouter(),
+        Vue(),
+        TailwindCSS(),
         VitePWA({
             registerType: "autoUpdate",
             includeAssets: ['favicon.ico'],
