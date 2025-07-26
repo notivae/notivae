@@ -17,6 +17,6 @@ axios.defaults.withCredentials = true;
 
 createApp(App)
     .use(VueQueryPlugin)
-    .use(createPinia)
+    .use(createPinia())
     .use(router)
     .mount('#app');

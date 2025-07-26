@@ -35,7 +35,7 @@ export default defineConfig({
             '/api': {
                 target: 'http://server:8000',
                 ws: true,
-                changeOrigin: true,
+                changeOrigin: false,
             },
         }
     },
