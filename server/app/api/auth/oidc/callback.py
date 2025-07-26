@@ -3,9 +3,10 @@ r"""
 
 """
 import typing as t
+import httpx
+import structlog
 from fastapi import APIRouter, HTTPException, status, Request, Query, Depends, BackgroundTasks
 from fastapi.responses import RedirectResponse
-import httpx
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import SETTINGS, AccountCreationMode
@@ -21,6 +22,7 @@ from ._common import decode_state
 
 
 router = APIRouter()
+logger = structlog.get_logger()
 
 
 class OidcClaims(t.TypedDict):
@@ -52,6 +54,7 @@ async def oidc_callback(
     try:
         state = decode_state(state)
     except Exception:
+        logger.warning("Invalid state received")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid state",
@@ -76,6 +79,7 @@ async def oidc_callback(
             auth=(SETTINGS.OIDC.CLIENT_ID, SETTINGS.OIDC.CLIENT_SECRET),
         )
         if not response.is_success:
+            logger.error("failed to exchange code for token", response=response.text)
             raise HTTPException(
                 status_code=status.HTTP_502_BAD_GATEWAY,
                 detail="Could not exchange code for token",
@@ -91,6 +95,7 @@ async def oidc_callback(
             },
         )
         if not response.is_success:
+            logger.error("failed to obtain user information", response=response.text)
             raise HTTPException(
                 status_code=status.HTTP_502_BAD_GATEWAY,
                 detail="Could not obtain user information",
@@ -146,13 +151,13 @@ async def oidc_callback(
         session.add(auth_identity)
         await session.commit()
 
-    stmt = sql.select(MFACredentials).where(MFACredentials.user_id == auth_identity.id)
+    stmt = sql.select(MFACredentials).where(MFACredentials.user_id == auth_identity.user_id)
     mfa_credentials: MFACredentials = await session.scalar(stmt)  # one is enough
 
     session_token = generate_session_token()
 
     auth_session = AuthSession(
-        user_id=user.id,
+        user_id=auth_identity.user_id,
         hashed_token=hash_session_token(session_token=session_token),
         user_agent=request.headers.get("User-Agent"),
         ip_address=get_client_ip(request=request),

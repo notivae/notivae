@@ -26,7 +26,7 @@ async def oidc_redirect(
 ):
     auth_uri = (await oidc.get_configuration(discovery_uri=SETTINGS.OIDC.DISCOVERY_URI)).authorization_endpoint
 
-    redirect_uri = request.url_for("oidc_callback")
+    redirect_uri = str(request.url_for("oidc_callback"))
     nonce = str(uuid.uuid4())
     state = OidcState(
         nonce=nonce,
