@@ -12,6 +12,7 @@ from app.db.models import User, AuthIdentity
 from app.config import SETTINGS, AccountCreationMode
 from app.core.reusables.verification_mail import send_verification_email
 from app.core.reusables.account_approval import send_admin_account_approval_email
+from app.core.reusables.magic_link import send_magic_link_email
 
 
 router = APIRouter()
@@ -53,26 +54,26 @@ async def auth_local_register(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="You are already registered",
             )
-
-    stmt = sql.select(AuthIdentity) \
-        .where(AuthIdentity.provider == "magic",
-               sql.or_(
-                   AuthIdentity.provider_user_id == form_data.username,
-                   AuthIdentity.provider_email == form_data.email
-               ))
-    identity: AuthIdentity = await session.scalar(stmt)
-    if identity:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="User with this username or email already exists",
-        )
-
-    if user is None:
+    else:
         if not form_data.new_user:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="No new user data provided",
             )
+
+        stmt = sql.select(AuthIdentity) \
+            .where(AuthIdentity.provider == "magic",
+                   sql.or_(
+                       AuthIdentity.provider_user_id == form_data.new_user.username,
+                       AuthIdentity.provider_email == form_data.email
+                   ))
+        identity: AuthIdentity = await session.scalar(stmt)
+        if identity:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="User with this username or email already exists",
+            )
+
         user = User(
             email=str(form_data.email),
             name=form_data.new_user.username,
@@ -89,8 +90,11 @@ async def auth_local_register(
     identity = AuthIdentity(
         user_id=user.id,
         provider="magic",
-        provider_user_id=form_data.username,
+        provider_user_id=form_data.new_user.username,
         provider_email=str(form_data.email),
     )
     session.add(identity)
     await session.commit()
+
+    if form_data.new_user:  # account created
+        background_tasks.add_task(send_magic_link_email, request=request, user=user)
