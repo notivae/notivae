@@ -21,7 +21,7 @@ class MagicRequestRequest(BaseModel):
 @router.post(
     path='/request',
     status_code=status.HTTP_202_ACCEPTED,
-    dependencies=[Depends(rate_limited(capacity=3, refill_rate=3/300))],
+    dependencies=[Depends(rate_limited(capacity=5, refill_rate=3/60))],
 )
 async def magic_request(
         request: Request,
