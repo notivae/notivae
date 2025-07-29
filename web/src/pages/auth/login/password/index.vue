@@ -1,0 +1,136 @@
+<script setup lang="ts">
+import { computed, ref, useTemplateRef, watch } from "vue";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useServerFeatures } from "@/composables/useServerFeatures.ts";
+import { useMutation } from "@tanstack/vue-query";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { LucideLock, LucideLockOpen, LucideLoader } from "lucide-vue-next";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AxiosError } from "axios";
+import { postApiAuthLocalLogin } from "@/services/api/auth/local/login.ts";
+import { useRoute, useRouter } from "vue-router";
+
+import logoSrc from "@/assets/logo.svg";
+
+definePage({
+  meta: {
+    requiresAuth: false,
+  }
+});
+
+const router = useRouter();
+const currentRoute = useRoute();
+const nextRoute = computed<string>(() => (currentRoute.query.next as string) ?? "/");
+const { data: serverFeatures } = useServerFeatures();
+
+const { mutateAsync: sendAuthentication, isError, isPending, error } = useMutation({
+  mutationKey: ['api', 'auth', 'local', 'login'],
+  mutationFn: async () => {
+    const response = await postApiAuthLocalLogin({
+      username_or_email: username_or_email.value,
+      password: password.value,
+    });
+    if (response.data.requires_mfa) {
+      await router.push({ name: "/auth/mfa/totp" });
+    } else {
+      await router.push(nextRoute.value);
+    }
+  },
+});
+
+function isFormValid() {
+  return !!formRef.value?.checkValidity();
+}
+
+async function handleSend() {
+  if (!isFormValid()) return;
+
+  isDirtyInput.value = false;
+  await sendAuthentication();
+}
+
+const formRef = useTemplateRef("request-form");
+const username_or_email = ref("");
+const password = ref("");
+const isDirtyInput = ref(false);
+
+watch([username_or_email, password], () => {
+  isDirtyInput.value = true;
+});
+</script>
+
+<template>
+  <div class="min-h-svh grid place-items-center gap-6 bg-muted p-6 md:p-10">
+    <div class="flex flex-col w-full max-w-md gap-6">
+      <div class="flex items-center gap-2 self-center font-medium">
+        <img :src="logoSrc" alt="notivae logo" class="size-6" />
+        Notivae
+      </div>
+      <Card>
+        <CardHeader class="text-center">
+          <CardTitle class="text-xl">
+            Login via Password
+          </CardTitle>
+          <CardDescription>
+            Sign in using your email or username and password.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div class="grid gap-6">
+            <form ref="request-form" @submit.prevent="handleSend()" class="flex flex-col gap-4">
+              <label for="username-or-email-input" class="sr-only">Username or Email</label>
+              <Input
+                  v-model="username_or_email"
+                  id="username-or-email-input"
+                  required
+                  placeholder="Username or Email"
+                  :disabled="isPending"
+                  autocomplete="username"
+                  autofocus
+              />
+              <label for="password-input" class="sr-only">Password</label>
+              <Input
+                  v-model="password"
+                  id="password-input"
+                  type="password"
+                  required
+                  placeholder="Password"
+                  :disabled="isPending"
+                  autocomplete="current-password"
+              />
+              <Button type="submit" variant="secondary" class="group" :disabled="isPending || !isFormValid()">
+                <LucideLoader v-if="isPending" class="animate-spin" />
+                <template v-else>
+                  <LucideLock class="block group-hover:hidden" />
+                  <LucideLockOpen class="hidden group-hover:block" />
+                </template>
+                {{ isPending ? "Logging in..." : "Login" }}
+              </Button>
+            </form>
+            <Alert v-if="isError && !isDirtyInput" variant="destructive">
+              <LucideLock />
+              <AlertTitle>
+                Authentication failed
+              </AlertTitle>
+              <AlertDescription>
+                <p>
+                  The credentials you entered are incorrect. Please try again.
+                </p>
+                <p v-if="error instanceof AxiosError" class="font-mono text-sm">
+                  ({{ error.response?.status }}: {{ error.response?.data.detail }})
+                </p>
+              </AlertDescription>
+            </Alert>
+            <div v-if="serverFeatures?.account_creation !== 'closed'" class="text-center text-sm">
+              Don't have an account yet?
+              <router-link :to="{ name: '/auth/login/password/register' }" class="underline underline-offset-4">
+                Create one
+              </router-link>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </div>
+</template>

@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 import logoSrc from "@/assets/logo.svg";
+import authLocalSrc from "@/assets/auth-provider/local.svg";
 import authMagicLinkSrc from "@/assets/auth-provider/magic-link.svg";
 import authOidcSrc from "@/assets/auth-provider/oidc.svg";
 
@@ -43,10 +44,20 @@ const oidcRedirectUrl = computed(() => {
         <CardContent>
           <div class="grid gap-6">
             <div class="flex flex-col gap-4">
+              <template v-if="serverFeatures?.auth.local">
+                <router-link :to="{ name: '/auth/login/password/', query: { ...$route.query } }">
+                  <Button variant="outline" class="w-full pl-2 cursor-pointer">
+                    <img aria-hidden="true" :src="authLocalSrc" alt="Password" class="size-5 dark:invert" />
+                    <span class="m-auto">
+                      Login via Password
+                    </span>
+                  </Button>
+                </router-link>
+              </template>
               <template v-if="serverFeatures?.auth.magic_link">
                 <router-link :to="{ name: '/auth/login/magic-link/', query: { ...$route.query } }">
                   <Button variant="outline" class="w-full pl-2 cursor-pointer">
-                    <img aria-hidden="true" :src="authMagicLinkSrc" alt="OIDC" class="size-5 dark:invert " />
+                    <img aria-hidden="true" :src="authMagicLinkSrc" alt="Magic-Link" class="size-5 dark:invert " />
                     <span class="m-auto">
                       Login via Magic-Link
                     </span>
