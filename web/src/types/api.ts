@@ -16,3 +16,16 @@ export type ServerFeatures = {
     services: ServerServices
     account_creation: AccountCreationMode
 }
+
+
+export type User = {
+    id: string
+    name: string
+    display_name: string
+}
+
+export type UserMe = User & {
+    email: string
+    email_verified: boolean
+    is_system_admin: boolean
+}
