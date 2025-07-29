@@ -20,6 +20,7 @@ export const useAuthStore = defineStore('auth', () => {
             if (!navigator.onLine) throw new Error('Offline');
             const me = await getApiUserMe();
             user.value = me.data;
+            return me.data;
         },
         staleTime: 1000 * 60 * 5,
         retry: false,
