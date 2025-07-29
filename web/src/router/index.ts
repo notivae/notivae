@@ -19,6 +19,10 @@ router.beforeEach(async (to, _from, next) => {
         }
     }
 
+    if (auth.isLoggedIn && to.meta.followNextIfAuthenticated && typeof to.query.next === "string") {
+        return next(to.query.next);
+    }
+
     next();
 });
 
