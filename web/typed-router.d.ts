@@ -21,6 +21,8 @@ declare module 'vue-router/auto-routes' {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
     '/[...path]': RouteRecordInfo<'/[...path]', '/:path(.*)', { path: ParamValue<true> }, { path: ParamValue<false> }>,
     '/auth/login/': RouteRecordInfo<'/auth/login/', '/auth/login', Record<never, never>, Record<never, never>>,
+    '/auth/login/magic-link/': RouteRecordInfo<'/auth/login/magic-link/', '/auth/login/magic-link', Record<never, never>, Record<never, never>>,
+    '/auth/login/magic-link/register': RouteRecordInfo<'/auth/login/magic-link/register', '/auth/login/magic-link/register', Record<never, never>, Record<never, never>>,
     '/auth/logout/': RouteRecordInfo<'/auth/logout/', '/auth/logout', Record<never, never>, Record<never, never>>,
     '/error': RouteRecordInfo<'/error', '/error', Record<never, never>, Record<never, never>>,
   }
