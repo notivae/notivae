@@ -7,5 +7,7 @@ import WSNotificationToToastListener from "@/components/singletons/WSNotificatio
   <!-- https://github.com/unovue/shadcn-vue/issues/462 -->
   <Toaster rich-colors theme="dark" :visible-toasts="5" class="pointer-events-auto" />
   <WSNotificationToToastListener />
-  <router-view />
+  <Suspense>
+    <router-view />
+  </Suspense>
 </template>
