@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
 import { LucideHouse, LucideArrowLeft } from "lucide-vue-next";
+
+definePage({
+  meta: {
+    requiresAuth: false,
+  }
+});
 </script>
 
 <template>
