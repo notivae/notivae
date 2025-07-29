@@ -87,7 +87,7 @@ watch([username, displayName, email], () => {
                   Email
                 </Label>
                 <Input
-                    v-model="email"
+                    v-model.trim="email"
                     id="email-input"
                     type="email"
                     required
@@ -99,7 +99,7 @@ watch([username, displayName, email], () => {
               <fieldset class="flex flex-col gap-1">
                 <Label for="username-input">Username</Label>
                 <Input
-                    v-model="username"
+                    v-model.trim="username"
                     id="username-input"
                     required
                     :disabled="isPending"
@@ -109,7 +109,7 @@ watch([username, displayName, email], () => {
               <fieldset class="flex flex-col gap-1">
                 <Label for="display-name-input">Display Name</Label>
                 <Input
-                    v-model="displayName"
+                    v-model.trim="displayName"
                     id="display-name-input"
                     required
                     :disabled="isPending"

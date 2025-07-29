@@ -81,7 +81,7 @@ watch([username_or_email, password], () => {
             <form ref="request-form" @submit.prevent="handleSend()" class="flex flex-col gap-4">
               <label for="username-or-email-input" class="sr-only">Username or Email</label>
               <Input
-                  v-model="username_or_email"
+                  v-model.trim="username_or_email"
                   id="username-or-email-input"
                   required
                   placeholder="Username or Email"
@@ -91,7 +91,7 @@ watch([username_or_email, password], () => {
               />
               <label for="password-input" class="sr-only">Password</label>
               <Input
-                  v-model="password"
+                  v-model.trim="password"
                   id="password-input"
                   type="password"
                   required

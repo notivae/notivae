@@ -74,7 +74,7 @@ watch(email, () => {
             <form ref="request-form" @submit.prevent="handleSend()" class="flex flex-col gap-4">
               <label for="email-input" class="sr-only">Email</label>
               <Input
-                  v-model="email"
+                  v-model.trim="email"
                   id="email-input"
                   type="email"
                   required
