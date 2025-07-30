@@ -27,7 +27,7 @@ async def _send_mail(template: str, to: TO, subject: str, parameters: BaseModel,
 
     context = parameters.model_dump()
     if request is not None:
-        context.update(logo_url=urljoin(str(request.base_url), 'logo.svg'))
+        context.update(logo_url=urljoin(str(request.base_url), 'favicon.svg'))
     recipients = extract_mail_addresses(to)
     if len(recipients) == 1:
         context.update(recipient_email=recipients[0])

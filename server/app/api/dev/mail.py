@@ -2,7 +2,7 @@
 r"""
 
 """
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, status, HTTPException, Request
 from app.db.models import User
 from app.core.dependencies import get_current_user
 from app.services.mail import SUPPORTED, TestParameters, send_test_email
@@ -13,6 +13,7 @@ router = APIRouter(prefix="/mail")
 
 @router.post("/test", status_code=status.HTTP_204_NO_CONTENT)
 async def post_mail_test(
+        request: Request,
         user: User = Depends(get_current_user),
 ):
     if not SUPPORTED:
@@ -21,4 +22,5 @@ async def post_mail_test(
     await send_test_email(
         to=user.email,
         parameters=TestParameters(),
+        request=request,
     )
