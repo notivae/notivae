@@ -7,9 +7,13 @@ export const router = createRouter({
     routes,
 });
 
-router.beforeEach(async (to, _from, next) => {
+router.beforeEach(async (to, from, next) => {
     const auth = useAuthStore();
     const requiresAuth = to.meta.requiresAuth !== false;
+
+    if (from.path !== to.path) {
+        window.scrollTo({ top: 0, behavior: "instant" });
+    }
 
     if (requiresAuth && !auth.isLoggedIn) {
         await auth.reloadAuth();
