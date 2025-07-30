@@ -52,17 +52,17 @@ async def patch_me(
         user: User = Depends(get_current_user),
         changes: UserMePartialRequest = Body()
 ):
-    if 'email' in changes.model_fields_set:
-        user.email = changes.email
+    if 'email' in changes.model_fields_set and changes.email != user.email:
+        user.email = str(changes.email)
         user.email_verified = False
-    if 'name' in changes.model_fields_set:
+    if 'name' in changes.model_fields_set and changes.name != user.name:
         user.name = changes.name
-    if 'display_name' in changes.model_fields_set:
+    if 'display_name' in changes.model_fields_set and changes.display_name != user.display_name:
         user.display_name = changes.display_name
     await session.commit()
     await session.refresh(user)
 
-    if 'email' in changes.model_fields_set:
+    if 'email' in changes.model_fields_set and not user.email_verified:
         background_tasks.add_task(send_verification_email, request=request, user=user)
 
     return user
