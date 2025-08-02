@@ -14,6 +14,7 @@ import { postApiAuthLocalChangePassword } from "@/services/api/auth/local/change
 definePage({
   meta: {
     requiresAuth: false,
+    followNextIfAuthenticated: true,
   },
 });
 
