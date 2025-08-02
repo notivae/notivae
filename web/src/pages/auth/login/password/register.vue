@@ -8,9 +8,9 @@ import { useMutation } from "@tanstack/vue-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AxiosError } from "axios";
 import { postApiAuthLocalRegister } from "@/services/api/auth/local/register.ts";
 import { useRouter } from "vue-router";
+import { ErrorBox } from "@/components/common/error-box";
 
 import logoSrc from "@/assets/logo.svg";
 
@@ -23,6 +23,19 @@ definePage({
 
 const router = useRouter();
 const { data: serverFeatures } = useServerFeatures();
+
+const formRef = useTemplateRef("request-form");
+const username = ref("");
+const displayName = ref("");
+const password = ref("");
+const passwordRepeated = ref("");
+const arePasswordsTheSame = computed(() => password.value === passwordRepeated.value);
+const email = ref("");
+const isDirtyInput = ref(false);
+
+watch([username, displayName, password, passwordRepeated, email], () => {
+  isDirtyInput.value = true;
+});
 
 const { mutateAsync, isError, isPending, error } = useMutation({
   mutationKey: ['api', 'auth', 'local', 'register'],
@@ -52,25 +65,13 @@ function isValidForm(): boolean {
   return !!formRef.value?.checkValidity() && arePasswordsTheSame.value;
 }
 
-async function handleSend() {
+async function handleSubmit() {
+  if (isPending.value) return;
   if (!isValidForm()) return;
 
   isDirtyInput.value = false;
   await mutateAsync();
 }
-
-const formRef = useTemplateRef("request-form");
-const username = ref("");
-const displayName = ref("");
-const password = ref("");
-const passwordRepeated = ref("");
-const arePasswordsTheSame = computed(() => password.value === passwordRepeated.value);
-const email = ref("");
-const isDirtyInput = ref(false);
-
-watch([username, displayName, password, passwordRepeated, email], () => {
-  isDirtyInput.value = true;
-});
 </script>
 
 <template>
@@ -91,7 +92,7 @@ watch([username, displayName, password, passwordRepeated, email], () => {
         </CardHeader>
         <CardContent>
           <div class="grid gap-6">
-            <form ref="request-form" @submit.prevent="handleSend()" class="flex flex-col gap-4">
+            <form ref="request-form" @submit.prevent="handleSubmit" class="flex flex-col gap-4">
               <fieldset class="flex flex-col gap-1">
                 <Label for="email-input">
                   Email
@@ -172,12 +173,7 @@ watch([username, displayName, password, passwordRepeated, email], () => {
                 <p>
                   Please check your input or try again later.
                 </p>
-                <p v-if="error instanceof AxiosError" class="font-mono text-sm">
-                  ({{ error.response?.status }}: {{ error.response?.data.detail }})
-                </p>
-                <p v-else-if="error instanceof Error" class="font-mono text-sm">
-                  {{ error.name }}: {{ error.message }}
-                </p>
+                <ErrorBox :error="error" />
               </AlertDescription>
             </Alert>
             <div v-if="serverFeatures?.account_creation !== 'closed'" class="text-center text-sm">

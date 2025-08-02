@@ -7,15 +7,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LucideLock, LucideLockOpen, LucideLoader } from "lucide-vue-next";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AxiosError } from "axios";
 import { postApiAuthLocalLogin } from "@/services/api/auth/local/login.ts";
 import { useRoute, useRouter } from "vue-router";
+import { ErrorBox } from "@/components/common/error-box";
 
 import logoSrc from "@/assets/logo.svg";
 
 definePage({
   meta: {
     requiresAuth: false,
+    followNextIfAuthenticated: true,
   }
 });
 
@@ -117,14 +118,12 @@ watch([username_or_email, password], () => {
                 <p>
                   The credentials you entered are incorrect. Please try again.
                 </p>
-                <p v-if="error instanceof AxiosError" class="font-mono text-sm">
-                  ({{ error.response?.status }}: {{ error.response?.data.detail }})
-                </p>
+                <ErrorBox :error="error" />
               </AlertDescription>
             </Alert>
             <div v-if="serverFeatures?.account_creation !== 'closed'" class="text-center text-sm">
               Don't have an account yet?
-              <router-link :to="{ name: '/auth/login/password/register' }" class="underline underline-offset-4">
+              <router-link :to="{ name: '/auth/login/password/register', query: { ...$route.query } }" class="underline underline-offset-4">
                 Create one
               </router-link>
             </div>

@@ -8,8 +8,8 @@ import { useMutation } from "@tanstack/vue-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AxiosError } from "axios";
 import { postApiAuthMagicRegister } from "@/services/api/auth/magic/register.ts";
+import { ErrorBox } from "@/components/common/error-box";
 
 import logoSrc from "@/assets/logo.svg";
 
@@ -143,9 +143,7 @@ watch([username, displayName, email], () => {
                 <p>
                   Please check your input or try again later.
                 </p>
-                <p v-if="error instanceof AxiosError" class="font-mono text-sm">
-                  ({{ error.response?.status }}: {{ error.response?.data.detail }})
-                </p>
+                <ErrorBox :error="error" />
               </AlertDescription>
             </Alert>
             <div v-if="serverFeatures?.account_creation !== 'closed'" class="text-center text-sm">

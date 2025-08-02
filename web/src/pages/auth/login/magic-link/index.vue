@@ -7,10 +7,10 @@ import { postApiAuthMagicRequest } from "@/services/api/auth/magic/request.ts";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LucideMail, LucideMailCheck, LucideMailQuestionMark, LucideMailX } from "lucide-vue-next";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { ErrorBox } from "@/components/common/error-box";
 
 import logoSrc from "@/assets/logo.svg";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AxiosError } from "axios";
 
 definePage({
   meta: {
@@ -106,9 +106,7 @@ watch(email, () => {
                 <p>
                   The email could not be sent to {{ lastSentMail }}. Please check the address and try again.
                 </p>
-                <p v-if="error instanceof AxiosError" class="font-mono text-sm">
-                  ({{ error.response?.status }}: {{ error.response?.data.detail }})
-                </p>
+                <ErrorBox :error="error" />
               </AlertDescription>
             </Alert>
             <div v-if="serverFeatures?.account_creation !== 'closed'" class="text-center text-sm">
