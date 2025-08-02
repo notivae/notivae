@@ -1,7 +1,7 @@
 import axios from "axios";
 
 type MagicRegisterParameters = {
-    new_user: {
+    new_user?: {
         username: string
         display_name: string
     }

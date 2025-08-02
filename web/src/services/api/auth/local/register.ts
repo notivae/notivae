@@ -3,7 +3,7 @@ import axios from "axios"
 
 type RegisterParameters = {
     username: string
-    display_name: string
+    display_name?: string
     password: string
     email: string
 }
