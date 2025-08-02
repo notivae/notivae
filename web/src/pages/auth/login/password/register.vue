@@ -57,7 +57,7 @@ const { mutateAsync, isError, isPending, error } = useMutation({
     password.value = "";
     passwordRepeated.value = "";
     email.value = "";
-    await router.push({ name: "/auth/login/password" });
+    await router.push({ name: "/auth/login/password/" });
   }
 });
 

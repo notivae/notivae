@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { AxiosError } from "axios";
 import {
   AuthIdentityCard,
   AuthIdentityCardActions,

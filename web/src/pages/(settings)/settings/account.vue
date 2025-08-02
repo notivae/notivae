@@ -9,14 +9,14 @@ import { Label } from "@/components/ui/label";
 import { LucideLoader, LucideMailCheck, LucideMailX, LucideUserRound } from "lucide-vue-next";
 import { Badge } from "@/components/ui/badge";
 import { useMutation } from "@tanstack/vue-query";
-import { patchApiUserMe } from "@/services/api/user/me.ts";
+import { patchApiMeAccount } from "@/services/api/me/account.ts";
 
 const auth = useAuthStore();
 
 const { mutateAsync, isPending } = useMutation({
   mutationKey: ["user", "me"],
   mutationFn: async () => {
-    await patchApiUserMe({
+    await patchApiMeAccount({
       email: account.value.email,
       name: account.value.name,
       display_name: account.value.display_name,

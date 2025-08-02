@@ -24,7 +24,7 @@ class UserMeResponse(pydantic.BaseModel):
 
 
 @router.get(
-    path='/me',
+    path='/account',
     response_model=UserMeResponse,
     dependencies=[Depends(rate_limited(capacity=10, refill_rate=10/60))],
 )
@@ -41,7 +41,7 @@ class UserMePartialRequest(pydantic.BaseModel):
 
 
 @router.patch(
-    path='/me',
+    path='/account',
     response_model=UserMeResponse,
     dependencies=[Depends(rate_limited(capacity=5, refill_rate=5/300))],
 )

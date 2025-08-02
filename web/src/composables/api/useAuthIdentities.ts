@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/vue-query";
-import { getApiUserAuthIdentities } from "@/services/api/user/auth-identities.ts";
+import { getApiMeAuthIdentities } from "@/services/api/me/auth-identities.ts";
 
 
 export function useAuthIdentities() {
@@ -7,7 +7,7 @@ export function useAuthIdentities() {
         queryKey: ["user", "identities"],
         queryFn: async () => {
             if (!navigator.onLine) throw new Error("Offline");
-            const res = await getApiUserAuthIdentities();
+            const res = await getApiMeAuthIdentities();
             return res.data;
         },
         staleTime: 1000 * 60 * 5,

@@ -3,7 +3,7 @@ import { ref } from "vue";
 import type { UserMe } from "@/types/api.ts";
 import { computed } from "vue";
 import { useQuery, useQueryClient } from "@tanstack/vue-query";
-import { getApiUserMe } from "@/services/api/user/me.ts";
+import { getApiMeAccount } from "@/services/api/me/account.ts";
 import { postApiLogout } from "@/services/api/auth/logout.ts";
 
 
@@ -18,7 +18,7 @@ export const useAuthStore = defineStore('auth', () => {
         queryKey: ["user", "me"],
         queryFn: async () => {
             if (!navigator.onLine) throw new Error('Offline');
-            const me = await getApiUserMe();
+            const me = await getApiMeAccount();
             user.value = me.data;
             return me.data;
         },
