@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel, Field
 from app.core.dependencies import get_async_session, get_current_user_optional, rate_limited
 from app.db.models import User, AuthIdentity, AuthSession, MFACredentials
-from app.core.security.passwords import verify_password
+from app.core.security.local import verify_password
 from app.core.security.auth_session import generate_session_token, hash_session_token
 from app.core.util import get_client_ip
 from ._common import AuthLocalIdentityContext

@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field, EmailStr
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.dependencies import get_async_session, get_current_user_optional, rate_limited
-from app.core.security.passwords import hash_password
+from app.core.security.local import hash_password
 from app.db.models import User, AuthIdentity
 from app.config import SETTINGS, AccountCreationMode
 from app.core.reusables.verification_mail import send_verification_email
@@ -20,8 +20,8 @@ router = APIRouter()
 
 class RegisterRequest(BaseModel):
     username: str = Field(..., pattern=r"^[a-z0-9_-]+$", max_length=32)
-    display_name: str = Field(...)
-    password: str = Field(...)
+    display_name: str | None = Field(None)
+    password: str = Field(..., min_length=4)
     email: EmailStr = Field(...)
 
 
@@ -37,6 +37,8 @@ async def auth_local_register(
         user: User = Depends(get_current_user_optional),
         form_data: RegisterRequest = Body(),
 ):
+    # todo: validate password strength
+
     if SETTINGS.APP.ACCOUNT_CREATION == AccountCreationMode.CLOSED:
         raise HTTPException(
             status_code=status.HTTP_423_LOCKED,

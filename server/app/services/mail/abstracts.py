@@ -14,6 +14,7 @@ from .lib import TO, extract_mail_addresses
 __all__ = [
     'TestParameters', 'send_test_email',
     'MailVerificationParameters', 'send_verification_email',
+    'LocalForgotPasswordParameters', 'send_local_forgot_password_email',
     'MagicLinkParameters', 'send_magic_link_email',
     'MFAEnabledParameters', 'send_mfa_enabled_email',
     'NewNotificationParameters', 'send_new_notification_email',
@@ -74,6 +75,27 @@ async def send_verification_email(
         template="mail-verification.html.j2",
         to=to,
         subject="Mail Verification",
+        parameters=parameters,
+        request=request,
+    )
+
+
+# ------------------------------------------------------------------------------
+
+
+class LocalForgotPasswordParameters(BaseModel):
+    reset_url: HttpUrl
+
+
+async def send_local_forgot_password_email(
+        to: TO,
+        parameters: LocalForgotPasswordParameters,
+        request: Request = None,
+) -> None:
+    await _send_mail(
+        template="forgot-password.html.j2",
+        to=to,
+        subject="Reset password",
         parameters=parameters,
         request=request,
     )

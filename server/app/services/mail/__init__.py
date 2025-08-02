@@ -6,6 +6,7 @@ from .core import SUPPORTED
 from .abstracts import (
     TestParameters, send_test_email,
     MailVerificationParameters, send_verification_email,
+    LocalForgotPasswordParameters, send_local_forgot_password_email,
     MagicLinkParameters, send_magic_link_email,
     MFAEnabledParameters, send_mfa_enabled_email,
     NewNotificationParameters, send_new_notification_email,
@@ -17,6 +18,7 @@ __all__ = [
     'SUPPORTED',
     'TestParameters', 'send_test_email',
     'MailVerificationParameters', 'send_verification_email',
+    'LocalForgotPasswordParameters', 'send_local_forgot_password_email',
     'MagicLinkParameters', 'send_magic_link_email',
     'MFAEnabledParameters', 'send_mfa_enabled_email',
     'NewNotificationParameters', 'send_new_notification_email',
