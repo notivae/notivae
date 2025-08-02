@@ -24,12 +24,13 @@ declare module 'vue-router/auto-routes' {
     '/(settings)/settings/account': RouteRecordInfo<'/(settings)/settings/account', '/settings/account', Record<never, never>, Record<never, never>>,
     '/(settings)/settings/authentication-identities': RouteRecordInfo<'/(settings)/settings/authentication-identities', '/settings/authentication-identities', Record<never, never>, Record<never, never>>,
     '/[...path]': RouteRecordInfo<'/[...path]', '/:path(.*)', { path: ParamValue<true> }, { path: ParamValue<false> }>,
+    '/auth/local/forgot-password': RouteRecordInfo<'/auth/local/forgot-password', '/auth/local/forgot-password', Record<never, never>, Record<never, never>>,
     '/auth/login/': RouteRecordInfo<'/auth/login/', '/auth/login', Record<never, never>, Record<never, never>>,
     '/auth/login/magic-link/': RouteRecordInfo<'/auth/login/magic-link/', '/auth/login/magic-link', Record<never, never>, Record<never, never>>,
     '/auth/login/magic-link/register': RouteRecordInfo<'/auth/login/magic-link/register', '/auth/login/magic-link/register', Record<never, never>, Record<never, never>>,
     '/auth/login/password/': RouteRecordInfo<'/auth/login/password/', '/auth/login/password', Record<never, never>, Record<never, never>>,
     '/auth/login/password/register': RouteRecordInfo<'/auth/login/password/register', '/auth/login/password/register', Record<never, never>, Record<never, never>>,
-    '/auth/logout/': RouteRecordInfo<'/auth/logout/', '/auth/logout', Record<never, never>, Record<never, never>>,
+    '/auth/logout': RouteRecordInfo<'/auth/logout', '/auth/logout', Record<never, never>, Record<never, never>>,
     '/error': RouteRecordInfo<'/error', '/error', Record<never, never>, Record<never, never>>,
   }
 }

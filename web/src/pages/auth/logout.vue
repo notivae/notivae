@@ -1,0 +1,25 @@
+<script setup lang="ts">
+import { useAuthStore } from "@/stores/auth.ts";
+
+definePage({
+  meta: {
+    requiresAuth: false,
+  },
+  beforeEnter: async (_to, _from, next) => {
+    const auth = useAuthStore();
+    try {
+      await auth.logout();
+      return next({ name: '/' });
+    } catch (error) {
+      console.error(error);
+      if (error instanceof Error) {
+        return next({ name: '/error', query: { name: error.name, message: error.message } });
+      }
+    }
+  },
+});
+</script>
+
+<template>
+  You shouldn't see this ever.
+</template>

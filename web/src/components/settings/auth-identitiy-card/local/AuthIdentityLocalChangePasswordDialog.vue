@@ -79,10 +79,10 @@ async function handleSubmit(): Promise<void> {
           />
         </fieldset>
         <DialogFooter>
-          <Button variant="outline" @click="isOpen = false" :disabled="isPending">
+          <Button type="button" variant="outline" @click="isOpen = false" :disabled="isPending">
             Cancel
           </Button>
-          <Button type="submit" variant="default" @click="handleSubmit" :disabled="isPending || !canSubmit">
+          <Button type="submit" @click="handleSubmit" :disabled="isPending || !canSubmit">
             <LucideLoader v-if="isPending" class="animate-spin" />
             Save
           </Button>

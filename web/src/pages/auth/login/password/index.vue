@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import logoSrc from "@/assets/logo.svg";
 import { computed, ref, useTemplateRef, watch } from "vue";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useServerFeatures } from "@/composables/useServerFeatures.ts";
@@ -10,8 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { postApiAuthLocalLogin } from "@/services/api/auth/local/login.ts";
 import { useRoute, useRouter } from "vue-router";
 import { ErrorBox } from "@/components/common/error-box";
-
-import logoSrc from "@/assets/logo.svg";
+import AuthLocalResetPasswordDialog from "@/components/auth/AuthLocalResetPasswordDialog.vue";
 
 definePage({
   meta: {
@@ -44,7 +44,7 @@ function isFormValid() {
   return !!formRef.value?.checkValidity();
 }
 
-async function handleSend() {
+async function handleSubmit() {
   if (!isFormValid()) return;
 
   isDirtyInput.value = false;
@@ -79,7 +79,7 @@ watch([username_or_email, password], () => {
         </CardHeader>
         <CardContent>
           <div class="grid gap-6">
-            <form ref="request-form" @submit.prevent="handleSend()" class="flex flex-col gap-4">
+            <form ref="request-form" @submit.prevent="handleSubmit" class="flex flex-col gap-4">
               <label for="username-or-email-input" class="sr-only">Username or Email</label>
               <Input
                   v-model.trim="username_or_email"
@@ -121,11 +121,19 @@ watch([username_or_email, password], () => {
                 <ErrorBox :error="error" />
               </AlertDescription>
             </Alert>
-            <div v-if="serverFeatures?.account_creation !== 'closed'" class="text-center text-sm">
-              Don't have an account yet?
-              <router-link :to="{ name: '/auth/login/password/register', query: { ...$route.query } }" class="underline underline-offset-4">
-                Create one
-              </router-link>
+            <div class="flex justify-around items-center gap-8">
+              <template v-if="serverFeatures?.account_creation !== 'closed'">
+                <router-link :to="{ name: '/auth/login/password/register', query: { ...$route.query } }">
+                  <Button variant="link">
+                    Don't have an account?
+                  </Button>
+                </router-link>
+              </template>
+              <AuthLocalResetPasswordDialog>
+                <Button variant="link">
+                  Forgot Password?
+                </Button>
+              </AuthLocalResetPasswordDialog>
             </div>
           </div>
         </CardContent>
