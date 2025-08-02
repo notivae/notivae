@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import type { User } from "@/types/api.ts";
+import type { UserMe } from "@/types/api.ts";
 import { computed } from "vue";
 import { useQuery, useQueryClient } from "@tanstack/vue-query";
 import { getApiUserMe } from "@/services/api/user/me.ts";
@@ -8,7 +8,7 @@ import { postApiLogout } from "@/services/api/auth/logout.ts";
 
 
 export const useAuthStore = defineStore('auth', () => {
-    const user = ref<User | null>(null);
+    const user = ref<UserMe | null>(null);
 
     const isLoggedIn = computed(() => !!user.value);
 
