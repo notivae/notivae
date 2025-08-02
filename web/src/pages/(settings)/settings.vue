@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
-import { LucideFingerprint, LucideHome, LucideSettings, LucideUserRound } from "lucide-vue-next";
+import { LucideFingerprint, LucideHome, LucideLogOut, LucideSettings, LucideUserRound } from "lucide-vue-next";
 import { Separator } from "@/components/ui/separator";
 </script>
 
@@ -14,7 +14,7 @@ import { Separator } from "@/components/ui/separator";
       <div class="mt-4 flex gap-8">
         <div class="flex flex-col gap-1 items-stretch">
           <router-link :to="{ name: '/' }">
-            <Button :variant="'ghost'" class="w-full justify-start">
+            <Button variant="ghost" class="w-full justify-start">
               <LucideHome />
               Home
             </Button>
@@ -30,6 +30,13 @@ import { Separator } from "@/components/ui/separator";
             <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
               <LucideFingerprint />
               Authentication Identities
+            </Button>
+          </router-link>
+          <Separator />
+          <router-link :to="{ name: '/auth/logout' }">
+            <Button variant="ghost" class="w-full justify-start hover:text-destructive-foreground">
+              <LucideLogOut />
+              Logout
             </Button>
           </router-link>
         </div>
