@@ -90,7 +90,7 @@ async def auth_local_register(
     identity = AuthIdentity(
         user_id=user.id,
         provider="magic",
-        provider_user_id=form_data.new_user.username,
+        provider_user_id=user.name,
         provider_email=str(form_data.email),
     )
     session.add(identity)

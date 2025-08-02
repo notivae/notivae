@@ -17,6 +17,8 @@ router = APIRouter()
 
 class AuthIdentityResponseItem(pydantic.BaseModel):
     provider: str
+    provider_user_id: str
+    provider_email: str
     userinfo: t.Optional[OpenIdUserInfo]
 
 
