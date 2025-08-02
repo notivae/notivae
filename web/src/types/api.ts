@@ -29,3 +29,20 @@ export type UserMe = User & {
     email_verified: boolean
     is_system_admin: boolean
 }
+
+export type UserInfo = {
+    sub: string | null
+    nickname: string | null
+    preferred_username: string | null
+    email: string
+    email_verified: boolean | null
+    picture: string | null
+    locale: string | null
+}
+
+export type AuthIdentity = {
+    provider: string
+    provider_user_id: string
+    provider_email: string
+    userinfo: null | UserInfo
+}
