@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { ErrorBox } from "@/components/common/error-box";
 import { LucideLoader, LucideRotateCcwKey } from "lucide-vue-next";
 import { Alert, AlertTitle } from "@/components/ui/alert";
+import { Label } from "@/components/ui/label";
 
 const isOpen = ref(false);
 const email = ref("");

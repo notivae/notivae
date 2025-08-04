@@ -12,7 +12,7 @@ const forwardedProps = useForwardProps(props)
     v-bind="forwardedProps"
   >
     <slot>
-      <Minus />
+      <Minus class="w-full" />
     </slot>
   </Primitive>
 </template>

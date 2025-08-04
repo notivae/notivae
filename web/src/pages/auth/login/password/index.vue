@@ -33,7 +33,7 @@ const { mutateAsync: sendAuthentication, isError, isPending, error } = useMutati
       password: password.value,
     });
     if (response.data.requires_mfa) {
-      await router.push({ name: "/auth/mfa/totp" });
+      await router.push({ name: "/auth/mfa/totp", query: { ...currentRoute.query } });
     } else {
       await router.push(nextRoute.value);
     }

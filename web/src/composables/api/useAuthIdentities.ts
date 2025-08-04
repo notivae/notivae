@@ -4,7 +4,7 @@ import { getApiMeAuthIdentities } from "@/services/api/me/auth-identities.ts";
 
 export function useAuthIdentities() {
     return useQuery({
-        queryKey: ["user", "identities"],
+        queryKey: ["user", "auth-identities"],
         queryFn: async () => {
             if (!navigator.onLine) throw new Error("Offline");
             const res = await getApiMeAuthIdentities();
