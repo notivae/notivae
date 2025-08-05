@@ -2,7 +2,7 @@
 r"""
 
 """
-from fastapi import APIRouter, HTTPException, status, Depends, Form
+from fastapi import APIRouter, HTTPException, status, Depends, Body
 from pydantic import BaseModel
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -20,19 +20,19 @@ class VerifyRequest(BaseModel):
 @router.post(
     path='/verify',
     status_code=status.HTTP_204_NO_CONTENT,
-    dependencies=[Depends(rate_limited(capacity=2, refill_rate=1/300))],
+    dependencies=[Depends(rate_limited(capacity=2, refill_rate=1/60))],
 )
 async def mfa_backup_verify(
         session: AsyncSession = Depends(get_async_session),
         auth_session: AuthSession = Depends(get_current_auth_session),
-        form: VerifyRequest = Form(),
+        form: VerifyRequest = Body(),
 ):
-    stmt = sql.select(BackupCode).where(BackupCode.user_id == auth_session.user_id, BackupCode.code == form.backup_code)
+    stmt = sql.select(BackupCode).where(BackupCode.user_id == auth_session.user_id, BackupCode.code == form.backup_code.upper())
     backup_code: BackupCode = await session.scalar(stmt)
 
     if backup_code is None:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
+            status_code=status.HTTP_400_BAD_REQUEST,
             detail="Unknown backup code",
         )
     if backup_code.used:

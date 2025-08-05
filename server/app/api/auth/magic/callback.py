@@ -69,7 +69,7 @@ async def magic_callback(
             detail="User not found",
         )
 
-    stmt = sql.select(MFACredentials).where(MFACredentials.user_id == user.id)
+    stmt = sql.select(MFACredentials).where(MFACredentials.user_id == user.id, MFACredentials.confirmed.is_(True))
     mfa_credentials: MFACredentials = await session.scalar(stmt)  # one is enough
 
     session_token = generate_session_token()

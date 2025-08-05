@@ -3,7 +3,7 @@ r"""
 
 """
 import pyotp
-from fastapi import APIRouter, HTTPException, status, Depends, Form
+from fastapi import APIRouter, HTTPException, status, Depends, Body
 from pydantic import BaseModel
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -26,7 +26,7 @@ class VerifyRequest(BaseModel):
 async def mfa_totp_verify(
         session: AsyncSession = Depends(get_async_session),
         auth_session: AuthSession = Depends(get_current_auth_session),
-        form: VerifyRequest = Form(),
+        form: VerifyRequest = Body(),
 ):
     stmt = sql.select(MFACredentials).where(MFACredentials.user_id == auth_session.user_id, MFACredentials.method == "totp")
     mfa_credentials: MFACredentials = await session.scalar(stmt)

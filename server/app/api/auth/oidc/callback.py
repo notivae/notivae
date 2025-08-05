@@ -151,7 +151,7 @@ async def oidc_callback(
         session.add(auth_identity)
         await session.commit()
 
-    stmt = sql.select(MFACredentials).where(MFACredentials.user_id == auth_identity.user_id)
+    stmt = sql.select(MFACredentials).where(MFACredentials.user_id == auth_identity.user_id, MFACredentials.confirmed.is_(True))
     mfa_credentials: MFACredentials = await session.scalar(stmt)  # one is enough
 
     session_token = generate_session_token()

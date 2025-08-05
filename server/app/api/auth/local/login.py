@@ -65,7 +65,7 @@ async def auth_local_login(
             detail="Invalid credentials",
         )
 
-    stmt = sql.select(MFACredentials).where(MFACredentials.user_id == identity.user_id)
+    stmt = sql.select(MFACredentials).where(MFACredentials.user_id == identity.user_id, MFACredentials.confirmed.is_(True))
     mfa_credentials: MFACredentials = await session.scalar(stmt)  # one is enough
 
     session_token = generate_session_token()
