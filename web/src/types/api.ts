@@ -55,3 +55,8 @@ export type MfaDetails = {
     backup_codes_remaining: null | number
     totp: boolean
 }
+
+export type MfaTotpInit = {
+    secret: string
+    provisioning_uri: string
+}

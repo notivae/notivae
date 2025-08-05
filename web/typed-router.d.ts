@@ -33,6 +33,7 @@ declare module 'vue-router/auto-routes' {
     '/auth/login/password/register': RouteRecordInfo<'/auth/login/password/register', '/auth/login/password/register', Record<never, never>, Record<never, never>>,
     '/auth/logout': RouteRecordInfo<'/auth/logout', '/auth/logout', Record<never, never>, Record<never, never>>,
     '/auth/mfa/backup-code': RouteRecordInfo<'/auth/mfa/backup-code', '/auth/mfa/backup-code', Record<never, never>, Record<never, never>>,
+    '/auth/mfa/totp': RouteRecordInfo<'/auth/mfa/totp', '/auth/mfa/totp', Record<never, never>, Record<never, never>>,
     '/error': RouteRecordInfo<'/error', '/error', Record<never, never>, Record<never, never>>,
   }
 }
