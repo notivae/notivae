@@ -28,11 +28,28 @@ const { data: mfaDetails, isSuccess } = useMfaDetails();
         <Separator />
       </div>
 
+      <!-- Texts -->
       <template v-if="mfaDetails!.backup_codes_remaining !== null">
         <p>
-          You have active backup codes configured. Backup codes are single-use and should be stored securely.
+          You have active backup codes configured.
+        </p>
+        <p>
+          Backup codes are single-use and should be stored securely.
           You can replace them at any time, which will invalidate the old ones.
         </p>
+      </template>
+      <template v-else>
+        <p>
+          You currently do not have any backup codes configured.
+        </p>
+        <p>
+          Backup codes allow you to log in even if you lose access to your primary MFA device.
+          It is highly recommended to generate and securely store them.
+        </p>
+      </template>
+
+      <!-- Warnings -->
+      <template v-if="mfaDetails!.backup_codes_remaining !== null">
         <Alert v-if="mfaDetails!.backup_codes_remaining <= 3" variant="destructive">
           <LucideAlertOctagon />
           <AlertTitle>
@@ -48,27 +65,21 @@ const { data: mfaDetails, isSuccess } = useMfaDetails();
             You're running low on backup codes.
           </AlertTitle>
         </Alert>
-        <div class="flex justify-end">
-          <RegenerateBackupCodesDialog>
-            <Button variant="secondary">
-              Replace your backup codes
-            </Button>
-          </RegenerateBackupCodesDialog>
-        </div>
       </template>
-      <template v-else>
-        <p>
-          You currently do not have any backup codes configured. Backup codes allow you to log in even if you lose access to your primary MFA device.
-          It is highly recommended to generate and securely store them.
-        </p>
-        <div>
-          <RegenerateBackupCodesDialog>
-            <Button variant="secondary">
+
+      <!-- Actions -->
+      <div class="flex justify-end">
+        <RegenerateBackupCodesDialog>
+          <Button variant="secondary">
+            <template v-if="mfaDetails!.backup_codes_remaining === null">
               Generate your backup codes
-            </Button>
-          </RegenerateBackupCodesDialog>
-        </div>
-      </template>
+            </template>
+            <template v-else>
+              Replace your backup codes
+            </template>
+          </Button>
+        </RegenerateBackupCodesDialog>
+      </div>
     </div>
 
     <!-- TOTP Section -->
