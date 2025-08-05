@@ -22,7 +22,7 @@ class MFABackupRegenerateResponse(BaseModel):
 @router.post(
     path='/regenerate',
     response_model=MFABackupRegenerateResponse,
-    dependencies=[Depends(rate_limited(capacity=2, refill_rate=1/300))],
+    dependencies=[Depends(rate_limited(capacity=4, refill_rate=1/300))],
 )
 async def mfa_backup_regenerate(
         session: AsyncSession = Depends(get_async_session),
