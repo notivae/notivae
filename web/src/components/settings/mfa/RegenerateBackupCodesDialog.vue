@@ -28,8 +28,12 @@ const { mutateAsync: regenerateBackupCodes, isPending, error } = useMutation({
   },
   onSuccess: async () => {
     await refetchMfaInfo();
-  }
+  },
 });
+
+async function handleGenerate() {
+  await regenerateBackupCodes();
+}
 
 async function startDownload() {
   browserDownloadStringAsFile(backupCodesJoined.value, "backup-codes.txt");
@@ -65,7 +69,7 @@ async function startDownload() {
           Close
         </Button>
         <template v-if="backupCodes.length === 0">
-          <Button variant="secondary" @click="regenerateBackupCodes" :disabled="isPending">
+          <Button variant="secondary" @click="handleGenerate" :disabled="isPending">
             <LucideLoader v-if="isPending" class="animate-spin" />
             {{ isPending ? "Generating codes..." : "Generate Backup Codes" }}
           </Button>
