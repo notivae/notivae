@@ -5,11 +5,12 @@ import { postApiAuthMfaBackupRegenerate } from "@/services/api/auth/mfa/backup-c
 import { computed, ref, watch } from "vue";
 import type { BackupCodes } from "@/types/api.ts";
 import { Button } from "@/components/ui/button";
-import { useClipboard } from "@vueuse/core";
+import { useClipboard, whenever } from "@vueuse/core";
 import { LucideClipboardCheck, LucideClipboardCopy, LucideFileDown, LucideLoader } from "lucide-vue-next";
 import { ErrorBox } from "@/components/common/error-box";
 import { browserDownloadStringAsFile } from "@/lib/dynamic-download.ts";
 import { useMfaDetails } from "@/composables/api/useMfaDetails.ts";
+import { logicAnd, logicNot } from "@vueuse/math";
 
 const { refetch: refetchMfaInfo } = useMfaDetails();
 const backupCodes = ref<BackupCodes>([]);
@@ -21,14 +22,15 @@ watch(isOpen, () => {
   backupCodes.value = [];
 });
 
-const { mutateAsync: regenerateBackupCodes, isPending, error } = useMutation({
+const { mutateAsync: regenerateBackupCodes, isSuccess, isPending, error } = useMutation({
   mutationFn: async () => {
     const response = await postApiAuthMfaBackupRegenerate();
     backupCodes.value = response.data.backup_codes;
   },
-  onSuccess: async () => {
-    await refetchMfaInfo();
-  },
+});
+
+whenever(logicAnd(isSuccess, logicNot(isOpen)), async () => {
+  await refetchMfaInfo();
 });
 
 async function handleGenerate() {
