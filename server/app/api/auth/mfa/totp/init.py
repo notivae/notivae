@@ -3,13 +3,12 @@ r"""
 
 """
 import pyotp
-from fastapi import APIRouter, HTTPException, status, Depends, Request, BackgroundTasks
+from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic import BaseModel
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.models import User, MFACredentials, BackupCode
 from app.core.dependencies import get_async_session, get_current_user, rate_limited
-from app.core.reusables.mfa_enabled import send_mfa_enabled_email
 
 
 router = APIRouter()
@@ -23,11 +22,9 @@ class TwoFASetupResponse(BaseModel):
 @router.post(
     path='/init',
     response_model=TwoFASetupResponse,
-    dependencies=[Depends(rate_limited(capacity=2, refill_rate=1/300))],
+    dependencies=[Depends(rate_limited(capacity=4, refill_rate=1/60))],
 )
 async def mfa_totp_init(
-        request: Request,
-        background_tasks: BackgroundTasks,
         session: AsyncSession = Depends(get_async_session),
         user: User = Depends(get_current_user),
 ):
@@ -58,8 +55,6 @@ async def mfa_totp_init(
         secret=secret,
     ))
     await session.commit()
-
-    background_tasks.add_task(send_mfa_enabled_email, request=request, user=user)
 
     return TwoFASetupResponse(
         secret=secret,
