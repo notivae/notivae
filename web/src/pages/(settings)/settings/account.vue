@@ -51,7 +51,7 @@ watch(account, () => {
   <form ref="request-form" @submit.prevent="handleSubmit" class="space-y-4">
     <div>
       <h2 class="text-xl font-bold">
-        <LucideUserRound class="inline-block" />
+        <LucideUserRound class="inline-block mr-1" />
         Account
       </h2>
       <Separator />

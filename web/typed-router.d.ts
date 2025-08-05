@@ -19,10 +19,11 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
-    '/(settings)/settings': RouteRecordInfo<'/(settings)/settings', '/settings', Record<never, never>, Record<never, never>, '/(settings)/settings/' | '/(settings)/settings/account' | '/(settings)/settings/authentication-identities'>,
+    '/(settings)/settings': RouteRecordInfo<'/(settings)/settings', '/settings', Record<never, never>, Record<never, never>, '/(settings)/settings/' | '/(settings)/settings/account' | '/(settings)/settings/authentication-identities' | '/(settings)/settings/mfa'>,
     '/(settings)/settings/': RouteRecordInfo<'/(settings)/settings/', '/settings', Record<never, never>, Record<never, never>>,
     '/(settings)/settings/account': RouteRecordInfo<'/(settings)/settings/account', '/settings/account', Record<never, never>, Record<never, never>>,
     '/(settings)/settings/authentication-identities': RouteRecordInfo<'/(settings)/settings/authentication-identities', '/settings/authentication-identities', Record<never, never>, Record<never, never>>,
+    '/(settings)/settings/mfa': RouteRecordInfo<'/(settings)/settings/mfa', '/settings/mfa', Record<never, never>, Record<never, never>>,
     '/[...path]': RouteRecordInfo<'/[...path]', '/:path(.*)', { path: ParamValue<true> }, { path: ParamValue<false> }>,
     '/auth/local/forgot-password': RouteRecordInfo<'/auth/local/forgot-password', '/auth/local/forgot-password', Record<never, never>, Record<never, never>>,
     '/auth/login/': RouteRecordInfo<'/auth/login/', '/auth/login', Record<never, never>, Record<never, never>>,
@@ -31,6 +32,7 @@ declare module 'vue-router/auto-routes' {
     '/auth/login/password/': RouteRecordInfo<'/auth/login/password/', '/auth/login/password', Record<never, never>, Record<never, never>>,
     '/auth/login/password/register': RouteRecordInfo<'/auth/login/password/register', '/auth/login/password/register', Record<never, never>, Record<never, never>>,
     '/auth/logout': RouteRecordInfo<'/auth/logout', '/auth/logout', Record<never, never>, Record<never, never>>,
+    '/auth/mfa/backup-code': RouteRecordInfo<'/auth/mfa/backup-code', '/auth/mfa/backup-code', Record<never, never>, Record<never, never>>,
     '/error': RouteRecordInfo<'/error', '/error', Record<never, never>, Record<never, never>>,
   }
 }

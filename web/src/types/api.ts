@@ -46,3 +46,12 @@ export type AuthIdentity = {
     provider_email: string
     userinfo: null | UserInfo
 }
+
+
+export type BackupCodes = string[]
+
+
+export type MfaDetails = {
+    backup_codes_remaining: null | number
+    totp: boolean
+}

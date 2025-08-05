@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Separator } from "@/components/ui/separator";
-import { LucideFingerprint } from "lucide-vue-next";
+import { LucideIdCard } from "lucide-vue-next";
 import { AuthIdentityLocalCard } from "@/components/settings/auth-identitiy-card/local";
 import { AuthIdentityMagicCard } from "@/components/settings/auth-identitiy-card/magic";
 import { AuthIdentityOIDCCard } from "@/components/settings/auth-identitiy-card/oidc";
@@ -13,7 +13,7 @@ const { data: serverFeatures } = useServerFeatures();
   <div class="space-y-4">
     <div>
       <h2 class="text-xl font-bold">
-        <LucideFingerprint class="inline-block" />
+        <LucideIdCard class="inline-block mr-1" />
         Authentication Identities
       </h2>
       <Separator />

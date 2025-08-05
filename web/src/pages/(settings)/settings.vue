@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
-import { LucideFingerprint, LucideHome, LucideLogOut, LucideSettings, LucideUserRound } from "lucide-vue-next";
+import {
+  LucideFingerprint,
+  LucideHome,
+  LucideIdCard,
+  LucideLogOut,
+  LucideSettings,
+  LucideUserRound
+} from "lucide-vue-next";
 import { Separator } from "@/components/ui/separator";
 </script>
 
@@ -28,8 +35,14 @@ import { Separator } from "@/components/ui/separator";
           </router-link>
           <router-link :to="{ name: '/(settings)/settings/authentication-identities' }" v-slot="{ isActive }">
             <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
-              <LucideFingerprint />
+              <LucideIdCard />
               Authentication Identities
+            </Button>
+          </router-link>
+          <router-link :to="{ name: '/(settings)/settings/mfa' }" v-slot="{ isActive }">
+            <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
+              <LucideFingerprint />
+              Multi-Factor Authentication
             </Button>
           </router-link>
           <Separator />
