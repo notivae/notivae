@@ -3,7 +3,7 @@ import { ref, watch, useTemplateRef } from "vue";
 import { LucideLoader, LucideUserRound, LucideUserRoundPlus, LucideUserRoundX } from "lucide-vue-next";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useServerFeatures } from "@/composables/useServerFeatures.ts";
+import { useServerFeatures } from "@/composables/api/useServerFeatures.ts";
 import { useMutation } from "@tanstack/vue-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,16 @@ definePage({
 });
 
 const { data: serverFeatures } = useServerFeatures();
+
+const formRef = useTemplateRef("request-form");
+const username = ref("");
+const displayName = ref("");
+const email = ref("");
+const isDirtyInput = ref(false);
+
+watch([username, displayName, email], () => {
+  isDirtyInput.value = true;
+});
 
 const { mutateAsync, isError, isPending, isSuccess, error } = useMutation({
   mutationKey: ['api', 'auth', 'magic', 'register'],
@@ -50,16 +60,6 @@ async function handleSend() {
   isDirtyInput.value = false;
   await mutateAsync();
 }
-
-const formRef = useTemplateRef("request-form");
-const username = ref("");
-const displayName = ref("");
-const email = ref("");
-const isDirtyInput = ref(false);
-
-watch([username, displayName, email], () => {
-  isDirtyInput.value = true;
-});
 </script>
 
 <template>

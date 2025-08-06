@@ -4,7 +4,7 @@ import { LucideIdCard } from "lucide-vue-next";
 import { AuthIdentityLocalCard } from "@/components/settings/auth-identitiy-card/local";
 import { AuthIdentityMagicCard } from "@/components/settings/auth-identitiy-card/magic";
 import { AuthIdentityOIDCCard } from "@/components/settings/auth-identitiy-card/oidc";
-import { useServerFeatures } from "@/composables/useServerFeatures.ts";
+import { useServerFeatures } from "@/composables/api/useServerFeatures.ts";
 
 const { data: serverFeatures } = useServerFeatures();
 </script>

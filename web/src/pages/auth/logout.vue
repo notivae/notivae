@@ -5,11 +5,11 @@ definePage({
   meta: {
     requiresAuth: false,
   },
-  beforeEnter: async (_to, _from, next) => {
+  beforeEnter: async (to, _from, next) => {
     const auth = useAuthStore();
     try {
       await auth.logout();
-      return next({ name: '/' });
+      return next({ path: (to.query.next as string) ?? '/' });
     } catch (error) {
       console.error(error);
       if (error instanceof Error) {

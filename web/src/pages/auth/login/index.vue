@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useRoute } from "vue-router";
-import { useServerFeatures } from "@/composables/useServerFeatures.ts";
+import { useServerFeatures } from "@/composables/api/useServerFeatures.ts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -9,6 +8,7 @@ import logoSrc from "@/assets/logo.svg";
 import authLocalSrc from "@/assets/auth-provider/local.svg";
 import authMagicLinkSrc from "@/assets/auth-provider/magic-link.svg";
 import authOidcSrc from "@/assets/auth-provider/oidc.svg";
+import { useQueryNext } from "@/composables/common/useQueryNext.ts";
 
 definePage({
   meta: {
@@ -17,8 +17,7 @@ definePage({
   }
 });
 
-const currentRoute = useRoute();
-const nextRoute = computed<string>(() => (currentRoute.query.next as string) ?? "/");
+const nextRoute = useQueryNext();
 const { data: serverFeatures } = useServerFeatures();
 
 const oidcRedirectUrl = computed(() => {

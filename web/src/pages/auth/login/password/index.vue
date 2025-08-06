@@ -2,7 +2,7 @@
 import logoSrc from "@/assets/logo.svg";
 import { computed, ref, useTemplateRef, watch } from "vue";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useServerFeatures } from "@/composables/useServerFeatures.ts";
+import { useServerFeatures } from "@/composables/api/useServerFeatures.ts";
 import { useMutation } from "@tanstack/vue-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ import { postApiAuthLocalLogin } from "@/services/api/auth/local/login.ts";
 import { useRoute, useRouter } from "vue-router";
 import { ErrorBox } from "@/components/common/error-box";
 import AuthLocalResetPasswordDialog from "@/components/auth/AuthLocalResetPasswordDialog.vue";
+import { useQueryNext } from "@/composables/common/useQueryNext.ts";
 
 definePage({
   meta: {
@@ -20,10 +21,19 @@ definePage({
   }
 });
 
+const { data: serverFeatures } = useServerFeatures();
 const router = useRouter();
 const currentRoute = useRoute();
-const nextRoute = computed<string>(() => (currentRoute.query.next as string) ?? "/");
-const { data: serverFeatures } = useServerFeatures();
+const nextRoute = useQueryNext();
+
+const formRef = useTemplateRef("request-form");
+const username_or_email = ref("");
+const password = ref("");
+const isDirtyInput = ref(false);
+
+watch([username_or_email, password], () => {
+  isDirtyInput.value = true;
+});
 
 const { mutateAsync: sendAuthentication, isError, isPending, error } = useMutation({
   mutationKey: ['api', 'auth', 'local', 'login'],
@@ -50,15 +60,6 @@ async function handleSubmit() {
   isDirtyInput.value = false;
   await sendAuthentication();
 }
-
-const formRef = useTemplateRef("request-form");
-const username_or_email = ref("");
-const password = ref("");
-const isDirtyInput = ref(false);
-
-watch([username_or_email, password], () => {
-  isDirtyInput.value = true;
-});
 </script>
 
 <template>

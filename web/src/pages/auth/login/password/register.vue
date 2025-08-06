@@ -3,7 +3,7 @@ import { ref, watch, useTemplateRef, computed } from "vue";
 import { LucideLoader, LucideUserRound, LucideUserRoundPlus, LucideUserRoundX } from "lucide-vue-next";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useServerFeatures } from "@/composables/useServerFeatures.ts";
+import { useServerFeatures } from "@/composables/api/useServerFeatures.ts";
 import { useMutation } from "@tanstack/vue-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";

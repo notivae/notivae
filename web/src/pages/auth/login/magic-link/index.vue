@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, useTemplateRef } from "vue";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useServerFeatures } from "@/composables/useServerFeatures.ts";
+import { useServerFeatures } from "@/composables/api/useServerFeatures.ts";
 import { useMutation } from "@tanstack/vue-query";
 import { postApiAuthMagicRequest } from "@/services/api/auth/magic/request.ts";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,15 @@ definePage({
 });
 
 const { data: serverFeatures } = useServerFeatures();
+
+const formRef = useTemplateRef("request-form");
+const email = ref("");
+const lastSentMail = ref("");
+const isDirtyInput = ref(false);
+
+watch(email, () => {
+  isDirtyInput.value = true;
+});
 
 const { mutateAsync, isError, isPending, isSuccess, error } = useMutation({
   mutationKey: ['api', 'auth', 'magic', 'request'],
@@ -41,15 +50,6 @@ async function handleSend() {
   isDirtyInput.value = false;
   await mutateAsync();
 }
-
-const formRef = useTemplateRef("request-form");
-const email = ref("");
-const lastSentMail = ref("");
-const isDirtyInput = ref(false);
-
-watch(email, () => {
-  isDirtyInput.value = true;
-});
 </script>
 
 <template>
