@@ -16,10 +16,10 @@ class AuthIdentity(Base):
     __tablename__ = "auth_identities"
 
     id: Mapped[int] = mapped_column(sql.Integer, primary_key=True, autoincrement=True)
-    user_id: Mapped[UUID] = mapped_column(sql.Uuid, sql.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-    provider: Mapped[str] = mapped_column(sql.String, nullable=False)
-    provider_user_id: Mapped[str] = mapped_column(sql.String, nullable=False)
-    provider_email: Mapped[str] = mapped_column(sql.String, nullable=False)
+    user_id: Mapped[UUID] = mapped_column(sql.Uuid, sql.ForeignKey("users.id", ondelete="CASCADE"), index=True, nullable=False)
+    provider: Mapped[str] = mapped_column(sql.String, index=True, nullable=False)
+    provider_user_id: Mapped[str] = mapped_column(sql.String, index=True, nullable=False)
+    provider_email: Mapped[str] = mapped_column(sql.String, index=True, nullable=False)
     userinfo: Mapped[dict] = mapped_column(sql.JSON, nullable=True)
     context: Mapped[dict] = mapped_column(sql.JSON, nullable=True)
 

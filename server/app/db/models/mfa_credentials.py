@@ -16,8 +16,8 @@ class MFACredentials(Base):
     __tablename__ = "mfa_credentials"
 
     user_id: Mapped[UUID] = mapped_column(sql.Uuid, sql.ForeignKey("users.id", ondelete="CASCADE"), primary_key=True, nullable=False)
-    method: Mapped[str] = mapped_column(sql.String, primary_key=True, nullable=False)
+    method: Mapped[str] = mapped_column(sql.String, index=True, primary_key=True, nullable=False)
     secret: Mapped[str] = mapped_column(sql.String, nullable=True)
-    confirmed: Mapped[bool] = mapped_column(sql.Boolean, nullable=False, default=False)
+    confirmed: Mapped[bool] = mapped_column(sql.Boolean, index=True, nullable=False, default=False)
 
     created_at: Mapped[dt.datetime] = mapped_column(sql.DateTime(timezone=True), nullable=False, server_default=sql.func.now())

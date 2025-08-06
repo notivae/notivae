@@ -16,8 +16,8 @@ class AuthSession(Base):
     __tablename__ = "auth_sessions"
 
     id: Mapped[int] = mapped_column(sql.Integer, primary_key=True, autoincrement=True)
-    user_id: Mapped[UUID] = mapped_column(sql.Uuid, sql.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-    hashed_token: Mapped[str] = mapped_column(sql.String, nullable=False, index=True)
+    user_id: Mapped[UUID] = mapped_column(sql.Uuid, sql.ForeignKey("users.id", ondelete="CASCADE"), index=True, nullable=False)
+    hashed_token: Mapped[str] = mapped_column(sql.String, index=True, nullable=False)
 
     user_agent: Mapped[str] = mapped_column(sql.String, nullable=False)
     ip_address: Mapped[str] = mapped_column(sql.String, nullable=False)

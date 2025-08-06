@@ -28,7 +28,7 @@ class Notification(Base):
 
     id: Mapped[int] = mapped_column(sql.Integer, primary_key=True, autoincrement=True)
 
-    recipient_id: Mapped[UUID] = mapped_column(sql.Uuid, sql.ForeignKey('users.id'), nullable=False, index=True)
+    recipient_id: Mapped[UUID] = mapped_column(sql.Uuid, sql.ForeignKey('users.id'), index=True, nullable=False)
     title: Mapped[str] = mapped_column(sql.String(255), nullable=False)
     message: Mapped[str] = mapped_column(sql.Text, nullable=False)
 
@@ -36,6 +36,6 @@ class Notification(Base):
     status: Mapped[NotificationStatus] = mapped_column(sql.Enum(NotificationStatus), nullable=False, default=NotificationStatus.unread)
 
     created_at: Mapped[dt.datetime] = mapped_column(sql.DateTime(timezone=True), nullable=False, server_default=sql.func.now())
-    expires_at: Mapped[dt.datetime] = mapped_column(sql.DateTime(timezone=True), nullable=True)
+    expires_at: Mapped[dt.datetime] = mapped_column(sql.DateTime(timezone=True), index=True, nullable=True)
 
     context: Mapped[dict | None] = mapped_column(sql.JSON, nullable=True)

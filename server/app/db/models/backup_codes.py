@@ -16,7 +16,7 @@ class BackupCode(Base):
     __tablename__ = "backup_codes"
 
     id: Mapped[int] = mapped_column(sql.Integer, primary_key=True, autoincrement=True)
-    user_id: Mapped[UUID] = mapped_column(sql.Uuid, sql.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    user_id: Mapped[UUID] = mapped_column(sql.Uuid, sql.ForeignKey("users.id", ondelete="CASCADE"), index=True, nullable=False)
     code: Mapped[str] = mapped_column(sql.String, nullable=False)
     used: Mapped[bool] = mapped_column(sql.Boolean, nullable=False, default=False)
 
