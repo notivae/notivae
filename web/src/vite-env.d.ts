@@ -7,6 +7,8 @@ declare module "vue-router" {
     interface RouteMeta {
         /** whether only authenticated users can access the current page. default: `true` */
         requiresAuth?: boolean
+        /** whether only admin users can access the current page. default: `false` */
+        requiresAdmin?: boolean
         /** if `true` and a user is authenticated, the `next` query parameter is followed */
         followNextIfAuthenticated?: boolean
     }

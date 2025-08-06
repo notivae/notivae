@@ -27,6 +27,10 @@ router.beforeEach(async (to, from, next) => {
         return next(to.query.next);
     }
 
+    if (to.meta.requiresAdmin && !auth.user?.is_system_admin) {
+        return next({ name: "/error", query: { name: "PermissionError", message: "You are not a system administrator" } });
+    }
+
     next();
 });
 
