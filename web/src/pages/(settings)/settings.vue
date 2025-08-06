@@ -4,7 +4,7 @@ import {
   LucideFingerprint,
   LucideHome,
   LucideIdCard,
-  LucideLogOut,
+  LucideLogOut, LucideMonitorSmartphone,
   LucideSettings,
   LucideUserRound
 } from "lucide-vue-next";
@@ -43,6 +43,12 @@ import { Separator } from "@/components/ui/separator";
             <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
               <LucideFingerprint />
               Multi-Factor Authentication
+            </Button>
+          </router-link>
+          <router-link :to="{ name: '/(settings)/settings/devices' }" v-slot="{ isActive }">
+            <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
+              <LucideMonitorSmartphone />
+              Devices
             </Button>
           </router-link>
           <Separator />

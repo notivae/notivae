@@ -19,10 +19,11 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
-    '/(settings)/settings': RouteRecordInfo<'/(settings)/settings', '/settings', Record<never, never>, Record<never, never>, '/(settings)/settings/' | '/(settings)/settings/account' | '/(settings)/settings/authentication-identities' | '/(settings)/settings/mfa'>,
+    '/(settings)/settings': RouteRecordInfo<'/(settings)/settings', '/settings', Record<never, never>, Record<never, never>, '/(settings)/settings/' | '/(settings)/settings/account' | '/(settings)/settings/authentication-identities' | '/(settings)/settings/devices' | '/(settings)/settings/mfa'>,
     '/(settings)/settings/': RouteRecordInfo<'/(settings)/settings/', '/settings', Record<never, never>, Record<never, never>>,
     '/(settings)/settings/account': RouteRecordInfo<'/(settings)/settings/account', '/settings/account', Record<never, never>, Record<never, never>>,
     '/(settings)/settings/authentication-identities': RouteRecordInfo<'/(settings)/settings/authentication-identities', '/settings/authentication-identities', Record<never, never>, Record<never, never>>,
+    '/(settings)/settings/devices': RouteRecordInfo<'/(settings)/settings/devices', '/settings/devices', Record<never, never>, Record<never, never>>,
     '/(settings)/settings/mfa': RouteRecordInfo<'/(settings)/settings/mfa', '/settings/mfa', Record<never, never>, Record<never, never>>,
     '/[...path]': RouteRecordInfo<'/[...path]', '/:path(.*)', { path: ParamValue<true> }, { path: ParamValue<false> }>,
     '/auth/local/forgot-password': RouteRecordInfo<'/auth/local/forgot-password', '/auth/local/forgot-password', Record<never, never>, Record<never, never>>,

@@ -60,3 +60,15 @@ export type MfaTotpInit = {
     secret: string
     provisioning_uri: string
 }
+
+export type AuthSessionInfo = {
+    id: number
+    is_current: boolean
+
+    user_agent: string
+    ip_address: string
+
+    created_at: string
+    expires_at: string
+    revoked: boolean
+}
