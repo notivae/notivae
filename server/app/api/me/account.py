@@ -15,17 +15,18 @@ from app.db.models import User
 router = APIRouter()
 
 
-class UserMeResponse(pydantic.BaseModel):
+class AccountResponse(pydantic.BaseModel):
     id: uuid.UUID
     email: pydantic.EmailStr
     email_verified: bool
     name: str
     display_name: t.Optional[str]
+    is_system_admin: bool
 
 
 @router.get(
     path='/account',
-    response_model=UserMeResponse,
+    response_model=AccountResponse,
     dependencies=[Depends(rate_limited(capacity=10, refill_rate=10/60))],
 )
 async def get_me(
@@ -34,7 +35,7 @@ async def get_me(
     return user
 
 
-class UserMePartialRequest(pydantic.BaseModel):
+class AccountPartialRequest(pydantic.BaseModel):
     email: t.Optional[pydantic.EmailStr] = None
     name: t.Optional[str] = None
     display_name: t.Optional[str] = None
@@ -42,7 +43,7 @@ class UserMePartialRequest(pydantic.BaseModel):
 
 @router.patch(
     path='/account',
-    response_model=UserMeResponse,
+    response_model=AccountResponse,
     dependencies=[Depends(rate_limited(capacity=5, refill_rate=5/300))],
 )
 async def patch_me(
@@ -50,7 +51,7 @@ async def patch_me(
         background_tasks: BackgroundTasks,
         session: AsyncSession = Depends(get_async_session),
         user: User = Depends(get_current_user),
-        changes: UserMePartialRequest = Body()
+        changes: AccountPartialRequest = Body()
 ):
     if 'email' in changes.model_fields_set and changes.email != user.email:
         user.email = str(changes.email)
