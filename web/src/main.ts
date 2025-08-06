@@ -8,7 +8,7 @@ import axios from "axios";
 
 import "@/services/ws";
 
-import App from '@/App.vue';
+import App from '@/AppWrapper.vue';
 import { router } from "@/router";
 
 
