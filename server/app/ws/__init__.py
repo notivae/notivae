@@ -93,7 +93,7 @@ async def websocket_sender(websocket: WebSocket, user: User):
         )
         # todo: listening to all logs when admin-user even when not on the admin-dashboard is not necessary
         if user.is_system_admin:
-            await pubsub.subscribe(f"ws:logs")
+            await pubsub.subscribe("ws:logs")
         while True:
             message: PubSubMessage = await pubsub.get_message(ignore_subscribe_messages=True, timeout=10)
             if message is None:
