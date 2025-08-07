@@ -3,10 +3,10 @@ import { LucideLogs } from "lucide-vue-next";
 import { Separator } from "@/components/ui/separator";
 import { ref } from "vue";
 import { useWebSocketEvent } from "@/composables/useWebSocketEvent.ts";
-import type { AdminLogMessage } from "@/types/ws.ts";
+import type { AdminLogMessage } from "@/types/api.ts";
 import { useQuery } from "@tanstack/vue-query";
-import axios from "axios";
 import { ErrorBox } from "@/components/common/error-box";
+import { getApiAdminLogs } from "@/services/api/admin/logs";
 
 
 const logMessages = ref<AdminLogMessage[]>([]);
@@ -14,7 +14,7 @@ const logMessages = ref<AdminLogMessage[]>([]);
 const { error: loadingError } = useQuery<AdminLogMessage[]>({
   queryKey: ["api", "admin", "logs", "query"],
   queryFn: async () => {
-    const response = await axios.get<AdminLogMessage[]>("/api/admin/logs/query");
+    const response = await getApiAdminLogs();
     logMessages.value = response.data;
     return response.data;
   },

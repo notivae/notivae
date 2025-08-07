@@ -72,3 +72,13 @@ export type AuthSessionInfo = {
     expires_at: string
     revoked: boolean
 }
+
+
+export type AdminLogMessage = {
+    level: number
+    module: string
+    lineno: number
+    message: string
+    context: Record<string, unknown>
+    timestamp: string
+}
