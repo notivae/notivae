@@ -11,11 +11,11 @@ export const alertVariants = cva(
       variant: {
         default: 'bg-card text-card-foreground',
         destructive:
-          'text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90',
+          'text-destructive-foreground bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive-foreground/90',
         warning:
-          'text-warning bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-warning/90',
+          'text-warning-foreground bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-warning-foreground/90',
         success:
-          'text-success bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-success/90',
+          'text-success-foreground bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-success-foreground/90',
       },
     },
     defaultVariants: {

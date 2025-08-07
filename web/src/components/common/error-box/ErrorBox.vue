@@ -15,7 +15,7 @@ function formatSeconds(seconds: number) {
 </script>
 
 <template>
-  <p v-if="error !== null && error !== undefined" class="font-mono text-sm text-destructive-foreground">
+  <p v-if="error !== null && error !== undefined" class="font-mono text-sm text-destructive-foreground/90">
     <template v-if="error instanceof AxiosError">
       <template v-if="error.response?.status === HttpStatusCode.TooManyRequests">
         You are currently doing too many requests.
