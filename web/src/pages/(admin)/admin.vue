@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import {
   LucideHome, LucideLayoutDashboard,
-  LucideLogs, LucideShieldUser,
+  LucideLogs, LucideShieldUser, LucideUsersRound,
 } from "lucide-vue-next";
 import { Separator } from "@/components/ui/separator";
 
@@ -35,6 +35,13 @@ definePage({
           Dashboard
         </Button>
       </router-link>
+      <router-link :to="{ name: '/(admin)/admin/users' }" v-slot="{ isActive }">
+        <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
+          <LucideUsersRound />
+          Users
+        </Button>
+      </router-link>
+      <Separator />
       <router-link :to="{ name: '/(admin)/admin/logs' }" v-slot="{ isActive }">
         <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
           <LucideLogs />
