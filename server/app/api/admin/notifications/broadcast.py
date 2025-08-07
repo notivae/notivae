@@ -83,8 +83,9 @@ async def broadcast(
 
         done, _ = await asyncio.wait(tasks)
         for task in done:
-            if task.exception():
-                logger.error(f"", exc_info=task.exception())
+            exc = task.exception()
+            if exc:
+                logger.error(f"{type(exc)}: {exc}", exc_info=exc)
 
         await session.commit()
 

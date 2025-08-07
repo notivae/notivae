@@ -3,14 +3,13 @@ r"""
 
 """
 import typing as t
-from uuid import UUID
 import asyncio
 import structlog
 from fastapi import APIRouter, WebSocket, WebSocketException, status, WebSocketDisconnect, Cookie
 import sqlalchemy as sql
 from app.core.redis import redis_client, PubSubMessage
 from app.db.session import AsyncSessionLocal
-from app.db.models import AuthSession
+from app.db.models import User, AuthSession
 from app.core.security.auth_session import hash_session_token
 
 
@@ -44,9 +43,21 @@ async def websocket_endpoint(
                 code=status.WS_1008_POLICY_VIOLATION,
                 reason="Invalid session token",
             )
+        stmt = sql.select(User).where(User.id == auth_session.user_id)
+        user: User = await session.scalar(stmt)
+        if not user:
+            raise WebSocketException(
+                code=status.WS_1008_POLICY_VIOLATION,
+                reason="Invalid User",
+            )
+        if not user.is_approved:
+            raise WebSocketException(
+                code=status.WS_1008_POLICY_VIOLATION,
+                reason="User is not approved",
+            )
 
-    listener = asyncio.create_task(websocket_listener(websocket=websocket, user_id=auth_session.user_id))
-    sender = asyncio.create_task(websocket_sender(websocket=websocket, user_id=auth_session.user_id))
+    listener = asyncio.create_task(websocket_listener(websocket=websocket, user=user))
+    sender = asyncio.create_task(websocket_sender(websocket=websocket, user=user))
 
     done, pending = await asyncio.wait(
         [listener, sender],
@@ -64,22 +75,25 @@ async def websocket_endpoint(
         raise WebSocketException(code=status.WS_1011_INTERNAL_ERROR, reason="critical error")
 
 
-async def websocket_listener(websocket: WebSocket, user_id: UUID):
+async def websocket_listener(websocket: WebSocket, user: User):
     try:
         while True:
             data = await websocket.receive_text()  # todo: validate against pydantic classes
-            await redis_client.publish(f"ws:{user_id}:data", data)  # todo: adjust channel
+            await redis_client.publish(f"ws:{user.id}:data", data)  # todo: adjust channel
     except WebSocketDisconnect:
         pass
 
 
-async def websocket_sender(websocket: WebSocket, user_id: UUID):
+async def websocket_sender(websocket: WebSocket, user: User):
+    pubsub = redis_client.pubsub()
     try:
-        pubsub = redis_client.pubsub()
         await asyncio.gather(
-            pubsub.subscribe(f"ws:{user_id}:data"),
-            pubsub.subscribe(f"ws:{user_id}:notifications"),
+            pubsub.subscribe(f"ws:{user.id}:data"),
+            pubsub.subscribe(f"ws:{user.id}:notifications"),
         )
+        # todo: listening to all logs when admin-user even when not on the admin-dashboard is not necessary
+        if user.is_system_admin:
+            await pubsub.subscribe(f"ws:logs")
         while True:
             message: PubSubMessage = await pubsub.get_message(ignore_subscribe_messages=True, timeout=10)
             if message is None:
@@ -87,4 +101,5 @@ async def websocket_sender(websocket: WebSocket, user_id: UUID):
             else:
                 await websocket.send_text(message['data'])
     except WebSocketDisconnect:
-        pass
+        await pubsub.unsubscribe()
+        await pubsub.aclose()

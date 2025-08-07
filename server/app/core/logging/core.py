@@ -14,10 +14,7 @@ from app.core.redis import redis_client
 from app.config import SETTINGS
 
 
-__all__ = ['REDIS_CHANNEL', 'log_to_db', 'log_processor']
-
-
-REDIS_CHANNEL = "logs"
+__all__ = ['log_to_db', 'log_processor']
 
 
 class LogData(t.TypedDict):
@@ -26,6 +23,7 @@ class LogData(t.TypedDict):
     lineno: int
     message: str
     context: dict
+    timestamp: str
 
 
 fallback_logger = logging.getLogger(__name__)  # fallback logger to keep logging but prevent log-recursion
@@ -44,7 +42,7 @@ async def log_to_db(data: LogData):
 
 async def log_to_redis(data: LogData):
     try:
-        await redis_client.publish(channel=REDIS_CHANNEL, message=json.dumps(data))
+        await redis_client.publish(channel="ws:logs", message=json.dumps({ 'type': "log", 'payload': data }))
     except Exception as e:
         fallback_logger.error("Failed to publish log-entry", exc_info=e)
 
@@ -71,6 +69,7 @@ def log_processor(_logger, method: str, event_dict: dict) -> dict:
             lineno=event_dict['lineno'],
             message=event_dict['event'],
             context=jsonable_encoder(event_dict, exclude=EXCLUDE_CONTEXT),
+            timestamp=event_dict['timestamp'],
         )
         if level >= log_to_db_level():
             asyncio.create_task(log_to_db(data))

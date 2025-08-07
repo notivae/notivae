@@ -27,7 +27,7 @@ class PydanticLogEntry(pydantic.BaseModel):
 
 
 @router.get(
-    path='/query',
+    path='/',
     response_model=t.List[PydanticLogEntry],
     dependencies=[Depends(rate_limited(capacity=10, refill_rate=10/60))],
 )
