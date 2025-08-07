@@ -59,7 +59,7 @@ import { Separator } from "@/components/ui/separator";
             </Button>
           </router-link>
         </div>
-        <div class="grow">
+        <div class="flex-1 overflow-auto">
           <router-view />
         </div>
       </div>

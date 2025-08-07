@@ -1,5 +1,6 @@
 export type WebSocketIncomingEvents = {
     notification: Notification
+    log: AdminLogMessage
 }
 
 export type WebSocketOutgoingEvents = {
@@ -30,4 +31,13 @@ export type Notification = {
 
     /** optional contextual information. depends on {@link category} */
     context: null | object
+}
+
+export type AdminLogMessage = {
+    level: number
+    module: string
+    lineno: number
+    message: string
+    context: Record<string, unknown>
+    timestamp: string
 }
