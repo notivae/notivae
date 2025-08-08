@@ -28,7 +28,7 @@ class Notification(Base):
 
     id: Mapped[int] = mapped_column(sql.Integer, primary_key=True, autoincrement=True)
 
-    recipient_id: Mapped[UUID] = mapped_column(sql.Uuid, sql.ForeignKey('users.id'), index=True, nullable=False)
+    recipient_id: Mapped[UUID] = mapped_column(sql.Uuid, sql.ForeignKey("users.id", ondelete="CASCADE"), index=True, nullable=False)
     title: Mapped[str] = mapped_column(sql.String(255), nullable=False)
     message: Mapped[str] = mapped_column(sql.Text, nullable=False)
 
