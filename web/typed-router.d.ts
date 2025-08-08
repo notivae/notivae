@@ -41,5 +41,6 @@ declare module 'vue-router/auto-routes' {
     '/auth/mfa/backup-code': RouteRecordInfo<'/auth/mfa/backup-code', '/auth/mfa/backup-code', Record<never, never>, Record<never, never>>,
     '/auth/mfa/totp': RouteRecordInfo<'/auth/mfa/totp', '/auth/mfa/totp', Record<never, never>, Record<never, never>>,
     '/error': RouteRecordInfo<'/error', '/error', Record<never, never>, Record<never, never>>,
+    '/init/': RouteRecordInfo<'/init/', '/init', Record<never, never>, Record<never, never>>,
   }
 }
