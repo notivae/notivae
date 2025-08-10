@@ -51,7 +51,7 @@ function connectWebSocket(): void {
         isConnected = false;
         socketBus.emit('close');
         if (event.code === WSStatusCode.WS_1008_POLICY_VIOLATION) {
-            reconnectAttempts++;
+            reconnectAttempts += 2;
         }
         scheduleReconnect();
     });
