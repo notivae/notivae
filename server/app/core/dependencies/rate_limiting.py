@@ -4,6 +4,7 @@ r"""
 """
 from fastapi import Request, Response, HTTPException, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
+from app.config import SETTINGS
 from .async_session import get_async_session
 from ..security.rate_limiting import check_is_rate_limited, get_rate_limit_key
 
@@ -18,6 +19,9 @@ def rate_limited(*, capacity: int, refill_rate: float, group: str = None):
     :param refill_rate: time in seconds between adding a token to the bucket
     :param group: identifier. Fallback to endpoint function name
     """
+    if SETTINGS.SECURITY.DISABLE_RATE_LIMITS:
+        async def pseudo_limiter(): ...
+        return pseudo_limiter
 
     async def limiter_dependency(request: Request, response: Response, session: AsyncSession = Depends(get_async_session)):
         group_key = group

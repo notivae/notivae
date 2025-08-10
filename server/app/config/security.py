@@ -29,6 +29,11 @@ class SecuritySettings(BaseSettings):
         description="The number of bytes to use for session identification",
     )
 
+    DISABLE_RATE_LIMITS: bool = Field(
+        default=False,
+        description="Whether to disable rate limiting. (recommended only for development)",
+    )
+
     model_config = SettingsConfigDict(
         env_prefix="SECURITY_",
         env_ignore_empty=True,
