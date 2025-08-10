@@ -2,9 +2,11 @@
 r"""
 
 """
-from fastapi import APIRouter, Response, status, Depends
+from fastapi import APIRouter, Response, status, Depends, Cookie
+import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.core.dependencies import rate_limited, get_async_session, get_current_auth_session_optional
+from app.core.dependencies import rate_limited, get_async_session
+from app.core.security.auth_session import hash_session_token
 from app.db.models import AuthSession
 
 
@@ -19,8 +21,12 @@ router = APIRouter()
 async def logout(
         response: Response,
         session: AsyncSession = Depends(get_async_session),
-        auth_session: AuthSession = Depends(get_current_auth_session_optional),
+        session_token: str | None = Cookie(default=None),
 ) -> None:
+    session_token_hashed = hash_session_token(session_token)
+
+    stmt = sql.select(AuthSession).where(AuthSession.hashed_token == session_token_hashed)
+    auth_session: AuthSession = await session.scalar(stmt)
 
     if auth_session:
         await session.delete(auth_session)
