@@ -39,7 +39,7 @@ async def get_current_auth_session(
 ) -> AuthSession:
     if auth_session is None:
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
+            status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Missing session token",
         )
     return auth_session
