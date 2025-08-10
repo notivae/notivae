@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { LucideInfo } from "lucide-vue-next";
+import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 </script>
 
 <template>
@@ -10,16 +8,7 @@ import { LucideInfo } from "lucide-vue-next";
       Welcome to Notivae
     </CardTitle>
     <CardDescription>
-      Let’s get your application ready. We’ll walk you through a few simple steps to initialize your instance.
+      Let’s get Notivae set up. We’ll guide you through a few quick steps to initialize your instance.
     </CardDescription>
   </CardHeader>
-  <CardContent>
-    <Alert variant="warning">
-      <LucideInfo class="h-4 w-4" />
-      <AlertTitle>Heads up</AlertTitle>
-      <AlertDescription>
-        This setup only runs once.
-      </AlertDescription>
-    </Alert>
-  </CardContent>
 </template>
