@@ -50,7 +50,7 @@ async function handleComplete() {
         <img :src="logoSrc" alt="notivae logo" class="size-6" />
         Notivae
       </div>
-      <Card>
+      <Card class="w-full">
         <CardHeader>
           <CardTitle>
             Two-Factor Authentication

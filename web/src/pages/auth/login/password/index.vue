@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import logoSrc from "@/assets/logo.svg";
-import { computed, ref, useTemplateRef, watch } from "vue";
+import { ref, useTemplateRef, watch } from "vue";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useServerFeatures } from "@/composables/api/useServerFeatures.ts";
 import { useMutation } from "@tanstack/vue-query";
@@ -69,7 +69,7 @@ async function handleSubmit() {
         <img :src="logoSrc" alt="notivae logo" class="size-6" />
         Notivae
       </div>
-      <Card>
+      <Card class="w-full">
         <CardHeader class="text-center">
           <CardTitle class="text-xl">
             Login via Password

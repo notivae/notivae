@@ -51,7 +51,7 @@ async function handleSubmit() {
         <img :src="logoSrc" alt="notivae logo" class="size-6" />
         Notivae
       </div>
-      <Card>
+      <Card class="w-full">
         <CardHeader class="text-center">
           <CardTitle class="text-xl">
             Reset you Password
