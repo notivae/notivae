@@ -2,11 +2,12 @@
 r"""
 
 """
-from fastapi import APIRouter, HTTPException, status, Depends, Body
+from fastapi import APIRouter, HTTPException, status, Depends, Body, BackgroundTasks, Request
 from pydantic import BaseModel, EmailStr
 import sqlalchemy as sql
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.dependencies import get_async_session, rate_limited
+from app.core.reusables.verification_mail import send_verification_email
 from app.db.models import User, AuthIdentity
 from app.core.security.local import hash_password
 from app.api.auth.local._common import AuthLocalIdentityContext
@@ -48,9 +49,12 @@ class InitRequest(BaseModel):
 
 @router.post(
     path="/init",
+    status_code=status.HTTP_204_NO_CONTENT,
     dependencies=[Depends(rate_limited(capacity=5, refill_rate=1/300))],
 )
 async def server_init(
+        request: Request,
+        background_tasks: BackgroundTasks,
         session: AsyncSession = Depends(get_async_session),
         form: InitRequest = Body()
 ):
@@ -64,13 +68,15 @@ async def server_init(
 
     admin_user = User(
         email=str(form.admin_account.email),
-        name=form.admin_account.name,
+        name=form.admin_account.username,
         display_name=form.admin_account.display_name,
         is_approved=True,
         is_system_admin=True,
     )
     session.add(admin_user)
     await session.flush()
+
+    background_tasks.add_task(send_verification_email, request=request, user=admin_user)
 
     context = AuthLocalIdentityContext(
         password_hashed=hash_password(form.admin_account.password),
