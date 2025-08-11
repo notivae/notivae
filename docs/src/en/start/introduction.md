@@ -1,4 +1,4 @@
-# 🚀 Introduction to Notivae
+# @lucide:rocket Introduction to Notivae
 
 ## Why Notivae?
 
@@ -6,7 +6,7 @@ Notivae was created to solve the limitations of existing knowledge and note-taki
 
 Notivae brings together the best of these systems while staying **fully self-hosted**, **markdown-native**, and **privacy-first**.
 
-### 🔍 Feature Comparison
+### @lucide:table Feature Comparison
 | Feature                                                  | Notivae | Notion | Outline | Obsidian | Logseq | Joplin |
 |----------------------------------------------------------|:-------:|:------:|:-------:|:--------:|:------:|:------:|
 | For Teams and Solo use                                   |    ✅    |   ✅    |    ✅    |    ❌     |   ⚠️   |   ❌    |
@@ -36,9 +36,9 @@ Notivae is early-stage — rough, changing, and evolving. We'd love your input! 
 **Thanks for trying out Notivae.**
 Your knowledge. Your structure. Your control.
 
-## 🤖 LLMs.txt Support
+## @lucide:bot LLMs.txt Support
 
-To improve compatibility with AI tools, Notivae provides a machine-readable [`llms.txt`](https://notivae.github.io/llms.txt) file.
+To improve compatibility with AI tools, Notivae provides a machine-readable [`llms.txt`](/llms.txt) file.
 
 This file helps large language models (LLMs) — such as those used in AI-powered search, summarization, or assistant systems — understand the structure and content of our documentation. It includes clean, structured Markdown for each public page, along with its canonical URL.
 
@@ -47,4 +47,4 @@ Developers building tools, bots, or integrations can use this to:
 - Build semantic search or RAG pipelines
 - Preprocess documentation for embedding/indexing
 
-📄 [View llms.txt](https://notivae.github.io/llms.txt)
+@lucide:file-text [View llms.txt](/llms.txt)

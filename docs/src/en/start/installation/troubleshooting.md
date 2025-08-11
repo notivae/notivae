@@ -1,10 +1,10 @@
-# 🛠️ Troubleshooting
+# @lucide:hammer Troubleshooting
 
 This page helps you resolve common issues encountered while setting up or running Notivae using Docker.
 
 If you're stuck on something not listed here, feel free to open an issue or check the [Contributing](../../other/contributing.md) guide.
 
-## 🧩 Docker Setup Issues
+## @lucide:puzzle Docker Setup Issues
 
 ### Docker/Docker Compose is not installed or not found
 
@@ -17,7 +17,7 @@ If you're stuck on something not listed here, feel free to open an issue or chec
   - [Install Docker Compose](https://docs.docker.com/compose/install/)
 - Restart your shell or terminal after installation.
 
-## 📦 Container Won’t Start
+## @lucide:container Container Won’t Start
 
 ### Ports are already in use
 
@@ -50,7 +50,7 @@ If you're stuck on something not listed here, feel free to open an issue or chec
   - Quotes around special characters
   - Line endings (use Unix line endings)
 
-## 🧮 Database Errors
+## @lucide:database Database Errors
 
 ### Database container exits immediately
 
@@ -69,7 +69,7 @@ If you're stuck on something not listed here, feel free to open an issue or chec
   docker volume rm notivae_pgdata
   ```
 
-## 🖥️ Frontend is Blank or Unresponsive
+## @lucide:app-window Frontend is Blank or Unresponsive
 
 **Symptoms**
 - You open `http://localhost:8766` and see a blank screen or a browser error.
@@ -85,7 +85,7 @@ If you're stuck on something not listed here, feel free to open an issue or chec
   ```
 - Make sure the backend is reachable from the frontend container (`localhost` inside a container ≠ your host machine)
 
-## 🧹 Cleanup Tips
+## @lucide:brush-cleaning Cleanup Tips
 
 ### Removing all containers, volumes, and networks
 
@@ -97,7 +97,7 @@ docker-compose down -v
 
 This will remove all associated volumes (e.g., database data). Be careful — this is irreversible.
 
-## 📄 Still Having Issues?
+## @lucide:bug Still Having Issues?
 
 Open an issue on the repository with logs, your `.env` config (redact sensitive info), and a description of what’s not working.
 

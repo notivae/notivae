@@ -1,4 +1,4 @@
-# 🛡️ Virus Scanning (Optional)
+# @lucide:shield Virus Scanning (Optional)
 
 Notivae supports **optional virus scanning** for uploaded files. This feature is designed to improve security in environments where users can upload arbitrary attachments — especially in multi-user or publicly accessible deployments.
 

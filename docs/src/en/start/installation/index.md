@@ -2,13 +2,13 @@
 > [!IMPORTANT]
 > Notivae is in early-stage development. No features are fully implemented yet.
 
-# 🧰 Installation
+# @lucide:tool-case Installation
 
 Notivae can run on your own computer or server using **Docker**, a tool that bundles everything it needs. No need to install each part separately.
 
 We’ll use a tool called `docker-compose` to launch all components – the app, its backend, and the database – all with one command.
 
-## 🔧 Prerequisites
+## @lucide:wrench Prerequisites
 
 Make sure these are ready on your system:
 
@@ -22,7 +22,7 @@ Make sure these are ready on your system:
 
 - [X] Basic knowledge of how to use a terminal (e.g., navigating folders, running commands)
 
-## 📁 Setup Files
+## @lucide:folder Setup Files
 
 To run Notivae, you'll need two files:
 
@@ -52,7 +52,7 @@ Your folder structure should look like this:
 
 :::
 
-## ▶️ Start the Stack
+## @lucide:square-play Start the Stack
 
 From within the `/srv/notivae-stack` directory, run:
 
@@ -68,7 +68,7 @@ This command will:
 
 Docker will automatically download any required images on the first run. This may take a while, depending on your internet connection.
 
-## ✅ Verify
+## @lucide:square-check Verify
 
 After a few seconds, run this command in your terminal:
 
@@ -91,7 +91,7 @@ However, you **won’t be able to access the web interface yet.** The frontend a
 > 🛠️ To continue, you need to configure a [reverse proxy](./reverse-proxy.md) or another solution that connects the frontend to the backend under a unified address.  
 > This is required before opening the web UI in your browser.
 
-## 🌍 Connect Frontend and Backend
+## @lucide:globe Connect Frontend and Backend
 
 Notivae’s frontend expects to reach the backend at `/api` on the **same domain and port** — for example:
 
@@ -130,7 +130,7 @@ Popular reverse proxy options:
 > Hosting Notivae behind a home network? You may need a **tunnel** like [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/) or [Ngrok](https://ngrok.com/) to make it accessible from the internet.  
 > This is also covered in the [Reverse Proxy Guide](./reverse-proxy.md).
 
-## 🚀 Finalizing your instance
+## @lucide:rocket Finalizing your instance
 
 Notivae's web-ui has a built-in wizard to help you configure the final parts or your hosted instance.
 To start the setup wizard open the following page in your browser.
@@ -140,7 +140,7 @@ https://<your-domain-or-ip>/#/init
 e.g. https://notivae.example.com/#/init
 ```
 
-## 🔁 Updating
+## @lucide:repeat-2 Updating
 
 To update Notivae to the latest version:
 
@@ -157,7 +157,7 @@ This will:
 > [!WARNING]
 > This command works only if you are omitting or using floating tags like `:latest` or `:dev` in your `docker-compose.yml`. If you pin versions explicitly in `docker-compose.yml`, you need to update the tags manually before running pull.
 
-## 🛑 Stopping the Stack
+## @lucide:octagon Stopping the Stack
 
 To shut everything down:
 

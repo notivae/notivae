@@ -1,4 +1,4 @@
-# 📧 Mail Support (Optional)
+# @lucide:mail Mail Support (Optional)
 
 The mail service is **optional**, but highly recommended if you want to enable features like:
 

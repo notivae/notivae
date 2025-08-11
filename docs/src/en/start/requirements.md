@@ -1,12 +1,12 @@
-# 📋 Requirements
+# @lucide:clipboard-list Requirements
 
 This page outlines the minimum and recommended requirements for deploying and running **Notivae**. These requirements vary depending on your intended usage, number of users, and system workload.
 
-## Prerequisites
+## @lucide:wrench Prerequisites
 
 Notivae is deployed exclusively using **Docker** and **Docker Compose**. Ensure both are installed and functioning on your host system before proceeding with the [installation](./installation/index.md).
 
-## CPU
+## @lucide:cpu CPU
 
 Notivae is designed to run on **low-powered hardware**, making it suitable for self-hosted deployments and lightweight environments. However, the **actual CPU requirements depend on the number of users and the expected workload**.
 
@@ -19,7 +19,7 @@ Workload is influenced by factors such as:
 For small teams or personal use, a single-core virtual CPU (vCPU) should be sufficient. For larger teams or public-facing instances, allocate more CPU resources to maintain performance under load.
 
 
-## Memory (RAM)
+## @lucide:memory-stick Memory (RAM)
 
 - **Minimum**: 512MB  
 - **Recommended**: 1GB or more for better performance
@@ -27,7 +27,7 @@ For small teams or personal use, a single-core virtual CPU (vCPU) should be suff
 Memory usage grows with the number of active users and document interactions. High concurrency, frequent edits, or large documents will increase memory demand.
 
 
-## Disk Requirements
+## @lucide:save Disk Requirements
 
 Disk performance can impact both the responsiveness and reliability of your Notivae instance.
 
@@ -42,7 +42,7 @@ Plan for growth and monitor usage over time to avoid disruptions.
 
 ## Other Dependencies
 
-### Dedicated Domain or Sub-domain  
+### @lucide:globe Dedicated Domain or Sub-domain  
 A dedicated domain or sub-domain (e.g., `notivae.example.com`) is **only required for public-facing deployments**, but it is **strongly recommended** even for internal or limited-use setups.
 
 Without a proper domain:
@@ -52,7 +52,7 @@ Without a proper domain:
 
 While technically optional in private network environments, using a domain helps ensure full feature compatibility and smoother operation.
 
-### Authentication Provider  
+### @lucide:fingerprint Authentication Provider  
 Authentication is **required** in Notivae to associate documents and data with individual user accounts. By default, Notivae includes a built-in authentication system using email or username and password.  
 
 Alternatively, Notivae can integrate with external authentication providers for single sign-on (SSO) or centralized user management. Supported providers include:

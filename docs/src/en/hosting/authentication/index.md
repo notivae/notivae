@@ -1,4 +1,4 @@
-# 🔐 Authentication
+# @lucide:lock-keyhole Authentication
 
 Notivae offers a flexible and self-contained authentication system, giving you full control over user data and login flows. It supports both traditional account-based login and external [OAuth/OIDC identity providers](#oauth-oidc-authentication), as well as passwordless login via [Magic-Link](./magic-link.md).
 

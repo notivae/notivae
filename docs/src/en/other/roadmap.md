@@ -1,4 +1,4 @@
-# 🛣️ Roadmap
+# @lucide:square-chart-gantt Roadmap
 
 Notivae is in **early-stage development**. No features are fully implemented yet — everything listed below is planned but still in progress or under design. This roadmap gives a transparent view of where the project is heading.
 
@@ -7,8 +7,15 @@ Notivae is in **early-stage development**. No features are fully implemented yet
 > [!WARNING] 🚧 Everything is subject to change.  
 > You can track progress or contribute on [GitHub](https://github.com/notivae/notivae).
 
-## 🧱 Planned Foundation
+## @lucide:brick-wall Planned Foundation
 
+- [X] Codebase setup
+- [X] Online Documentation
+- [X] REST and WebSocket APIs
+- [X] User System
+- [X] Email/password authentication
+- [ ] third-party authentication providers
+- [X] OIDC-based third-party login
 - [ ] Personal workspace per user
 - [ ] Markdown-based document editor
 - [ ] Collections for organizing documents
@@ -17,12 +24,9 @@ Notivae is in **early-stage development**. No features are fully implemented yet
 - [ ] Sync-on-connect model using CRDTs
 - [ ] Snapshot-based versioning
 - [ ] Inline comments and discussions
-- [X] Email/password authentication
-- [ ] third-party authentication providers
-- [X] OIDC-based third-party login
 - [ ] Self-hostable via Docker Compose
 
-## 🛠️ Upcoming Development Focus
+## @lucide:pocket-knife Upcoming Development Focus
 
 - [ ] Frontend: editor UI, navigation, commenting
 - [ ] Backend: data model, auth, syncing, access control
@@ -31,7 +35,7 @@ Notivae is in **early-stage development**. No features are fully implemented yet
 - [ ] Persistent volume storage and backup support
 - [ ] CI for ghcr.io image builds
 
-## 🧪 Future Features
+## @lucide:test-tube-diagonal Future Features
 
 - [ ] Public sharing via links
 - [ ] Invite-based sharing with per-user access control
@@ -41,10 +45,9 @@ Notivae is in **early-stage development**. No features are fully implemented yet
 - [ ] Comment threading & resolution
 - [ ] Snapshot diffs
 - [ ] Configurable themes
-- [ ] REST and WebSocket APIs
 - [ ] Mobile-first PWA enhancements
 
-## 🧭 Long-Term Vision
+## @lucide:compass Long-Term Vision
 
 - [ ] Shared workspaces (teams, organizations)
 - [ ] Plugin system for extensibility

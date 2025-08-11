@@ -1,4 +1,4 @@
-# 🎯 Design Decisions
+# @lucide:target Design Decisions
 
 Notivae’s architecture and feature set are driven by clear design principles focused on user control, privacy, collaboration, and extensibility. This page outlines the key decisions behind the project’s foundation.
 

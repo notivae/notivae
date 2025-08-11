@@ -1,4 +1,4 @@
-# 📄 Document Structure
+# @lucide:file-text Document Structure
 
 Notivae’s power lies in how you can organize your knowledge into clear, nested structures — making it easy to find, edit, and collaborate on content.
 

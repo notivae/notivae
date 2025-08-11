@@ -65,7 +65,7 @@ function sidebar(): DefaultTheme.SidebarItem[] {
                         { text: "Spotify", link: "/hosting/authentication/spotify" },
                         { text: "Twitch", link: "/hosting/authentication/twitch" },
                         { text: "OIDC", link: "/hosting/authentication/oidc" },
-                        { text: "Magic Link", link: "/hosting/authentication/magic-links" },
+                        { text: "Magic Link", link: "/hosting/authentication/magic-link" },
                     ]
                 },
                 { text: 'Self-Hosting Guide', link: '/hosting/self-hosting' },
