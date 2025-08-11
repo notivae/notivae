@@ -120,7 +120,8 @@ services:
 ```
 :::
 
-> 💡 You’ll need to update `notivae.localhost` to your actual domain or host if not using `localhost`.
+> [!INFO]
+> You’ll need to update `notivae.localhost` to your actual domain or host if not using `localhost`.
 
 ## 🌍 Exposing to the Internet
 
@@ -161,19 +162,25 @@ This works because most tunnel providers allow advanced path-based routing. Noti
 Once all of this is in place, open your browser at:
 
 ```
-http://notivae.localhost
+https://<your-domain-or-ip>
+e.g. https://notivae.example.com
 ```
 
-(or your domain) — and the setup screen should appear 🎉
+and the login-page should appear.
+
+> [!TIP]
+> Don't forget to run the setup wizard at
+> ```
+> https://<your-domain-or-ip>/#/init
+> ```
 
 ---
 
-> ℹ️ Having issues? Start by checking the container logs:
+> [!INFO]️ Having issues? Start by checking the container logs:
 > 
 > ```bash
-> docker compose logs backend
-> docker compose logs frontend
-> docker compose logs caddy  # or nginx
+> docker compose logs  # inspect all logs
+> docker compose logs frontend  # inspect logs for a specific service
 > ```
 
 Still stuck? Look through our [troubleshooting guide](./troubleshooting.md) or otherwise open a [GitHub issue](https://github.com/notivae/notivae/issues).

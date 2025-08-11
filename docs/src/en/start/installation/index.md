@@ -22,8 +22,6 @@ Make sure these are ready on your system:
 
 - [X] Basic knowledge of how to use a terminal (e.g., navigating folders, running commands)
 
----
-
 ## 📁 Setup Files
 
 To run Notivae, you'll need two files:
@@ -125,12 +123,22 @@ Popular reverse proxy options:
 - [Traefik](https://traefik.io/traefik) — Docker-native, dynamic
 - [Nginx](https://nginx.org/) — widely supported, configurable
 
-> 📘 Need help setting it up?  
+> [!INFO] Need help setting it up?  
 > See the [Reverse Proxy Guide](./reverse-proxy.md) for setup examples and config snippets.
 
 > [!TIP]
 > Hosting Notivae behind a home network? You may need a **tunnel** like [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/) or [Ngrok](https://ngrok.com/) to make it accessible from the internet.  
 > This is also covered in the [Reverse Proxy Guide](./reverse-proxy.md).
+
+## 🚀 Finalizing your instance
+
+Notivae's web-ui has a built-in wizard to help you configure the final parts or your hosted instance.
+To start the setup wizard open the following page in your browser.
+
+```txt
+https://<your-domain-or-ip>/#/init
+e.g. https://notivae.example.com/#/init
+```
 
 ## 🔁 Updating
 
