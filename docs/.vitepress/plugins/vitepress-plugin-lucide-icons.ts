@@ -10,21 +10,26 @@ export function lucideIconPlugin(md: MarkdownIt) {
     const tokens = state.tokens
 
     for (const token of tokens) {
-      if (token.type !== 'inline' || !token.content.match(iconPattern)) continue
+      if (token.type !== 'inline') continue
+      if (!token.children) continue
 
-      const children = token.children
-      if (!children) continue
+      const newChildren = []
 
-      for (let i = 0; i < children.length; i++) {
-        const child = children[i]
-        if (child.type !== 'text') continue
+      for (const child of token.children) {
+        if (child.type !== 'text') {
+          // Keep non-text tokens untouched
+          newChildren.push(child)
+          continue
+        }
 
         const matches = [...child.content.matchAll(iconPattern)]
-        if (!matches.length) continue
+        if (!matches.length) {
+          // No icon matches, keep as-is
+          newChildren.push(child)
+          continue
+        }
 
-        const newTokens = []
         let lastIndex = 0
-
         for (const match of matches) {
           const [fullMatch, iconNameRaw] = match
           const iconName = iconNameRaw
@@ -32,24 +37,28 @@ export function lucideIconPlugin(md: MarkdownIt) {
             .map(part => part.charAt(0).toUpperCase() + part.slice(1))
             .join('')
 
-          const svgHTML = icons[iconName]
-
+          let svgHTML: string = icons[iconName]
           if (!svgHTML) {
-            console.warn(`unknown lucide-icon: '${match}'`)
+            console.warn(`unknown lucide-icon: '${fullMatch}'`)
             continue  // Skip unknown icons
           }
 
-          // Add text before match
+          svgHTML = svgHTML.replace(/<svg\b([^>]*)>/i, (_, attrStr) => {
+            const attrs = attrStr.replace(/\s+(?:width|height)="[^"]*"/gi, '')
+            return `<svg${attrs} width="1em" height="1em" style="vertical-align: middle">`;
+          });
+
+          // Add text before the icon match
           if (match.index! > lastIndex) {
-            newTokens.push({
+            newChildren.push({
               type: 'text',
               content: child.content.slice(lastIndex, match.index),
               level: child.level,
-              children: [],
             })
           }
 
-          newTokens.push({
+          // Add icon as HTML
+          newChildren.push({
             type: 'html_inline',
             content: svgHTML,
             level: child.level,
@@ -58,18 +67,17 @@ export function lucideIconPlugin(md: MarkdownIt) {
           lastIndex = match.index! + fullMatch.length
         }
 
-        // Remaining text after last match
+        // Add any trailing text after the last match
         if (lastIndex < child.content.length) {
-          newTokens.push({
+          newChildren.push({
             type: 'text',
             content: child.content.slice(lastIndex),
             level: child.level,
-            children: [],
           })
         }
-
-        token.children = newTokens as any
       }
+
+      token.children = newChildren
     }
   })
 }
