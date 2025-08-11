@@ -10,6 +10,8 @@ import { LucideLoader, LucideMailCheck, LucideMailX, LucideUserRound } from "luc
 import { Badge } from "@/components/ui/badge";
 import { useMutation } from "@tanstack/vue-query";
 import { patchApiMeAccount } from "@/services/api/me/account.ts";
+import { postApiMeResendVerification } from "@/services/api/me/resend-verification.ts";
+import { toast } from "vue-sonner";
 
 const auth = useAuthStore();
 
@@ -20,11 +22,33 @@ const { mutateAsync, isPending } = useMutation({
       email: account.value.email,
       name: account.value.name,
       display_name: account.value.display_name,
-    })
+    });
   },
   onSuccess: async () => {
     await auth.reloadAuth();
   }
+});
+
+const {
+  mutateAsync: resendVerificationMail,
+  isPending: isSendingVerificationMail,
+} = useMutation({
+  mutationFn: async () => {
+    const toastId = toast.loading("Requesting Verification Mail...");
+    try {
+      await postApiMeResendVerification();
+
+      toast.success("Verification Mail was re-sent", {
+        id: toastId,
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to re-send verification mail", {
+        id: toastId,
+        description: `${error}`,
+      });
+    }
+  },
 });
 
 function isFormValid() {
@@ -85,8 +109,9 @@ watch(account, () => {
         <Badge v-if="account.email_verified" variant="success" title="Verified">
           <LucideMailCheck />
         </Badge>
-        <Badge v-else variant="warning" title="Not Verified">
-          <LucideMailX />
+        <Badge v-else variant="warning" title="Not Verified. Click to re-send verification mail" class="cursor-pointer" role="button" @click="!isSendingVerificationMail && resendVerificationMail()">
+          <LucideLoader v-if="isSendingVerificationMail" />
+          <LucideMailX v-else />
         </Badge>
       </Label>
       <Input
