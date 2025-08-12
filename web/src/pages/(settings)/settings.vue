@@ -27,25 +27,25 @@ import { Separator } from "@/components/ui/separator";
             </Button>
           </router-link>
           <Separator />
-          <router-link :to="{ name: '/(settings)/settings/account' }" v-slot="{ isActive }">
+          <router-link :to="{ name: '/(settings)/settings/(account)/account' }" v-slot="{ isActive }">
             <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
               <LucideUserRound />
               Account
             </Button>
           </router-link>
-          <router-link :to="{ name: '/(settings)/settings/authentication-identities' }" v-slot="{ isActive }">
+          <router-link :to="{ name: '/(settings)/settings/(account)/authentication-identities' }" v-slot="{ isActive }">
             <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
               <LucideIdCard />
               Authentication Identities
             </Button>
           </router-link>
-          <router-link :to="{ name: '/(settings)/settings/mfa' }" v-slot="{ isActive }">
+          <router-link :to="{ name: '/(settings)/settings/(account)/mfa' }" v-slot="{ isActive }">
             <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
               <LucideFingerprint />
               Multi-Factor Authentication
             </Button>
           </router-link>
-          <router-link :to="{ name: '/(settings)/settings/devices' }" v-slot="{ isActive }">
+          <router-link :to="{ name: '/(settings)/settings/(account)/devices' }" v-slot="{ isActive }">
             <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
               <LucideMonitorSmartphone />
               Devices
