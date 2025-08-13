@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import {
   LucideHome, LucideLayoutDashboard,
-  LucideLogs, LucideShieldUser, LucideUsersRound,
+  LucideLogs, LucideSettings, LucideShieldUser, LucideUsersRound,
 } from "lucide-vue-next";
 import { Separator } from "@/components/ui/separator";
 
@@ -26,6 +26,12 @@ definePage({
         <Button variant="ghost" class="w-full justify-start">
           <LucideHome />
           Home
+        </Button>
+      </router-link>
+      <router-link :to="{ name: '/(settings)/settings' }">
+        <Button variant="ghost" class="w-full justify-start">
+          <LucideSettings />
+          User Settings
         </Button>
       </router-link>
       <Separator />

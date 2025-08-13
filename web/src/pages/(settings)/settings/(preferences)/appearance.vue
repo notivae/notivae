@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LucideCircle, LucideSunMoon } from "lucide-vue-next";
+import { LucideBrush, LucideCircle } from "lucide-vue-next";
 import { Separator } from "@/components/ui/separator";
 import { useColorMode, usePreferredDark } from "@vueuse/core";
 import { ColorModeSampleCard } from "@/components/settings/appearance";
@@ -38,7 +38,7 @@ const COLOR_MODES: ColorModeMeta[] = [
   <div class="space-y-4">
     <div>
       <h2 class="text-xl font-bold">
-        <LucideSunMoon class="inline-block mr-1" />
+        <LucideBrush class="inline-block mr-1" />
         Appearance
       </h2>
       <Separator />

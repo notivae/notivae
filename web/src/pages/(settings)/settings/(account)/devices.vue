@@ -21,6 +21,7 @@ const { data: authSessions, isPending, error, refetch: refetchAuthSessions } = u
     const response = await getApiAuthSessions();
     return response.data.sort((a, b) => a.id - b.id);
   },
+  retry: false,
 });
 
 const { mutateAsync: revoke, isPending: isRevoking, error: revokeError } = useMutation({

@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
 import {
+  LucideBell, LucideBrush,
   LucideFingerprint,
   LucideHome,
   LucideIdCard,
   LucideLogOut, LucideMonitorSmartphone,
-  LucideSettings, LucideSunMoon,
+  LucideSettings, LucideShieldUser,
   LucideUserRound
 } from "lucide-vue-next";
 import { Separator } from "@/components/ui/separator";
+import { useAuthStore } from "@/stores/auth.ts";
+
+const auth = useAuthStore();
 </script>
 
 <template>
@@ -54,11 +58,26 @@ import { Separator } from "@/components/ui/separator";
           <Separator />
           <router-link :to="{ name: '/(settings)/settings/(preferences)/appearance' }" v-slot="{ isActive }">
             <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
-              <LucideSunMoon />
+              <LucideBrush />
               Appearance
             </Button>
           </router-link>
+          <router-link :to="{ name: '/(settings)/settings/(preferences)/notifications' }" v-slot="{ isActive }">
+            <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
+              <LucideBell />
+              Notifications
+            </Button>
+          </router-link>
           <Separator />
+          <template v-if="auth.user?.is_system_admin">
+            <router-link :to="{ name: '/(admin)/admin' }" v-slot="{ isActive }">
+              <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
+                <LucideShieldUser />
+                Admin Dashboard
+              </Button>
+            </router-link>
+            <Separator />
+          </template>
           <router-link :to="{ name: '/auth/logout' }">
             <Button variant="ghost" class="w-full justify-start hover:text-destructive-foreground">
               <LucideLogOut />
