@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/vue-query";
 import { postApiAuthMagicRequest } from "@/services/api/auth/magic/request.ts";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { LucideMail, LucideMailCheck, LucideMailQuestionMark, LucideMailX } from "lucide-vue-next";
+import { LucideArrowBigLeft, LucideMail, LucideMailCheck, LucideMailQuestionMark, LucideMailX } from "lucide-vue-next";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ErrorBox } from "@/components/common/error-box";
 
@@ -59,7 +59,12 @@ async function handleSend() {
         <img :src="logoSrc" alt="notivae logo" class="size-6" />
         Notivae
       </div>
-      <Card class="w-full">
+      <Card class="w-full relative">
+        <router-link :to="{ name: '/auth/login/' }" class="absolute top-0.5 left-0.5">
+          <Button variant="ghost" size="icon" class="rounded-full">
+            <LucideArrowBigLeft />
+          </Button>
+        </router-link>
         <CardHeader class="text-center">
           <CardTitle class="text-xl">
             Login via Magic-Link

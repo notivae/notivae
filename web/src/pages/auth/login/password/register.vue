@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref, watch, useTemplateRef, computed } from "vue";
-import { LucideLoader, LucideUserRound, LucideUserRoundPlus, LucideUserRoundX } from "lucide-vue-next";
+import {
+  LucideArrowBigLeft,
+  LucideLoader,
+  LucideUserRound,
+  LucideUserRoundPlus,
+  LucideUserRoundX
+} from "lucide-vue-next";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useServerFeatures } from "@/composables/api/useServerFeatures.ts";
@@ -81,7 +87,12 @@ async function handleSubmit() {
         <img :src="logoSrc" alt="notivae logo" class="size-6" />
         Notivae
       </div>
-      <Card class="w-full">
+      <Card class="w-full relative">
+        <router-link :to="{ name: '/auth/login/password/' }" class="absolute top-0.5 left-0.5">
+          <Button variant="ghost" size="icon" class="rounded-full">
+            <LucideArrowBigLeft />
+          </Button>
+        </router-link>
         <CardHeader class="text-center">
           <CardTitle class="text-xl">
             Create Account via Password
