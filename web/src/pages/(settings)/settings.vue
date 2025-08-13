@@ -5,7 +5,7 @@ import {
   LucideHome,
   LucideIdCard,
   LucideLogOut, LucideMonitorSmartphone,
-  LucideSettings,
+  LucideSettings, LucideSunMoon,
   LucideUserRound
 } from "lucide-vue-next";
 import { Separator } from "@/components/ui/separator";
@@ -49,6 +49,13 @@ import { Separator } from "@/components/ui/separator";
             <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
               <LucideMonitorSmartphone />
               Devices
+            </Button>
+          </router-link>
+          <Separator />
+          <router-link :to="{ name: '/(settings)/settings/(preferences)/appearance' }" v-slot="{ isActive }">
+            <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
+              <LucideSunMoon />
+              Appearance
             </Button>
           </router-link>
           <Separator />

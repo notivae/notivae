@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePage({
-  redirect: { name: "/(settings)/settings/account" }
+  redirect: { name: "/(settings)/settings/(account)/account" },
 });
 </script>
 

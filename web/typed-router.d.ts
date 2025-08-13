@@ -19,12 +19,13 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
-    '/(settings)/settings': RouteRecordInfo<'/(settings)/settings', '/settings', Record<never, never>, Record<never, never>, '/(settings)/settings/' | '/(settings)/settings/(account)/account' | '/(settings)/settings/(account)/authentication-identities' | '/(settings)/settings/(account)/devices' | '/(settings)/settings/(account)/mfa'>,
+    '/(settings)/settings': RouteRecordInfo<'/(settings)/settings', '/settings', Record<never, never>, Record<never, never>, '/(settings)/settings/' | '/(settings)/settings/(account)/account' | '/(settings)/settings/(account)/authentication-identities' | '/(settings)/settings/(account)/devices' | '/(settings)/settings/(account)/mfa' | '/(settings)/settings/(preferences)/appearance'>,
     '/(settings)/settings/': RouteRecordInfo<'/(settings)/settings/', '/settings', Record<never, never>, Record<never, never>>,
     '/(settings)/settings/(account)/account': RouteRecordInfo<'/(settings)/settings/(account)/account', '/settings/account', Record<never, never>, Record<never, never>>,
     '/(settings)/settings/(account)/authentication-identities': RouteRecordInfo<'/(settings)/settings/(account)/authentication-identities', '/settings/authentication-identities', Record<never, never>, Record<never, never>>,
     '/(settings)/settings/(account)/devices': RouteRecordInfo<'/(settings)/settings/(account)/devices', '/settings/devices', Record<never, never>, Record<never, never>>,
     '/(settings)/settings/(account)/mfa': RouteRecordInfo<'/(settings)/settings/(account)/mfa', '/settings/mfa', Record<never, never>, Record<never, never>>,
+    '/(settings)/settings/(preferences)/appearance': RouteRecordInfo<'/(settings)/settings/(preferences)/appearance', '/settings/appearance', Record<never, never>, Record<never, never>>,
     '/(admin)/admin': RouteRecordInfo<'/(admin)/admin', '/admin', Record<never, never>, Record<never, never>, '/(admin)/admin/' | '/(admin)/admin/dashboard' | '/(admin)/admin/logs' | '/(admin)/admin/users'>,
     '/(admin)/admin/': RouteRecordInfo<'/(admin)/admin/', '/admin', Record<never, never>, Record<never, never>>,
     '/(admin)/admin/dashboard': RouteRecordInfo<'/(admin)/admin/dashboard', '/admin/dashboard', Record<never, never>, Record<never, never>>,
