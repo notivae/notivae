@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import App from "@/App.vue";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { useColorMode } from "@vueuse/core";
+import { useConfiguredColorMode } from "@/composables/useConfiguredColorMode.ts";
 
-useColorMode({ writeDefaults: false });
+useConfiguredColorMode();
 </script>
 
 <template>

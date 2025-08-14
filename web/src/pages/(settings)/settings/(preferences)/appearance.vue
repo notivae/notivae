@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { LucideBrush, LucideCircle } from "lucide-vue-next";
 import { Separator } from "@/components/ui/separator";
-import { useColorMode, usePreferredDark } from "@vueuse/core";
+import { usePreferredDark } from "@vueuse/core";
 import { ColorModeSampleCard } from "@/components/settings/appearance";
 import { Label } from "@/components/ui/label";
 import { computed, type MaybeRefOrGetter, toValue } from "vue";
+import { useConfiguredColorMode } from "@/composables/useConfiguredColorMode.ts";
 
 const preferredDark = usePreferredDark();
-const { store: colorMode } = useColorMode();
+const { store: colorMode } = useConfiguredColorMode();
 
 type ColorModeMeta = {
   class: MaybeRefOrGetter<string>
@@ -17,19 +18,29 @@ type ColorModeMeta = {
 
 const COLOR_MODES: ColorModeMeta[] = [
   {
-    class: computed(() => preferredDark.value ? 'dark' : 'light'),
+    class: computed(() => preferredDark.value ? 'dark default' : 'light default'),
     value: "auto",
     label: "System",
   },
   {
-    class: "light",
+    class: "light default",
     value: "light",
     label: "Light",
   },
   {
-    class: "dark",
+    class: "dark default",
     value: "dark",
     label: "Dark",
+  },
+  {
+    class: "light theme-parchment",
+    value: "parchment",
+    label: "Parchment",
+  },
+  {
+    class: "dark theme-parchment",
+    value: "parchment-dark",
+    label: "Parchment (Dark)",
   },
 ];
 </script>
