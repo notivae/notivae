@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import logoSrc from "@/assets/logo.svg";
 import { ref, useTemplateRef, watch } from "vue";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useServerFeatures } from "@/composables/api/useServerFeatures.ts";
@@ -13,6 +12,7 @@ import { useRoute, useRouter } from "vue-router";
 import { ErrorBox } from "@/components/common/error-box";
 import AuthLocalResetPasswordDialog from "@/components/auth/AuthLocalResetPasswordDialog.vue";
 import { useQueryNext } from "@/composables/common/useQueryNext.ts";
+import { IconNotivaeLogo } from "@/components/icons";
 
 definePage({
   meta: {
@@ -65,8 +65,8 @@ async function handleSubmit() {
 <template>
   <div class="min-h-svh grid place-items-center gap-6 bg-muted p-6 md:p-10">
     <div class="flex flex-col w-full max-w-md gap-6">
-      <div class="flex items-center gap-2 self-center font-medium">
-        <img :src="logoSrc" alt="notivae logo" class="size-6" />
+      <div class="flex items-center justify-center gap-1 self-center text-xl font-medium font-mono">
+        <IconNotivaeLogo class="size-5" />
         Notivae
       </div>
       <Card class="w-full relative">

@@ -28,7 +28,7 @@ definePage({
           Home
         </Button>
       </router-link>
-      <router-link :to="{ name: '/(settings)/settings' }">
+      <router-link :to="{ name: '/(settings)/settings/' }">
         <Button variant="ghost" class="w-full justify-start">
           <LucideSettings />
           User Settings

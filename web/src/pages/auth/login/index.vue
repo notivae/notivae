@@ -3,12 +3,11 @@ import { computed } from "vue";
 import { useServerFeatures } from "@/composables/api/useServerFeatures.ts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-
-import logoSrc from "@/assets/logo.svg";
 import authLocalSrc from "@/assets/auth-provider/local.svg";
 import authMagicLinkSrc from "@/assets/auth-provider/magic-link.svg";
 import authOidcSrc from "@/assets/auth-provider/oidc.svg";
 import { useQueryNext } from "@/composables/common/useQueryNext.ts";
+import { IconNotivaeLogo } from "@/components/icons";
 
 definePage({
   meta: {
@@ -30,8 +29,8 @@ const oidcRedirectUrl = computed(() => {
 <template>
   <div class="min-h-svh grid place-items-center gap-6 bg-muted p-6 md:p-10">
     <div class="flex flex-col w-full max-w-sm gap-6">
-      <div class="flex items-center gap-2 self-center font-medium select-none">
-        <img :src="logoSrc" alt="notivae logo" class="size-6" />
+      <div class="flex items-center justify-center gap-1 self-center text-xl font-medium font-mono">
+        <IconNotivaeLogo class="size-5" />
         Notivae
       </div>
       <Card>

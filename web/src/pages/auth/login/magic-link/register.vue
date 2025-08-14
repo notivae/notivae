@@ -16,8 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { postApiAuthMagicRegister } from "@/services/api/auth/magic/register.ts";
 import { ErrorBox } from "@/components/common/error-box";
-
-import logoSrc from "@/assets/logo.svg";
+import { IconNotivaeLogo } from "@/components/icons";
 
 definePage({
   meta: {
@@ -71,8 +70,8 @@ async function handleSend() {
 <template>
   <div class="min-h-svh grid place-items-center gap-6 bg-muted p-6 md:p-10">
     <div class="flex flex-col w-full max-w-md gap-6">
-      <div class="flex items-center gap-2 self-center font-medium select-none">
-        <img :src="logoSrc" alt="notivae logo" class="size-6" />
+      <div class="flex items-center justify-center gap-1 self-center text-xl font-medium font-mono">
+        <IconNotivaeLogo class="size-5" />
         Notivae
       </div>
       <Card class="w-full relative">
