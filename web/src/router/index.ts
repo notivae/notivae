@@ -23,8 +23,13 @@ router.beforeEach(async (to, from, next) => {
         }
     }
 
-    if (auth.isLoggedIn && to.meta.followNextIfAuthenticated && typeof to.query.next === "string") {
-        return next(to.query.next);
+    if (to.meta.followNextIfAuthenticated) {
+        if (!auth.isLoggedIn)
+            await auth.reloadAuth();
+
+        if (auth.isLoggedIn && typeof to.query.next === "string") {
+            return next(to.query.next);
+        }
     }
 
     if (to.meta.requiresAdmin && !auth.user?.is_system_admin) {
