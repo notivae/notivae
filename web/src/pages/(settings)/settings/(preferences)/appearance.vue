@@ -18,17 +18,17 @@ type ColorModeMeta = {
 
 const COLOR_MODES: ColorModeMeta[] = [
   {
-    class: computed(() => preferredDark.value ? 'dark default' : 'light default'),
+    class: computed(() => preferredDark.value ? 'dark theme-default' : 'light theme-default'),
     value: "auto",
     label: "System",
   },
   {
-    class: "light default",
+    class: "light theme-default",
     value: "light",
     label: "Light",
   },
   {
-    class: "dark default",
+    class: "dark theme-default",
     value: "dark",
     label: "Dark",
   },

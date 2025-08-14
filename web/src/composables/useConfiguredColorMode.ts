@@ -3,8 +3,8 @@ import { useColorMode } from "@vueuse/core";
 export function useConfiguredColorMode() {
     return useColorMode({
         modes: {
-            "light": "light default",
-            "dark": "dark default",
+            "light": "light theme-default",
+            "dark": "dark theme-default",
             "parchment": "light theme-parchment",
             "parchment-dark": "dark theme-parchment",
         },

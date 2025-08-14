@@ -56,7 +56,7 @@
   --color-logging-critical: var(--logging-critical);
 }
 
-:root, .light.default {
+:root, .light.theme-default {
   --background: oklch(0.985 0.005 250);
   --foreground: oklch(0.18 0.02 250);
   --card: oklch(1 0 0);
@@ -102,7 +102,7 @@
   --logging-critical: oklch(0.55 0.25 25);
 }
 
-.dark.default {
+.dark.theme-default {
   --background: oklch(0.18 0.02 250);
   --foreground: oklch(0.985 0.005 250);
   --card: oklch(0.18 0.02 250);
