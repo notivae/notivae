@@ -107,6 +107,9 @@ const otherAuthSessions = computed(() => {
             </template>
           </AuthSessionDeviceCard>
         </template>
+        <div v-if="!otherAuthSessions!.length" class="text-muted-foreground text-sm">
+          There are no other devices.
+        </div>
       </div>
       <Separator />
       <div class="space-y-2">
