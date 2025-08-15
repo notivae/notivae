@@ -32,19 +32,17 @@ const { data: mfaDetails, isSuccess } = useMfaDetails();
 
       <!-- Texts -->
       <template v-if="mfaDetails!.backup_codes_remaining !== null">
-        <p>
+        <p class="text-muted-foreground text-sm">
           You have active backup codes configured.
-        </p>
-        <p>
+          <br />
           Backup codes are single-use and should be stored securely.
           You can replace them at any time, which will invalidate the old ones.
         </p>
       </template>
       <template v-else>
-        <p>
+        <p class="text-muted-foreground text-sm">
           You currently do not have any backup codes configured.
-        </p>
-        <p>
+          <br />
           Backup codes allow you to log in even if you lose access to your primary MFA device.
           It is highly recommended to generate and securely store them.
         </p>
@@ -93,7 +91,7 @@ const { data: mfaDetails, isSuccess } = useMfaDetails();
         <Separator />
       </div>
       <template v-if="mfaDetails!.totp">
-        <p>
+        <p class="text-muted-foreground text-sm">
           You currently have TOTP Multi-Factor Authentication enabled.
         </p>
         <div class="flex justify-end">
@@ -105,7 +103,7 @@ const { data: mfaDetails, isSuccess } = useMfaDetails();
         </div>
       </template>
       <template v-else-if="mfaDetails!.backup_codes_remaining !== null && mfaDetails!.backup_codes_remaining > 0">
-        <p>
+        <p class="text-muted-foreground text-sm">
           Protect your account by enabling an Authenticator App. This adds a time-based code as a second verification step when logging in.
         </p>
         <div class="flex justify-end">
@@ -117,7 +115,7 @@ const { data: mfaDetails, isSuccess } = useMfaDetails();
         </div>
       </template>
       <template v-else>
-        <p>
+        <p class="text-muted-foreground text-sm">
           For security reasons, backup codes must be configured before enabling TOTP MFA.
           This ensures you can regain access if your primary device is lost.
         </p>

@@ -21,7 +21,7 @@ export type ServerFeatures = {
 export type User = {
     id: string
     name: string
-    display_name: string
+    display_name?: string
 }
 
 export type UserMe = User & {

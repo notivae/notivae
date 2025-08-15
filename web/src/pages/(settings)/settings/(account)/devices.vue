@@ -36,6 +36,10 @@ const { mutateAsync: revoke, isPending: isRevoking, error: revokeError } = useMu
 });
 
 const currentAuthSession = computed(() => authSessions.value?.find(s => s.is_current));
+
+const otherAuthSessions = computed(() => {
+  return authSessions.value?.filter(s => !s.is_current && !(s.revoked && hideRevoked.value))
+});
 </script>
 
 <template>
@@ -76,8 +80,8 @@ const currentAuthSession = computed(() => authSessions.value?.find(s => s.is_cur
           </div>
         </div>
         <ErrorBox :error="revokeError" />
-        <template v-for="session in authSessions!" :key="session.id">
-          <AuthSessionDeviceCard v-if="!session.is_current && !(session.revoked && hideRevoked)" :session="session">
+        <template v-for="session in otherAuthSessions!" :key="session.id">
+          <AuthSessionDeviceCard v-memo="[session.revoked]" :session="session">
             <template #actions>
               <Tooltip>
                 <TooltipTrigger>
