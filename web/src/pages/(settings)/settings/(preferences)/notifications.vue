@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { LucideBell } from "lucide-vue-next";
-import { Separator } from "@/components/ui/separator";
+import { SettingsDescription, SettingsHeading } from "@/components/settings/common";
 </script>
 
 <template>
   <div class="space-y-4">
-    <div>
-      <h2 class="text-xl font-bold">
-        <LucideBell class="inline-block mr-1" />
-        Notifications
-      </h2>
-      <Separator />
-    </div>
+    <SettingsHeading variant="h1">
+      <LucideBell />
+      Notifications
+    </SettingsHeading>
+    <SettingsDescription>
+      Choose how and when you want to be notified. Control updates, alerts, and messages so you only get the stuff that matters to you.
+    </SettingsDescription>
   </div>
 </template>

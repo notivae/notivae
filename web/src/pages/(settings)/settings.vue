@@ -1,94 +1,155 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button";
 import {
   LucideBell, LucideBrush,
   LucideFingerprint,
   LucideHome,
   LucideIdCard,
-  LucideLogOut, LucideMonitorSmartphone,
-  LucideSettings, LucideShieldUser,
+  LucideLogOut, LucideMonitorSmartphone, LucideSettings,
+  LucideShieldUser,
   LucideUserRound
 } from "lucide-vue-next";
-import { Separator } from "@/components/ui/separator";
 import { useAuthStore } from "@/stores/auth.ts";
+import {
+  Sidebar,
+  SidebarContent, SidebarFooter,
+  SidebarGroup, SidebarHeader,
+  SidebarMenu, SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider, SidebarSeparator,
+} from "@/components/ui/sidebar";
 
-const auth = useAuthStore();
+const { user } = useAuthStore();
 </script>
 
 <template>
-  <div class="min-h-svh bg-muted">
-    <div class="max-w-5xl min-h-svh mx-auto bg-background p-6">
-      <h1 class="text-2xl font-extrabold text-center">
-        <LucideSettings class="inline-block" />
-        Settings
-      </h1>
-      <div class="mt-4 flex gap-8">
-        <div class="flex flex-col gap-1 items-stretch">
-          <router-link :to="{ name: '/' }">
-            <Button variant="ghost" class="w-full justify-start">
-              <LucideHome />
-              Home
-            </Button>
-          </router-link>
-          <Separator />
-          <router-link :to="{ name: '/(settings)/settings/(account)/account' }" v-slot="{ isActive }">
-            <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
-              <LucideUserRound />
-              Account
-            </Button>
-          </router-link>
-          <router-link :to="{ name: '/(settings)/settings/(account)/authentication-identities' }" v-slot="{ isActive }">
-            <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
-              <LucideIdCard />
-              Authentication Identities
-            </Button>
-          </router-link>
-          <router-link :to="{ name: '/(settings)/settings/(account)/mfa' }" v-slot="{ isActive }">
-            <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
-              <LucideFingerprint />
-              Multi-Factor Authentication
-            </Button>
-          </router-link>
-          <router-link :to="{ name: '/(settings)/settings/(account)/devices' }" v-slot="{ isActive }">
-            <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
-              <LucideMonitorSmartphone />
-              Devices
-            </Button>
-          </router-link>
-          <Separator />
-          <router-link :to="{ name: '/(settings)/settings/(preferences)/appearance' }" v-slot="{ isActive }">
-            <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
-              <LucideBrush />
-              Appearance
-            </Button>
-          </router-link>
-          <router-link :to="{ name: '/(settings)/settings/(preferences)/notifications' }" v-slot="{ isActive }">
-            <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
-              <LucideBell />
-              Notifications
-            </Button>
-          </router-link>
-          <Separator />
-          <template v-if="auth.user?.is_system_admin">
-            <router-link :to="{ name: '/(admin)/admin' }" v-slot="{ isActive }">
-              <Button :variant="isActive ? 'secondary' : 'ghost'" class="w-full justify-start">
-                <LucideShieldUser />
-                Admin Dashboard
-              </Button>
+  <SidebarProvider>
+    <Sidebar>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <div class="flex w-full items-center gap-2 p-2 text-left text-lg">
+              <LucideSettings />
+              <span>
+                Settings
+              </span>
+            </div>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarSeparator class="mx-0" />
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <router-link :to="{ name: '/' }" v-slot="{ isActive }">
+                <SidebarMenuButton :is-active="isActive">
+                  <LucideHome />
+                  <span>
+                    Home
+                  </span>
+                </SidebarMenuButton>
+              </router-link>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <router-link :to="{ name: '/(settings)/settings/(account)/account' }" v-slot="{ isActive }">
+                <SidebarMenuButton :is-active="isActive">
+                  <LucideUserRound />
+                  <span>
+                    Account
+                  </span>
+                </SidebarMenuButton>
+              </router-link>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <router-link :to="{ name: '/(settings)/settings/(account)/authentication-identities' }" v-slot="{ isActive }">
+                <SidebarMenuButton :is-active="isActive">
+                  <LucideIdCard />
+                  <span>
+                    Authentication Identities
+                  </span>
+                </SidebarMenuButton>
+              </router-link>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <router-link :to="{ name: '/(settings)/settings/(account)/mfa' }" v-slot="{ isActive }">
+                <SidebarMenuButton :is-active="isActive">
+                  <LucideFingerprint />
+                  <span>
+                    Multi-Factor Authentication
+                  </span>
+                </SidebarMenuButton>
+              </router-link>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <router-link :to="{ name: '/(settings)/settings/(account)/devices' }" v-slot="{ isActive }">
+                <SidebarMenuButton :is-active="isActive">
+                  <LucideMonitorSmartphone />
+                  <span>
+                    Devices
+                  </span>
+                </SidebarMenuButton>
+              </router-link>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <router-link :to="{ name: '/(settings)/settings/(preferences)/appearance' }" v-slot="{ isActive }">
+                <SidebarMenuButton :is-active="isActive">
+                  <LucideBrush />
+                  <span>
+                    Appearance
+                  </span>
+                </SidebarMenuButton>
+              </router-link>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <router-link :to="{ name: '/(settings)/settings/(preferences)/notifications' }" v-slot="{ isActive }">
+                <SidebarMenuButton :is-active="isActive">
+                  <LucideBell />
+                  Notifications
+                </SidebarMenuButton>
+              </router-link>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+        <SidebarGroup v-if="user!.is_system_admin">
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <router-link :to="{ name: '/(admin)/admin/' }" v-slot="{ isActive }">
+                <SidebarMenuButton :is-active="isActive">
+                  <LucideShieldUser />
+                  <span>
+                    Admin Dashboard
+                  </span>
+                </SidebarMenuButton>
+              </router-link>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <router-link :to="{ name: '/auth/logout' }" v-slot="{ isActive }">
+              <SidebarMenuButton :is-active="isActive">
+                <LucideLogOut />
+                <span>
+                  Logout
+                </span>
+              </SidebarMenuButton>
             </router-link>
-            <Separator />
-          </template>
-          <router-link :to="{ name: '/auth/logout' }">
-            <Button variant="ghost" class="w-full justify-start hover:text-destructive-foreground">
-              <LucideLogOut />
-              Logout
-            </Button>
-          </router-link>
-        </div>
-        <div class="flex-1 overflow-auto">
-          <router-view />
-        </div>
-      </div>
-    </div>
-  </div>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
+    </Sidebar>
+    <main class="overflow-auto grow py-2 px-4 space-y-8">
+      <router-view />
+    </main>
+  </SidebarProvider>
 </template>

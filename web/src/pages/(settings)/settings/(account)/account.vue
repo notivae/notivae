@@ -3,7 +3,6 @@ import { useAuthStore } from "@/stores/auth.ts";
 import { ref, useTemplateRef, watch } from "vue";
 import type { UserMe } from "@/types/api.ts";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { LucideLoader, LucideMailCheck, LucideMailX, LucideUserRound } from "lucide-vue-next";
@@ -12,6 +11,8 @@ import { useMutation } from "@tanstack/vue-query";
 import { patchApiMeAccount } from "@/services/api/me/account.ts";
 import { postApiMeResendVerification } from "@/services/api/me/resend-verification.ts";
 import { toast } from "vue-sonner";
+import SettingsHeading from "@/components/settings/common/SettingsHeading.vue";
+import { SettingsDescription, SettingsSection } from "@/components/settings/common";
 
 const auth = useAuthStore();
 
@@ -72,15 +73,17 @@ watch(account, () => {
 </script>
 
 <template>
-  <form ref="request-form" @submit.prevent="handleSubmit" class="space-y-4">
-    <div>
-      <h2 class="text-xl font-bold">
-        <LucideUserRound class="inline-block mr-1" />
-        Account
-      </h2>
-      <Separator />
-    </div>
+  <SettingsSection>
+    <SettingsHeading variant="h1">
+      <LucideUserRound />
+      Account
+    </SettingsHeading>
+    <SettingsDescription>
+      Here you can view and update your account details. Keep your info up to date so everything stays accurate and personal to you.
+    </SettingsDescription>
+  </SettingsSection>
 
+  <SettingsSection as="form" ref="request-form" @submit.prevent="handleSubmit">
     <fieldset class="space-y-0.5">
       <Label for="name-input">Username</Label>
       <Input
@@ -132,5 +135,5 @@ watch(account, () => {
         Save Changes
       </template>
     </Button>
-  </form>
+  </SettingsSection>
 </template>

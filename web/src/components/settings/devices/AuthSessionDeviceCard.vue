@@ -23,7 +23,7 @@ const userAgent = computed(() => UAParser(props.session.user_agent));
 
 <template>
   <Card>
-    <CardContent class="flex items-center gap-4">
+    <CardContent class="flex items-center px-4 gap-2 sm:px-6 sm:gap-4">
       <div class="rounded-full bg-secondary p-1">
         <LucideSmartphone v-if="userAgent.device.type === 'mobile'" />
         <LucideTablet v-else-if="userAgent.device.type === 'tablet'" />
