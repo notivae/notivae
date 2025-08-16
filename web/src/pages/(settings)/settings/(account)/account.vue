@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth.ts";
-import { ref, useTemplateRef, watch } from "vue";
-import type { UserMe } from "@/types/api.ts";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { LucideLoader, LucideMailCheck, LucideMailX, LucideUserRound } from "lucide-vue-next";
 import { Badge } from "@/components/ui/badge";
 import { useMutation } from "@tanstack/vue-query";
 import { patchApiMeAccount } from "@/services/api/me/account.ts";
-import { postApiMeResendVerification } from "@/services/api/me/resend-verification.ts";
-import { toast } from "vue-sonner";
 import SettingsHeading from "@/components/settings/common/SettingsHeading.vue";
 import { SettingsDescription, SettingsSection } from "@/components/settings/common";
+import { useResendVerificationMailMutation } from "@/composables/api/useResendVerificationMailMutation.ts";
+import * as z from "zod";
+import { useForm } from "vee-validate";
+import { toTypedSchema } from "@vee-validate/zod";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 const auth = useAuthStore();
 
@@ -20,56 +20,44 @@ const { mutateAsync, isPending } = useMutation({
   mutationKey: ["user", "me"],
   mutationFn: async () => {
     await patchApiMeAccount({
-      email: account.value.email,
-      name: account.value.name,
-      display_name: account.value.display_name,
+      email: isFieldDirty("email") ? values.email : undefined,
+      name: isFieldDirty("name") ? values.name : undefined,
+      display_name: isFieldDirty("displayName") ? values.displayName : undefined,
     });
   },
   onSuccess: async () => {
     await auth.reloadAuth();
+    resetForm({
+      values: {
+        name: auth.user!.name,
+        displayName: auth.user!.display_name,
+        email: auth.user!.email,
+      },
+    });
   }
 });
 
 const {
   mutateAsync: resendVerificationMail,
   isPending: isSendingVerificationMail,
-} = useMutation({
-  mutationFn: async () => {
-    const toastId = toast.loading("Requesting Verification Mail...");
-    try {
-      await postApiMeResendVerification();
+} = useResendVerificationMailMutation();
 
-      toast.success("Verification Mail was re-sent", {
-        id: toastId,
-      });
-    } catch (error) {
-      console.log(error);
-      toast.error("Failed to re-send verification mail", {
-        id: toastId,
-        description: `${error}`,
-      });
-    }
+const { meta, validate, values, isFieldDirty, resetForm } = useForm({
+  initialValues: {
+    name: auth.user!.name,
+    displayName: auth.user!.display_name,
+    email: auth.user!.email,
   },
+  validationSchema: toTypedSchema(z.object({
+    name: z.string().trim().nonempty(),
+    displayName: z.string().trim(),
+    email: z.string().trim().toLowerCase().email(),
+  })),
 });
 
-function isFormValid() {
-  return !!formRef.value?.checkValidity();
-}
-
 async function handleSubmit() {
-  if (!isFormValid()) return;
-
-  isDirty.value = false;
   await mutateAsync();
 }
-
-const formRef = useTemplateRef("request-form");
-const account = ref<UserMe>(auth.user!);
-const isDirty = ref(false);
-
-watch(account, () => {
-  isDirty.value = true;
-}, { deep: true });
 </script>
 
 <template>
@@ -83,50 +71,62 @@ watch(account, () => {
     </SettingsDescription>
   </SettingsSection>
 
-  <SettingsSection as="form" ref="request-form" @submit.prevent="handleSubmit">
-    <fieldset class="space-y-0.5">
-      <Label for="name-input">Username</Label>
-      <Input
-          id="name-input"
-          v-model.trim="account.name"
-          required
-          :disabled="isPending"
-      />
-      <span class="text-muted-foreground text-sm">Other users can <b>@mention</b> you</span>
-    </fieldset>
+  <form
+      @submit.prevent="async () => {
+        const { valid } = await validate();
+        if (valid) await handleSubmit();
+      }"
+      class="space-y-4"
+  >
+    <FormField v-slot="{ componentField }" name="name">
+      <FormItem>
+        <FormLabel>Username</FormLabel>
+        <FormControl>
+          <Input type="text" v-bind="componentField" :disabled="isPending" />
+        </FormControl>
+        <FormMessage />
+        <FormDescription>
+          Other users can <b>@mention</b> you
+        </FormDescription>
+      </FormItem>
+    </FormField>
 
-    <fieldset class="space-y-0.5">
-      <Label for="display-name-input">Displayname</Label>
-      <Input
-          id="display-name-input"
-          v-model.trim="account.display_name"
-          required
-          :disabled="isPending"
-      />
-      <span class="text-muted-foreground text-sm">What's displayed to other users visually</span>
-    </fieldset>
+    <FormField v-slot="{ componentField }" name="displayName">
+      <FormItem>
+        <FormLabel>Display Name</FormLabel>
+        <FormControl>
+          <Input type="text" v-bind="componentField" :disabled="isPending" />
+        </FormControl>
+        <FormMessage />
+        <FormDescription>
+          What's displayed to other users visually
+        </FormDescription>
+      </FormItem>
+    </FormField>
 
-    <fieldset class="space-y-0.5">
-      <Label for="email-input">
-        Email
-        <Badge v-if="account.email_verified" variant="success" title="Verified">
-          <LucideMailCheck />
-        </Badge>
-        <Badge v-else variant="warning" title="Not Verified. Click to re-send verification mail" class="cursor-pointer" role="button" @click="!isSendingVerificationMail && resendVerificationMail()">
-          <LucideLoader v-if="isSendingVerificationMail" />
-          <LucideMailX v-else />
-        </Badge>
-      </Label>
-      <Input
-          id="email-input"
-          v-model.trim="account.email"
-          required
-          :disabled="isPending"
-      />
-      <span class="text-muted-foreground text-sm">Private Email for notification</span>
-    </fieldset>
+    <FormField v-slot="{ componentField }" name="email">
+      <FormItem>
+        <FormLabel>
+          Email
+          <Badge v-if="auth.user!.email_verified" variant="success" title="Verified">
+            <LucideMailCheck />
+          </Badge>
+          <Badge v-else variant="warning" title="Not Verified. Click to re-send verification mail" class="cursor-pointer" role="button" @click="!isSendingVerificationMail && resendVerificationMail()">
+            <LucideLoader v-if="isSendingVerificationMail" />
+            <LucideMailX v-else />
+          </Badge>
+        </FormLabel>
+        <FormControl>
+          <Input type="email" v-bind="componentField" :disabled="isPending" />
+        </FormControl>
+        <FormMessage />
+        <FormDescription>
+          Private Email for notification
+        </FormDescription>
+      </FormItem>
+    </FormField>
 
-    <Button type="submit" variant="secondary" :disabled="!isDirty || isPending || !isFormValid()">
+    <Button type="submit" variant="secondary" :disabled="!meta.dirty || !meta.valid || isPending">
       <template v-if="isPending">
         <LucideLoader class="animate-spin" />
         Saving Changes...
@@ -135,5 +135,5 @@ watch(account, () => {
         Save Changes
       </template>
     </Button>
-  </SettingsSection>
+  </form>
 </template>
