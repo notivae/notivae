@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import authLocalIconSrc from "@/assets/auth-provider/local.svg";
-import authMagicLinkIconSrc from "@/assets/auth-provider/magic-link.svg";
-import authOIDCIconSrc from "@/assets/auth-provider/oidc.svg";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { IconAuthProviderLocal, IconAuthProviderMagicLink, IconAuthProviderOIDC } from "@/components/icons";
 
 
 const knownProviderIcons = {
-  local: authLocalIconSrc,
-  magic: authMagicLinkIconSrc,
-  oidc: authOIDCIconSrc,
+  local: IconAuthProviderLocal,
+  magic: IconAuthProviderMagicLink,
+  oidc: IconAuthProviderOIDC,
 } as const;
 
 defineProps<{
@@ -18,6 +16,8 @@ defineProps<{
 
 <template>
   <Avatar v-if="knownProviderIcons[provider]" class="bg-muted" :title="provider">
-    <AvatarImage :src="knownProviderIcons[provider]" class="dark:invert p-1" />
+    <AvatarFallback>
+      <component :is="knownProviderIcons[provider]" />
+    </AvatarFallback>
   </Avatar>
 </template>
