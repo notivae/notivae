@@ -1,7 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
   <svg v-once xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 260 260" fill="currentColor" stroke="none" preserveAspectRatio="xMidYMid meet">
     <g transform="translate(0,260) scale(0.1,-0.1)" stroke="none">

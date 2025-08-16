@@ -3,11 +3,8 @@ import { computed } from "vue";
 import { useServerFeatures } from "@/composables/api/useServerFeatures.ts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import authLocalSrc from "@/assets/auth-provider/local.svg";
-import authMagicLinkSrc from "@/assets/auth-provider/magic-link.svg";
-import authOidcSrc from "@/assets/auth-provider/oidc.svg";
 import { useQueryNext } from "@/composables/common/useQueryNext.ts";
-import { IconNotivaeLogo } from "@/components/icons";
+import { IconNotivaeLogo, IconAuthProviderLocal, IconAuthProviderMagicLink, IconAuthProviderOIDC } from "@/components/icons";
 
 definePage({
   meta: {
@@ -45,7 +42,7 @@ const oidcRedirectUrl = computed(() => {
               <template v-if="serverFeatures?.auth.local">
                 <router-link :to="{ name: '/auth/login/password/', query: { ...$route.query } }">
                   <Button variant="outline" class="w-full pl-2 cursor-pointer">
-                    <img aria-hidden="true" :src="authLocalSrc" alt="Password" class="size-5 dark:invert" />
+                    <IconAuthProviderLocal class="size-5" />
                     <span class="m-auto">
                       Login via Password
                     </span>
@@ -55,7 +52,7 @@ const oidcRedirectUrl = computed(() => {
               <template v-if="serverFeatures?.auth.magic_link">
                 <router-link :to="{ name: '/auth/login/magic-link/', query: { ...$route.query } }">
                   <Button variant="outline" class="w-full pl-2 cursor-pointer">
-                    <img aria-hidden="true" :src="authMagicLinkSrc" alt="Magic-Link" class="size-5 dark:invert " />
+                    <IconAuthProviderMagicLink  class="size-5" />
                     <span class="m-auto">
                       Login via Magic-Link
                     </span>
@@ -65,7 +62,7 @@ const oidcRedirectUrl = computed(() => {
               <template v-if="serverFeatures?.auth.oidc">
                 <a :href="oidcRedirectUrl">
                   <Button variant="outline" class="w-full pl-2 cursor-pointer">
-                    <img aria-hidden="true" :src="authOidcSrc" alt="OIDC" class="size-5 dark:invert" />
+                    <IconAuthProviderOIDC class="size-5" />
                     <span class="m-auto">
                       Login via OIDC
                     </span>

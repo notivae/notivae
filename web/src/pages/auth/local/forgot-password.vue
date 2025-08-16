@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import logoSrc from "@/assets/logo.svg";
 import { useRoute, useRouter } from "vue-router";
 import { computed, ref } from "vue";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -10,6 +9,7 @@ import { LucideCircleX, LucideLoader } from "lucide-vue-next";
 import { Input } from "@/components/ui/input";
 import { useMutation } from "@tanstack/vue-query";
 import { postApiAuthLocalChangePassword } from "@/services/api/auth/local/change-password.ts";
+import { IconNotivaeLogo } from "@/components/icons";
 
 definePage({
   meta: {
@@ -47,11 +47,20 @@ async function handleSubmit() {
 <template>
   <div class="min-h-svh grid place-items-center gap-6 bg-muted p-6 md:p-10">
     <div class="flex flex-col w-full max-w-md gap-6">
-      <div class="flex items-center gap-2 self-center font-medium">
-        <img :src="logoSrc" alt="notivae logo" class="size-6" />
+      <div class="flex items-center justify-center gap-1 self-center text-xl font-medium font-mono">
+        <IconNotivaeLogo class="size-5" />
         Notivae
       </div>
-      <Card class="w-full">
+      <Alert v-if="!resetToken" variant="destructive">
+        <LucideCircleX />
+        <AlertTitle>
+          Missing reset token!
+        </AlertTitle>
+        <AlertDescription>
+          The reset token seems to be missing. Ensure you visited this page via the link from your mail.
+        </AlertDescription>
+      </Alert>
+      <Card v-else class="w-full">
         <CardHeader class="text-center">
           <CardTitle class="text-xl">
             Reset you Password
@@ -93,15 +102,6 @@ async function handleSubmit() {
           </div>
         </CardContent>
       </Card>
-      <Alert v-if="!resetToken" variant="destructive">
-        <LucideCircleX />
-        <AlertTitle>
-          Missing reset token!
-        </AlertTitle>
-        <AlertDescription>
-          The reset token seems to be missing. Ensure you visited this page via the link from your mail.
-        </AlertDescription>
-      </Alert>
     </div>
   </div>
 </template>

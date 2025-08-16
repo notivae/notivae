@@ -4,7 +4,7 @@
   <style>
     path { fill: white; }
     @media (prefers-color-scheme: light) {
-    path { fill: black; }
+      path { fill: black; }
     }
   </style>
   <g transform="translate(0.000000,260.000000) scale(0.100000,-0.100000)"
