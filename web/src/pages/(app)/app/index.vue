@@ -1,8 +1,7 @@
 <script setup lang="ts">
-definePage({
-  redirect: { name: '/(app)/app/' },
-});
+
 </script>
 
 <template>
+  Hello World
 </template>
