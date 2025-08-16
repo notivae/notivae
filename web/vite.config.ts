@@ -38,6 +38,17 @@ export default defineConfig({
                 target: 'http://server:8000',
                 ws: true,
                 changeOrigin: false,
+                configure(proxy, _options) {
+                    // removes the `Secure` part of the set-cookie header in order to enable login via mobile devices over network on an http-connection.
+                    proxy.on('proxyRes', (proxyRes, _req, _res) => {
+                        const cookies = proxyRes.headers['set-cookie'];
+                        if (cookies) {
+                            proxyRes.headers['set-cookie'] = cookies.map(cookie =>
+                                cookie.replace(/;\s*Secure/i, '')
+                            );
+                        }
+                    });
+                },
             },
         }
     },
