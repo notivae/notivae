@@ -9,6 +9,7 @@ from .logs import LogEntry
 from .mfa_credentials import MFACredentials
 from .notifications import Notification, NotificationStatus, NotificationCategory
 from .users import User
+from .users_avatars import UserAvatar
 
 
 __all__ = [
@@ -19,4 +20,5 @@ __all__ = [
     'MFACredentials',
     'Notification', 'NotificationStatus', 'NotificationCategory',
     'User',
+    'UserAvatar',
 ]

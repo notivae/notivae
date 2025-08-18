@@ -11,6 +11,7 @@ from .features import router as features_router
 from .me import router as me_router
 from .notifications import router as notifications_router
 from .security import router as security_router
+from .users import router as users_router
 
 
 router = APIRouter(prefix="/api")
@@ -21,6 +22,7 @@ router.include_router(features_router)
 router.include_router(me_router)
 router.include_router(notifications_router)
 router.include_router(security_router)
+router.include_router(users_router)
 
 if SETTINGS.DEBUG:
     from .dev import router as dev_router
