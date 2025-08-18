@@ -25,7 +25,7 @@ class LoggingSettings(BaseSettings):
         description="Output format for logs: human-readable ('console') or structured ('json')",
     )
 
-    TO_DB: LogLevel = Field(
+    TO_DB: LogLevel | None = Field(
         default='WARNING',
         description="logs with this or higher level will also be persisted to the database",
     )
