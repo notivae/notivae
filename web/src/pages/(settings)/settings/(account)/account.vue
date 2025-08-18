@@ -13,6 +13,7 @@ import * as z from "zod";
 import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { ChangeAvatarSection } from "@/components/pages/settings/account";
 
 const auth = useAuthStore();
 
@@ -71,6 +72,8 @@ async function handleSubmit() {
     </SettingsDescription>
   </SettingsSection>
 
+  <ChangeAvatarSection />
+
   <form
       @submit.prevent="async () => {
         const { valid } = await validate();
@@ -78,6 +81,10 @@ async function handleSubmit() {
       }"
       class="space-y-4"
   >
+    <SettingsHeading variant="h2">
+      User details
+    </SettingsHeading>
+
     <FormField v-slot="{ componentField }" name="name">
       <FormItem>
         <FormLabel>Username</FormLabel>

@@ -2,8 +2,8 @@
 import { SidebarFooter, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { useAuthStore } from "@/stores/auth.ts";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { LucideBookText, LucideBug, LucideChevronsUpDown, LucideLogOut, LucideSettings } from "lucide-vue-next";
+import { UserAvatar } from "@/components/common/user-avatar";
 
 const { user } = useAuthStore();
 </script>
@@ -15,11 +15,7 @@ const { user } = useAuthStore();
         <DropdownMenu>
           <DropdownMenuTrigger as-child>
             <SidebarMenuButton size="lg">
-              <Avatar class="size-8 rounded-lg">
-                <AvatarFallback class="rounded-lg">
-                  {{ user!.name[0].toUpperCase() }}
-                </AvatarFallback>
-              </Avatar>
+              <UserAvatar :user-id="user!.id" :name="user!.name" :avatar-blurhash="user!.avatar_blurhash" class="size-8 rounded-lg" />
               <div class="grid flex-1 text-left text-sm leading-tight">
                 <template v-if="!user!.display_name">
                   <span class="truncate font-semibold">

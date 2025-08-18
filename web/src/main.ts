@@ -13,6 +13,7 @@ import { router } from "@/router";
 
 
 axios.defaults.withCredentials = true;
+axios.defaults.timeout = 15_000;
 
 
 createApp(App)
