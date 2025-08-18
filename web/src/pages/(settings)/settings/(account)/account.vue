@@ -31,7 +31,7 @@ const { mutateAsync, isPending } = useMutation({
     resetForm({
       values: {
         name: auth.user!.name,
-        displayName: auth.user!.display_name,
+        displayName: auth.user!.display_name ?? undefined,
         email: auth.user!.email,
       },
     });
@@ -46,7 +46,7 @@ const {
 const { meta, validate, values, isFieldDirty, resetForm } = useForm({
   initialValues: {
     name: auth.user!.name,
-    displayName: auth.user!.display_name,
+    displayName: auth.user!.display_name ?? undefined,
     email: auth.user!.email,
   },
   validationSchema: toTypedSchema(z.object({
