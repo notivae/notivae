@@ -1,7 +1,7 @@
 import { defineConfig } from "vitepress";
 import { groupIconMdPlugin, groupIconVitePlugin } from "vitepress-plugin-group-icons";
 import markdownItTaskCheckbox from "markdown-it-task-checkbox";
-import { lucideIconPlugin } from "../plugins/vitepress-plugin-lucide-icons";
+import { iconPlugin } from "../plugins/vitepress-plugin-icons";
 
 
 // https://vitepress.dev/reference/site-config
@@ -23,7 +23,7 @@ export const shared = defineConfig({
     config(md) {
       md.use(markdownItTaskCheckbox);
       md.use(groupIconMdPlugin);
-      md.use(lucideIconPlugin);
+      md.use(iconPlugin);
     },
     image: {
       lazyLoading: true,

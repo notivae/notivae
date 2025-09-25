@@ -42,6 +42,42 @@ img[src='/search.png'] {
   aspect-ratio: 1 / 1;
 }
 
-.lucide {
+/* Icon Base */
+.icon {
   display: inline-block;
+  vertical-align: middle;
 }
+/* Status-based semantic colors */
+.icon.success { color: #16a34a; }       /* green-600 */
+.dark .icon.success { color: #4ade80; } /* green-400 */
+
+.icon.warning { color: #f59e0b; }       /* amber-500 */
+.dark .icon.warning { color: #facc15; } /* amber-400 */
+
+.icon.error { color: #dc2626; }         /* red-600 */
+.dark .icon.error { color: #f87171; }   /* red-400 */
+
+.icon.info { color: #2563eb; }          /* blue-600 */
+.dark .icon.info { color: #60a5fa; }    /* blue-400 */
+
+/* Neutral / secondary icons */
+.icon.neutral { color: #6b7280; }       /* gray-500 */
+.dark .icon.neutral { color: #9ca3af; } /* gray-400 */
+
+/* Size utility classes */
+.icon.sm { width: 0.5em; height: 0.5em; }
+.icon.md { width: 1em; height: 1em; }
+.icon.lg { width: 1.5em; height: 1.5em; }
+.icon.xl { width: 2em; height: 2em; }
+
+/* Weight / stroke utility */
+.icon.thin { stroke-width: 1; }
+.icon.normal { stroke-width: 2; }
+.icon.bold { stroke-width: 3; }
+
+/* Alignment utility */
+.icon.middle { vertical-align: middle; display: inline-block; }
+
+/* Optional: hover / active states */
+.icon-hover:hover { opacity: 0.8; transition: opacity 0.2s; }
+.icon-active:active { opacity: 0.6; transition: opacity 0.1s; }
