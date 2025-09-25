@@ -21,22 +21,22 @@ hero:
       link: https://github.com/notivae/notivae
 
 useCases:
-  - icon: 🎓
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap-icon lucide-graduation-cap"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
     title: Students
     details: Organize your semester, write clean notes, and work offline from anywhere.
-  - icon: 🔬
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-microscope-icon lucide-microscope"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg>
     title: Academics
     details: Manage long-form research, keep snapshots of drafts, and collaborate with peers.
-  - icon: 🧑‍💻
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-icon lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
     title: Developers
     details: Build a project wiki, document tools, or write changelogs with markdown and versioning.
-  - icon: 🛩️
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-lock-icon lucide-book-lock"><path d="M18 6V4a2 2 0 1 0-4 0v2"/><path d="M20 15v6a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H10"/><rect x="12" y="6" width="8" height="5" rx="1"/></svg>
     title: Personal Knowledge
     details: Capture your ideas, journal, or study notes in your own local-first knowledge system.
-  - icon: 🏢
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2-icon lucide-building-2"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
     title: Small Teams
     details: Share documentation, leave inline feedback, and collaborate in real time on team knowledge and handbooks.
-  - icon: 🧠
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-brain-icon lucide-brain"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg>
     title: Knowledge Management
     details: Build a long-term, structured knowledge base for personal growth, team alignment, or learning over time.
 
@@ -98,7 +98,7 @@ We wanted something different:
 - **Self-hosted** — no vendor lock-in or data leakage
 
 > [!INFO] Here’s how it compares to other tools:  
-> 👉 [Full feature comparison](./start/introduction.md#🔍-feature-comparison)
+> @lucide:arrow-big-right [Full feature comparison](./start/introduction.md#🔍-feature-comparison)
 > 
 > | Feature                 | Notivae | Notion | Obsidian |
 > |-------------------------|:-------:|:------:|:--------:|
@@ -143,9 +143,9 @@ Built for control, extensibility, and privacy from day one:
 
 We welcome:
 
-- 🛠️ Bug reports & feature requests
-- 📖 Docs and translations
-- 💡 Ideas, feedback, and help testing
+- @lucide:bug Bug reports & feature requests
+- @lucide:book-open-text Docs and translations
+- @lucide:lightbulb Ideas, feedback, and help testing
 
 Join us:
 <div style="text-align: center">
