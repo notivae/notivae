@@ -1,4 +1,4 @@
-# @lucide:lock-keyhole Authentication
+# @icon:lock-keyhole Authentication
 
 Notivae offers a flexible and self-contained authentication system, giving you full control over user data and login flows. It supports both traditional account-based login and external [OAuth/OIDC identity providers](#oauth-oidc-authentication), as well as passwordless login via [Magic-Link](./magic-link.md).
 
@@ -10,7 +10,7 @@ Users can authenticate using one or more of the following methods:
 - [OAuth/OIDC providers](#oauth-oidc-authentication) — login via third-party services (e.g., GitHub, Discord)
 - [Magic-Link](./magic-link.md) — passwordless login via email
 
-## Password-based login
+## @icon:key-round Password-based login
 
 If using password-based login, users can log in using either:
 
@@ -25,14 +25,14 @@ Notivae supports logging in via third-party identity providers using the OIDC pr
 
 Supported providers include:
 
-- [Discord](./discord.md) <small>(Planned)</small>
-- [GitHub](./github.md) <small>(Planned)</small>
-- [GitLab](./gitlab.md) <small>(Planned)</small>
-- [Google](./google.md) <small>(Planned)</small>
-- [Reddit](./reddit.md) <small>(Planned)</small>
-- [Spotify](./spotify.md) <small>(Planned)</small>
-- [Twitch](./twitch.md) <small>(Planned)</small>
-- Any identity provider compliant with [OpenID Connect](./oidc.md)
+- @icon:logo:discord [Discord](./discord.md) <small>(Planned)</small>
+- @icon:logo:github [GitHub](./github.md) <small>(Planned)</small>
+- @icon:logo:gitlab [GitLab](./gitlab.md) <small>(Planned)</small>
+- @icon:logo:google [Google](./google.md) <small>(Planned)</small>
+- @icon:logo:reddit [Reddit](./reddit.md) <small>(Planned)</small>
+- @icon:logo:spotify [Spotify](./spotify.md) <small>(Planned)</small>
+- @icon:logo:twitch [Twitch](./twitch.md) <small>(Planned)</small>
+- Any identity provider compliant with @icon:logo:openid [OpenID Connect](./oidc.md)
 
 > [!TIP] Workaround
 > While most providers aren't officially supported yet, many can still be used via generic OIDC configuration.  
@@ -47,7 +47,7 @@ Supported providers include:
 
 More providers will be documented with exact values and setup instructions once the integration layer stabilizes.
 
-## Magic-Link Authentication
+## @icon:mail Magic-Link Authentication
 
 Magic-Link enables passwordless login through a secure link sent to the user's email address. This method is ideal for simplifying the login experience and reducing reliance on passwords.
 

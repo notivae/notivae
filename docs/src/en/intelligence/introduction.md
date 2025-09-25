@@ -11,7 +11,7 @@ The **Intelligence module** is an optional service that enhances Notivae with AI
 
 This service is completely self-contained and runs in a separate container. Users who prefer a lightweight or privacy-focused setup can simply choose not to install or enable it.  
 
-## @lucide:sparkles Intelligent Content Features
+## @icon:sparkles Intelligent Content Features
 
 These features are designed to assist with content creation, cleanup, and refinement:
 
@@ -49,7 +49,7 @@ These features are designed to assist with content creation, cleanup, and refine
   - Summarize large blocks of text
   - Extract key points or quotes
 
-## @lucide:search Search & Organization
+## @icon:search Search & Organization
 
 Enhancements that help structure and navigate large volumes of notes and documents:
 
@@ -61,7 +61,7 @@ Enhancements that help structure and navigate large volumes of notes and documen
   Automatically groups related documents based on shared themes or subjects.  
   Ideal for organizing notes across broad topics or courses.
 
-## @lucide:mic Audio & Speech
+## @icon:mic Audio & Speech
 
 Advanced tools for working with voice data and recordings:
 
@@ -72,7 +72,7 @@ Advanced tools for working with voice data and recordings:
   Automatically identifies key moments and tags from recorded discussions.  
   Can generate summaries or action items.
 
-## @lucide:puzzle Architecture Note
+## @icon:puzzle Architecture Note
 
 All features are intended to:
 - Run locally (no cloud dependency)

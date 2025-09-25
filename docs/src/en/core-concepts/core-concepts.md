@@ -1,4 +1,4 @@
-# @lucide:puzzle Core Concepts
+# @icon:puzzle Core Concepts
 
 Notivae is more than just a markdown editor — it’s a structured knowledge system designed to support real-time collaboration, offline editing, and granular access control. This page explains the key building blocks of the system so you can better understand how everything fits together.
 

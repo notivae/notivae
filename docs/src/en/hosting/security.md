@@ -1,16 +1,16 @@
-# @lucide:shield Security in Notivae
+# @icon:shield Security in Notivae
 
 This section documents backend-level features and mechanisms designed to protect your Notivae instance from abuse, resource exhaustion, and unauthorized access. These measures apply to self-hosted deployments and may need adjustment depending on your environment.
 
 > [!NOTE]
 > These security features are built-in and require no external services. They apply automatically when Notivae is deployed.
 
-## @lucide:lock-keyhole Two-Factor Authentication (Planned)
+## @icon:lock-keyhole Two-Factor Authentication (Planned)
 
 Two-Factor Authentication (2FA) support is planned for future versions of Notivae. Once available, it will provide an additional layer of account security by requiring users to enter a time-based or device-generated code when logging in — especially useful for admin-level accounts or shared instances.
 
 
-## @lucide:lock HTTPS & Reverse Proxy Configuration
+## @icon:lock HTTPS & Reverse Proxy Configuration
 
 Notivae is designed to run behind a reverse proxy like Nginx or Caddy, which should be configured to handle HTTPS and SSL termination.
 
@@ -20,7 +20,7 @@ Using HTTPS is essential to protect session tokens and sensitive data from being
 > For guidance on setting up a secure reverse proxy, see the [Reverse Proxy Setup Guide](../start/installation/reverse-proxy.md).
 
 
-## @lucide:octagon-minus Rate Limiting
+## @icon:octagon-minus Rate Limiting
 
 To protect the server from misuse and ensure a stable experience for all users, Notivae applies automatic rate limits to certain API endpoints.
 
@@ -29,14 +29,14 @@ This means that if too many requests are made in a short time — whether by a u
 Rate limits apply more strictly to unauthenticated users, while authenticated sessions are granted more flexibility.
 
 
-## @lucide:ban Temporary Bans
+## @icon:ban Temporary Bans
 
 If a client repeatedly hits the rate limit in a short time, Notivae may temporarily block further access from that user or IP address. This helps prevent abuse and reduces server load from bad actors or faulty automation.
 
 Temporary bans are applied automatically and expire after a short period (e.g. one hour). Most users will never encounter this unless they are spamming requests or using unsupported tools.
 
 
-## @lucide:shield-half CSRF Protection
+## @icon:shield-half CSRF Protection
 
 Notivae’s session authentication uses a `session_token` cookie with the following security flags:
 - `HttpOnly`: Prevents JavaScript access

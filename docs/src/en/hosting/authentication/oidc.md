@@ -1,4 +1,4 @@
-# Authentication via OpenID Connect (OIDC)
+# Authentication via OpenID Connect (OIDC) @icon:logo:openid
 
 This guide explains how to set up authentication via any OpenID Connect compatible provider.
 

@@ -1,4 +1,4 @@
-# Authentication via Discord
+# Authentication via Discord @icon:logo:discord
 
 This guide explains how to set up authentication via Discord for your application.
 

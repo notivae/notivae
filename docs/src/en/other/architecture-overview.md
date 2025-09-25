@@ -1,4 +1,4 @@
-# @lucide:puzzle Architecture Overview
+# @icon:puzzle Architecture Overview
 
 Notivae is designed as a modular, scalable, and self-hosted collaborative markdown editor. Understanding its architecture helps you grasp how components interact and how to deploy, extend, or contribute to the project.
 

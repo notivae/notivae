@@ -1,8 +1,8 @@
-# @lucide:shield Reverse Proxy Setup for Notivae
+# @icon:shield Reverse Proxy Setup for Notivae
 
 To make Notivae work correctly, you need to set up a **reverse proxy**. This is required even for local installations — not just for exposing it to the internet.
 
-## @lucide:circle-question-mark Why You Need a Reverse Proxy
+## @icon:circle-question-mark Why You Need a Reverse Proxy
 
 By default, Notivae’s frontend and backend are served on **different ports**:
 
@@ -18,13 +18,13 @@ A reverse proxy solves this by:
 - Forwarding `/api` requests to the backend container
 - Optionally handling HTTPS for secure public access
 
-## @lucide:cog What You’ll Need
+## @icon:cog What You’ll Need
 
 - A reverse proxy installed (see options below)
 - A domain name (for internet-facing setups)
 - Basic familiarity with editing config files or using Docker
 
-## @lucide:wrench Recommended Options
+## @icon:wrench Recommended Options
 
 | Tool        | Why Use It                           | Docs                                        |
 |-------------|--------------------------------------|---------------------------------------------|
@@ -32,7 +32,7 @@ A reverse proxy solves this by:
 | **Traefik** | Designed for Docker, dynamic routing | [traefik.io](https://traefik.io/)           |
 | **Nginx**   | Most flexible, widely supported      | [nginx.org](https://nginx.org/)             |
 
-## @lucide:file-code Example Configs
+## @icon:file-code Example Configs
 
 > [!IMPORTANT]
 > These configuration examples assume your reverse proxy is running inside Docker (alongside Notivae, via `docker-compose`).  
@@ -41,7 +41,7 @@ A reverse proxy solves this by:
 > - `backend:80` with `http://localhost:8765`
 > - `frontend:80` with `http://localhost:8766`
 
-### @lucide:lock Caddy Example
+### @icon:lock Caddy Example
 
 If you're using Docker Compose, create a `Caddyfile` like this:
 
@@ -79,7 +79,7 @@ services:
 
 > 💡 You’ll need to update `notivae.localhost` to your actual domain or host if not using `localhost`.
 
-### @lucide:cog Nginx Example
+### @icon:cog Nginx Example
 
 If you're using Docker Compose, create a `nginx.conf` like this:
 
@@ -123,7 +123,7 @@ services:
 > [!INFO]
 > You’ll need to update `notivae.localhost` to your actual domain or host if not using `localhost`.
 
-## @lucide:globe Exposing to the Internet
+## @icon:globe Exposing to the Internet
 
 If you're self-hosting (e.g., on a home network or behind NAT), you'll need to expose your reverse proxy to the internet. There are two options:
 
@@ -139,7 +139,7 @@ Use a tunnel service to make your reverse proxy public without opening any ports
 
 These services let you tunnel traffic from a public domain to your local machine securely.
 
-## @lucide:brain Alternative: Tunnel-Only Setup (No Reverse Proxy)
+## @icon:brain Alternative: Tunnel-Only Setup (No Reverse Proxy)
 
 If you’re using a tunnel provider like **Cloudflare Tunnel**, you can skip setting up a separate reverse proxy altogether.
 
@@ -152,7 +152,7 @@ This works because most tunnel providers allow advanced path-based routing. Noti
 
 > [!INFO] This is ideal for simple home or private setups with minimal config.
 
-## @lucide:check-square Final Checklist
+## @icon:check-square Final Checklist
 
 - [x] You’ve confirmed `backend` and `frontend` are both running
 - [x] You’ve either set up a reverse proxy *or* configured a tunnel-only setup

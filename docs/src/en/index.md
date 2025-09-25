@@ -84,7 +84,7 @@ const { frontmatter: fm } = useData();
 
 > [!WARNING] Notivae is in early development. Expect breaking changes and limited support.
 
-## @lucide:sparkles Why We Built It
+## @icon:sparkles Why We Built It
 
 > [!IMPORTANT] We needed a tool that just worked — offline, structured, and sharable.
 
@@ -98,18 +98,18 @@ We wanted something different:
 - **Self-hosted** — no vendor lock-in or data leakage
 
 > [!INFO] Here’s how it compares to other tools:  
-> @lucide:arrow-big-right [Full feature comparison](./start/introduction.md#🔍-feature-comparison)
+> @icon:arrow-big-right [Full feature comparison](./start/introduction.md#🔍-feature-comparison)
 > 
-> | Feature                 | Notivae | Notion | Obsidian |
-> |-------------------------|:-------:|:------:|:--------:|
-> | Offline support         |    ✅    |   ⚠️   |    ✅     |
-> | Real-time collaboration |    ✅    |   ✅    |    ❌     |
-> | Fully self-hosted       |    ✅    |   ❌    |    ✅     |
-> | Structured hierarchy    |    ✅    |   ✅    |    ⚠️    |
-> | Markdown-native editing |    ✅    |   ⚠️   |    ✅     |
+> | Feature                 |          Notivae          |               Notion               |              Obsidian              |
+> |-------------------------|:-------------------------:|:----------------------------------:|:----------------------------------:|
+> | Offline support         | @icon:check{.success .lg} | @icon:triangle-alert{.warning .lg} |     @icon:check{.success .lg}      |
+> | Real-time collaboration | @icon:check{.success .lg} |     @icon:check{.success .lg}      |        @icon:x{.error .lg}         |
+> | Fully self-hosted       | @icon:check{.success .lg} |        @icon:x{.error .lg}         |     @icon:check{.success .lg}      |
+> | Structured hierarchy    | @icon:check{.success .lg} |     @icon:check{.success .lg}      | @icon:triangle-alert{.warning .lg} |
+> | Markdown-native editing | @icon:check{.success .lg} | @icon:triangle-alert{.warning .lg} |     @icon:check{.success .lg}      |
 
 
-## @lucide:brain Use Cases
+## @icon:brain Use Cases
 
 > [!INFO] Built for students — and beyond.
 
@@ -120,14 +120,14 @@ Use it alone, or with your team, no matter where you are.
     <VPFeatures style="padding: 0;" :features="fm.useCases" />
 </div>
 
-## @lucide:cog Key Features
+## @icon:cog Key Features
 
 Notivae brings together clean design, robust features, and a structured writing experience — without the usual tradeoffs.  
 It’s designed to grow with you, whether you’re jotting down quick notes or building a long-term knowledge base.
 
 <VPFeatures style="padding: 0;" :features="fm.keyFeatures" />
 
-## @lucide:anvil Under the Hood
+## @icon:anvil Under the Hood
 
 Built for control, extensibility, and privacy from day one:
 
@@ -137,15 +137,15 @@ Built for control, extensibility, and privacy from day one:
 - Optional AI features: OCR, summarization, transcription (local-only)
 
 
-## @lucide:handshake Community & Status
+## @icon:handshake Community & Status
 
 > [!NOTE] Notivae is early-stage — but rapidly evolving.
 
 We welcome:
 
-- @lucide:bug Bug reports & feature requests
-- @lucide:book-open-text Docs and translations
-- @lucide:lightbulb Ideas, feedback, and help testing
+- @icon:bug Bug reports & feature requests
+- @icon:book-open-text Docs and translations
+- @icon:lightbulb Ideas, feedback, and help testing
 
 Join us:
 <div style="text-align: center">
@@ -154,7 +154,7 @@ Join us:
 </div>
 
 
-## @lucide:rocket Ready to take notes on your terms?
+## @icon:rocket Ready to take notes on your terms?
 
 <div style="text-align: center">
 

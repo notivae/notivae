@@ -1,4 +1,4 @@
-# @lucide:square-chart-gantt Roadmap
+# @icon:square-chart-gantt Roadmap
 
 Notivae is in **early-stage development**. No features are fully implemented yet — everything listed below is planned but still in progress or under design. This roadmap gives a transparent view of where the project is heading.
 
@@ -7,7 +7,7 @@ Notivae is in **early-stage development**. No features are fully implemented yet
 > [!WARNING] 🚧 Everything is subject to change.  
 > You can track progress or contribute on [GitHub](https://github.com/notivae/notivae).
 
-## @lucide:brick-wall Planned Foundation
+## @icon:brick-wall Planned Foundation
 
 - [X] Codebase setup
 - [X] Online Documentation
@@ -26,7 +26,7 @@ Notivae is in **early-stage development**. No features are fully implemented yet
 - [ ] Inline comments and discussions
 - [ ] Self-hostable via Docker Compose
 
-## @lucide:pocket-knife Upcoming Development Focus
+## @icon:pocket-knife Upcoming Development Focus
 
 - [ ] Frontend: editor UI, navigation, commenting
 - [ ] Backend: data model, auth, syncing, access control
@@ -35,7 +35,7 @@ Notivae is in **early-stage development**. No features are fully implemented yet
 - [ ] Persistent volume storage and backup support
 - [ ] CI for ghcr.io image builds
 
-## @lucide:test-tube-diagonal Future Features
+## @icon:test-tube-diagonal Future Features
 
 - [ ] Public sharing via links
 - [ ] Invite-based sharing with per-user access control
@@ -47,7 +47,7 @@ Notivae is in **early-stage development**. No features are fully implemented yet
 - [ ] Configurable themes
 - [ ] Mobile-first PWA enhancements
 
-## @lucide:compass Long-Term Vision
+## @icon:compass Long-Term Vision
 
 - [ ] Shared workspaces (teams, organizations)
 - [ ] Plugin system for extensibility

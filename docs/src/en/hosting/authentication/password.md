@@ -1,4 +1,4 @@
-# Authentication via Email + Password
+# Authentication via Email + Password @icon:key-round
 
 This guide explains how to set up password-based authentication (commonly referred to as "local auth") for your application.
 

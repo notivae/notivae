@@ -1,4 +1,4 @@
-# @lucide:message-circle-question-mark FAQ
+# @icon:message-circle-question-mark FAQ
 
 Frequently Asked Questions about Notivae — answered concisely.
 

@@ -1,4 +1,4 @@
-# Authentication via Magic-Link
+# Authentication via Magic-Link @icon:mail
 
 This guide explains how to enable **magic-link authentication** as one of the available login methods for your Notivae.
 
